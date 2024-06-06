@@ -20,22 +20,12 @@ steps:
     command: export PATH=$JAVA_HOME/bin:$PATH
 
   - type: Command
-    name: test01
-    command: (echo "Vars: $JAVA_HOME")
-
-  - type: Command
-    name: test02
-    command: source MtdrSpring/env.sh
-
-  - type: Command
     name: compile
     command: (source MtdrSpring/env.sh;cd backend;source build.sh)
 
   - type: Command
     name: test
-    command: ls MtdrSpring/backend/
+    command: find / -name kubectl
 
-  - type: Command
-    name: test2
-    command: ls MtdrSpring
+
 
