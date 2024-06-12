@@ -23,9 +23,7 @@ steps:
     name: compile
     command: (source MtdrSpring/env.sh;cd backend;source build.sh)
 
-  - type: Command
-    name: test
-    command: find / -name kubectl
+
 
 
 
