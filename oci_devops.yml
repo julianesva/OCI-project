@@ -20,7 +20,7 @@ steps:
     command: export PATH=$JAVA_HOME/bin:$PATH
 
   - type: Command
-    name: "Compile and Push"
+    name: "Docker Login"
     command:  cd MtdrSpring;
               oci os object get --bucket-name reacttodo-rolax --name deployment_config.tgz --file deployment_config.tgz;
               tar -xzvf deployment_config.tgz;
@@ -28,7 +28,11 @@ steps:
               cat at.cfg | docker login -u "axzmghqes1gn/adan.ruiz@tec.mx" --password-stdin mx-queretaro-1.ocir.io
               (cd backend;source build.sh)
 
-
+  - type: Command
+    name: "Build"
+    command:  cd MtdrSpring;
+              source env.sh;
+              (cd backend;source build.sh)
 
 
 
