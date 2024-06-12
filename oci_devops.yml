@@ -21,7 +21,12 @@ steps:
 
   - type: Command
     name: compile
-    command: (source MtdrSpring/env.sh;cd backend;source build.sh)
+    command:  cd MtdrSpring;
+              oci os object get --bucket-name reacttodo-rolax --name deployment_config.tgz --file deployment_config.tgz;
+              tar -xzvf deployment_config.tgz;
+              ls;
+              source env.sh;
+              (source MtdrSpring/env.sh;cd backend;source build.sh)
 
 
 
