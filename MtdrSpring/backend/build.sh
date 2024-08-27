@@ -20,5 +20,5 @@ docker build -f Dockerfile -t $IMAGE .
 
 docker push $IMAGE
 if [  $? -eq 0 ]; then
-    docker rmi "$IMAGE"
+    docker rmi "$IMAGE" #local
 fi
