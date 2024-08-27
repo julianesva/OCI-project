@@ -1,8 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR=$(pwd)
 
-function 
-
+#Validation
 if [ -z "$DOCKER_REGISTRY" ]; then
     export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
     echo "DOCKER_REGISTRY set."
