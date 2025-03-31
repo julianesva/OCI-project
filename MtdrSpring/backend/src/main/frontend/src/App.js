@@ -20,7 +20,7 @@ import Moment from 'react-moment';
 /* In this application we're using Function Components with the State Hooks
  * to manage the states. See the doc: https://reactjs.org/docs/hooks-state.html
  * This App component represents the entire app. It renders a NewItem component
- * and two tables: one that lists the todo items that are to be done and another
+ * and two tables: one that lists the to-do items that are to be done and another
  * one with the items that are already done.
  */
 function App() {
