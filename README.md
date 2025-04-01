@@ -1,5 +1,5 @@
 # oci-react-samples
-A repository for full stack Cloud Native applications with a React JS frontend and various backends (Java, Python, DotNet, and so on) on the Oracle Cloud Infrastructure. 
+A repository for full stack Cloud Native applications with a React JS frontend and various backends (Java, Python, DotNet, and so on) on the Oracle Cloud Infrastructure.
 
 ![image](https://user-images.githubusercontent.com/7783295/116454396-cbfb7a00-a814-11eb-8196-ba2113858e8b.png)
   
@@ -17,3 +17,4 @@ The lab executes scripts that require the following software to run properly: (T
 * mvn (maven) 
 
 ## Expect more ...
+Lo pidio Julian, no es mi problema.
