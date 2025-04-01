@@ -12,21 +12,27 @@
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
 
-
 function NewItem(props) {
   const [item, setItem] = useState('');
+  const [storyPoints, setStoryPoints] = useState('');
+
   function handleSubmit(e) {
-    // console.log("NewItem.handleSubmit("+e+")");
     if (!item.trim()) {
       return;
     }
-    // addItem makes the REST API call:
-    props.addItem(item);
+    // Now addItem makes the REST API call with both the item text and story points:
+    props.addItem({ text: item, storyPoints: storyPoints });
     setItem("");
+    setStoryPoints("");
     e.preventDefault();
   }
-  function handleChange(e) {
+
+  function handleItemChange(e) {
     setItem(e.target.value);
+  }
+
+  function handlePointsChange(e) {
+    setStoryPoints(e.target.value);
   }
   return (
     <div id="newinputform">
@@ -37,7 +43,20 @@ function NewItem(props) {
         type="text"
         autoComplete="off"
         value={item}
-        onChange={handleChange}
+        onChange={handleItemChange}
+      />
+
+      <span>&nbsp;&nbsp;</span>
+      
+      <input
+        id="storypoints"
+        placeholder="Priority"
+        type="number"
+        min="1"
+        max="10"
+        value={storyPoints}
+        onChange={handlePointsChange}
+        style={{ width: '100px' }}
         // No need to click on the "ADD" button to add a todo item. You
         // can simply press "Enter":
         onKeyDown={event => {
@@ -46,7 +65,9 @@ function NewItem(props) {
           }
         }}
       />
+      
       <span>&nbsp;&nbsp;</span>
+
       <Button
         className="AddButton"
         variant="contained"

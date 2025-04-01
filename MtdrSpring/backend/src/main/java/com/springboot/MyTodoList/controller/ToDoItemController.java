@@ -33,7 +33,9 @@ public class ToDoItemController {
     //@CrossOrigin
     @PostMapping(value = "/todolist")
     public ResponseEntity addToDoItem(@RequestBody ToDoItem todoItem) throws Exception{
+        System.out.println("Received todoItemAQUIIIIIIIIIIIIIIIIIIIIIIIIIII: " + todoItem);
         ToDoItem td = toDoItemService.addToDoItem(todoItem);
+        System.out.println("Story pointsAQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII: " + td.getStory_Points());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("location",""+td.getID());
         responseHeaders.set("Access-Control-Expose-Headers","location");
@@ -44,12 +46,31 @@ public class ToDoItemController {
     }
     //@CrossOrigin
     @PutMapping(value = "todolist/{id}")
-    public ResponseEntity updateToDoItem(@RequestBody ToDoItem toDoItem, @PathVariable int id){
-        try{
+    public ResponseEntity<ToDoItem> updateToDoItem(@RequestBody ToDoItem toDoItem, @PathVariable int id) {
+        try {
+            System.out.println("Received UPDATEtodoItemAQUIIIIIIIIIIIIIIIIIIIIIIIIIII: " + toDoItem);
+            
+            // Get the existing item as ResponseEntity
+            ResponseEntity<ToDoItem> existingItemResponse = toDoItemService.getItemById(id);
+            
+            // Check if the existingItemResponse contains a valid item
+            if (existingItemResponse.getBody() == null) {
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            }
+            
+            // Extract the actual ToDoItem from the response
+            ToDoItem existingItem = existingItemResponse.getBody();
+            
+            // Preserve the ID and creation timestamp
+            toDoItem.setID(id);
+            toDoItem.setCreation_ts(existingItem.getCreation_ts());
+            
+            // Update the item
             ToDoItem toDoItem1 = toDoItemService.updateToDoItem(id, toDoItem);
             System.out.println(toDoItem1.toString());
-            return new ResponseEntity<>(toDoItem1,HttpStatus.OK);
-        }catch (Exception e){
+            
+            return new ResponseEntity<>(toDoItem1, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }

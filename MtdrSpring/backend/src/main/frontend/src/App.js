@@ -1,4 +1,4 @@
-          /*
+/*
 ## MyToDoReact version 1.0.
 ##
 ## Copyright (c) 2022 Oracle, Inc.
@@ -16,11 +16,13 @@ import API_LIST from './API';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, TableBody, CircularProgress } from '@mui/material';
 import Moment from 'react-moment';
+import RecommendationPopup from './RecommendationPopup';
+import ORACLEIcon from './assets/ORACLEIcon.png';
 
 /* In this application we're using Function Components with the State Hooks
  * to manage the states. See the doc: https://reactjs.org/docs/hooks-state.html
  * This App component represents the entire app. It renders a NewItem component
- * and two tables: one that lists the to-do items that are to be done and another
+ * and two tables: one that lists the todo items that are to be done and another
  * one with the items that are already done.
  */
 function App() {
@@ -61,9 +63,9 @@ function App() {
         }
       );
     }
-    function toggleDone(event, id, description, done) {
+    function toggleDone(event, id, description, done, story_Points ) {
       event.preventDefault();
-      modifyItem(id, description, done).then(
+      modifyItem(id, description, done, story_Points).then(
         (result) => { reloadOneIteam(id); },
         (error) => { setError(error); }
       );
@@ -83,7 +85,9 @@ function App() {
               x => (x.id === id ? {
                  ...x,
                  'description':result.description,
-                 'done': result.done
+                 'done': result.done,
+                 'creation_ts': result.creation_ts, // Add creation_ts to the updated item
+                 'story_Points': result.story_Points // Add story_Points to the updated item
                 } : x));
             setItems(items2);
           },
@@ -91,9 +95,10 @@ function App() {
             setError(error);
           });
     }
-    function modifyItem(id, description, done) {
+    function modifyItem(id, description, done, story_Points) {
       // console.log("deleteItem("+deleteId+")")
-      var data = {"description": description, "done": done};
+      var data = {"description": description, "done": done, "story_Points": story_Points};
+      console.log("Modifying item DEBUG CONSOLE:", id, "with data:", data); // Add logging
       return fetch(API_LIST+"/"+id, {
         method: 'PUT',
         headers: {
@@ -126,11 +131,19 @@ function App() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong ...');
+            throw new Error('Something went wrong loading the initial charge check useEffect ...');
           }
         })
+        //.then(async (response) => {
+        //  if (!response.ok) {
+        //    const errorText = await response.text(); // Read response body
+        //    throw new Error(`Error ${response.status}: ${response.statusText} - ${errorText}`);
+        //  }
+        //  return response.json();
+        //})
         .then(
           (result) => {
+            console.log("API Response HEREEEEEEEEEEEEE:", result); //Log the JSON structure
             setLoading(false);
             setItems(result);
           },
@@ -147,14 +160,14 @@ function App() {
        // similar to componentDidMount()
     );
     function addItem(text){
-      console.log("addItem("+text+")")
+      console.log("addItem(", text, ")")
       setInserting(true);
       var data = {};
-      console.log(data);
-      data.description = text;
+      data.description = text.text;
+      data.story_Points = text.storyPoints; // Add the story points
+      
       fetch(API_LIST, {
         method: 'POST',
-        // We convert the React state to JSON and send it as the POST body
         headers: {
           'Content-Type': 'application/json'
         },
@@ -173,7 +186,11 @@ function App() {
       }).then(
         (result) => {
           var id = result.headers.get('location');
-          var newItem = {"id": id, "description": text}
+          var newItem = {
+            "id": id, 
+            "description": text.text, 
+            "story_Points": text.storyPoints // Include story points in the new item
+          }
           setItems([newItem, ...items]);
           setInserting(false);
         },
@@ -185,8 +202,12 @@ function App() {
     }
     return (
       <div className="App">
-        <h1>MY TODO LIST</h1>
-        <NewItem addItem={addItem} isInserting={isInserting}/>
+        <div className="header-container">
+          <img src={ORACLEIcon} alt="ORACLEIcon" className="todo-icon" />
+          <h1 className="title">To Do List</h1>
+          <RecommendationPopup items={items} />
+        </div>
+          <NewItem addItem={addItem} isInserting={isInserting}/>
         { error &&
           <p>Error: {error.message}</p>
         }
@@ -202,8 +223,9 @@ function App() {
             <tr key={item.id}>
               <td className="description">{item.description}</td>
               { /*<td>{JSON.stringify(item, null, 2) }</td>*/ }
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.createdAt}</Moment></td>
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} size="small">
+              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
+              <td className="Story_Points">Priority:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
                     Done
                   </Button></td>
             </tr>
@@ -220,8 +242,9 @@ function App() {
 
             <tr key={item.id}>
               <td className="description">{item.description}</td>
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.createdAt}</Moment></td>
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done)} size="small">
+              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
+              <td className="Story_Points">Priority:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
                     Undo
                   </Button></td>
               <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">

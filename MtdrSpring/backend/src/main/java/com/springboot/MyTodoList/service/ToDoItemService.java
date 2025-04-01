@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class ToDoItemService {
         }
     }
     public ToDoItem addToDoItem(ToDoItem toDoItem){
+        toDoItem.setCreation_ts(OffsetDateTime.now());
         return toDoItemRepository.save(toDoItem);
     }
 
@@ -47,6 +49,7 @@ public class ToDoItemService {
             toDoItem.setCreation_ts(td.getCreation_ts());
             toDoItem.setDescription(td.getDescription());
             toDoItem.setDone(td.isDone());
+            toDoItem.setStory_Points(td.getStory_Points());
             return toDoItemRepository.save(toDoItem);
         }else{
             return null;
