@@ -20,7 +20,7 @@ public class ToDoItem {
     private String title;
 
     @Column(name = "MODULE_ID")
-    private int moduleId;
+    private int moduleId = 1;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -29,7 +29,7 @@ public class ToDoItem {
     private LocalDate dateLimit;
 
     @Column(name = "RESPONSIBLE")
-    private int responsible;
+    private int responsible = 2;
     
     @Column(name = "ENDING_DATE") 
     private LocalDate endingDate;
