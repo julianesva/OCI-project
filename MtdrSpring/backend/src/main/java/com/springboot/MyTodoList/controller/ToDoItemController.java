@@ -18,6 +18,7 @@ public class ToDoItemController {
     //@CrossOrigin
     @GetMapping(value = "/todolist")
     public List<ToDoItem> getAllToDoItems(){
+        System.out.println("BASKETTTTTT FOR TO DO ITEMS NOT YET CONTROLLER: ");
         return toDoItemService.findAll();
     }
     //@CrossOrigin
@@ -37,7 +38,7 @@ public class ToDoItemController {
         ToDoItem td = toDoItemService.addToDoItem(todoItem);
         System.out.println("Story pointsAQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII: " + td.getStory_Points());
         HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("location",""+td.getID());
+        responseHeaders.set("location",""+td.getId());
         responseHeaders.set("Access-Control-Expose-Headers","location");
         //URI location = URI.create(""+td.getID())
 
@@ -62,7 +63,7 @@ public class ToDoItemController {
             ToDoItem existingItem = existingItemResponse.getBody();
             
             // Preserve the ID and creation timestamp
-            toDoItem.setID(id);
+            toDoItem.setId(id);
             toDoItem.setCreation_ts(existingItem.getCreation_ts());
             
             // Update the item

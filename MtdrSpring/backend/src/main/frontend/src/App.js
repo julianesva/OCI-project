@@ -224,7 +224,7 @@ function App() {
               <td className="description">{item.description}</td>
               { /*<td>{JSON.stringify(item, null, 2) }</td>*/ }
               <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
-              <td className="Story_Points">Priority:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+              <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
               <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
                     Done
                   </Button></td>
@@ -243,7 +243,7 @@ function App() {
             <tr key={item.id}>
               <td className="description">{item.description}</td>
               <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
-              <td className="Story_Points">Priority:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+              <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
               <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
                     Undo
                   </Button></td>

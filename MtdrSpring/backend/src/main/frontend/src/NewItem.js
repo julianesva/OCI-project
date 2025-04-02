@@ -50,7 +50,7 @@ function NewItem(props) {
       
       <input
         id="storypoints"
-        placeholder="Priority"
+        placeholder="Story Points"
         type="number"
         min="1"
         max="10"

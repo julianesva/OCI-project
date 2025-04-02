@@ -17,4 +17,3 @@ The lab executes scripts that require the following software to run properly: (T
 * mvn (maven) 
 
 ## Expect more ...
-Lo pidio Julian, no es mi problema.

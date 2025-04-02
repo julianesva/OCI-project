@@ -69,7 +69,7 @@ function RecommendationPopup({ items }) {
                 <strong>Description:</strong> {highestPriorityItem.description}
               </Typography>
               <Typography variant="body1">
-                <strong>Priority:</strong> {highestPriorityItem.story_Points}
+                <strong>Story Points:</strong> {highestPriorityItem.story_Points}
               </Typography>
               {highestPriorityItem.creation_ts && (
                 <Typography variant="body2" className="recommendation-timestamp">
