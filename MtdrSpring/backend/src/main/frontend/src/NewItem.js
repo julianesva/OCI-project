@@ -11,6 +11,7 @@
 
 import React, { useState } from "react";
 import Button from '@mui/material/Button';
+import './NewItem.css';
 
 function NewItem(props) {
   const [title, setTitle] = useState('');
@@ -60,7 +61,7 @@ function NewItem(props) {
           autoComplete="off"
           value={title}
           onChange={handleTitleChange}
-          className="title-input input-format"
+          className="input-format title-input"
         />
 
         {/* New Item Input */}
@@ -71,7 +72,7 @@ function NewItem(props) {
           autoComplete="off"
           value={item}
           onChange={handleItemChange}
-          className="input-format"
+          className="input-format item-input"
         />
 
         {/* Story Points Input */}

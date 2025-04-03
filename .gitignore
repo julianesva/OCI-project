@@ -48,3 +48,5 @@ frontend/package-lock.json
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
+MtdrSpring/backend/target
+MtdrSpring/backend/logs.log.2025-04-02.03670174224535.tmp

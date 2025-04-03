@@ -218,7 +218,7 @@ function App() {
 
         {/* Display Error */}
         { error &&
-          <p>Error: {error.message}</p>
+          <p className='text-center'>Error: {error.message}</p>
         }
 
         {/* Display Is Loading */}
@@ -229,6 +229,7 @@ function App() {
         {/* Main */}
         { !isLoading &&
           <div id="maincontent">
+            {/* Not Done List */}
             <table id="itemlistNotDone" className="itemlist">
               <TableBody>
               {items.map(item => (
@@ -245,28 +246,34 @@ function App() {
               )))}
               </TableBody>
             </table>
-          <h2 id="donelist">
-            Done items
-          </h2>
-          <table id="itemlistDone" className="itemlist">
-            <TableBody>
-            {items.map(item => (
-              item.done && (
 
-              <tr key={item.id}>
-                <td className="description">{item.description}</td>
-                <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
-                <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
-                <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
-                      Undo
-                    </Button></td>
-                <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">
-                      Delete
-                    </Button></td>
-              </tr>
-            )))}
-            </TableBody>
-          </table>
+            {/* Title Done List */}
+            <div className="donelist">
+              <h2>
+                Done items
+              </h2>
+            </div>
+
+            {/* Done List */}
+            <table id="itemlistDone" className="itemlist">
+              <TableBody>
+              {items.map(item => (
+                item.done && (
+
+                <tr key={item.id}>
+                  <td className="description">{item.description}</td>
+                  <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
+                  <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+                  <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
+                        Undo
+                      </Button></td>
+                  <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">
+                        Delete
+                      </Button></td>
+                </tr>
+              )))}
+              </TableBody>
+            </table>
           </div>
         }
       </div>
