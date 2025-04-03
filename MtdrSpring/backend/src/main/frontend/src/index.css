@@ -5,10 +5,7 @@
 ** Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 */
 body {
-  /* from the redwood theme */
   background-color: #EFECE5;
-  width: 100%;
-  max-width: 50rem;
   margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -20,16 +17,38 @@ body {
 
 .App {
   background: #F5F5F5;
-  color: #000; /* Changed text color to black */
+  color: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: max(12px,min(2vw, 18px)); /*calc(1vw + 1vmin);*/
-  margin: 2rem 0 4rem 0;
+  font-size: max(12px,min(2vw, 18px));
+  margin: 2rem;
   padding: 1rem;
   position: relative;
   box-shadow: 0 10px 18px 0 rgba(0, 0, 0, 0.2), 0 4.5rem 8rem 0 rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.title-input {
+  width: 200px;
+}
+
+.input-format {
+  border-radius: 0.3rem;
+  border: 1px solid #ccc;
+}
+
+.number-input {
+  padding-right: 0%;
+  padding-left: 10px;
+  width: 100px;
 }
 
 .header-container {

@@ -162,9 +162,12 @@ function App() {
     function addItem(text){
       console.log("addItem(", text, ")")
       setInserting(true);
-      var data = {};
-      data.description = text.text;
-      data.story_Points = text.storyPoints; // Add the story points
+      let data = {
+        description: text.text,
+        story_Points: text.storyPoints,
+        estimatedTime: text.hours,
+        title: text.title
+      };
       
       fetch(API_LIST, {
         method: 'POST',
@@ -188,7 +191,7 @@ function App() {
           var id = result.headers.get('location');
           var newItem = {
             "id": id, 
-            "description": text.text, 
+            "description": text.title, 
             "story_Points": text.storyPoints // Include story points in the new item
           }
           setItems([newItem, ...items]);
@@ -200,63 +203,72 @@ function App() {
         }
       );
     }
+
     return (
       <div className="App">
+        {/* Title */}
         <div className="header-container">
           <img src={ORACLEIcon} alt="ORACLEIcon" className="todo-icon" />
           <h1 className="title">To Do List</h1>
           <RecommendationPopup items={items} />
         </div>
-          <NewItem addItem={addItem} isInserting={isInserting}/>
+
+        {/* Item Bar */}
+        <NewItem addItem={addItem} isInserting={isInserting}/>
+
+        {/* Display Error */}
         { error &&
           <p>Error: {error.message}</p>
         }
+
+        {/* Display Is Loading */}
         { isLoading &&
           <CircularProgress />
         }
+
+        {/* Main */}
         { !isLoading &&
-        <div id="maincontent">
-        <table id="itemlistNotDone" className="itemlist">
-          <TableBody>
-          {items.map(item => (
-            !item.done && (
-            <tr key={item.id}>
-              <td className="description">{item.description}</td>
-              { /*<td>{JSON.stringify(item, null, 2) }</td>*/ }
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
-              <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
-                    Done
-                  </Button></td>
-            </tr>
-          )))}
-          </TableBody>
-        </table>
-        <h2 id="donelist">
-          Done items
-        </h2>
-        <table id="itemlistDone" className="itemlist">
-          <TableBody>
-          {items.map(item => (
-            item.done && (
+          <div id="maincontent">
+            <table id="itemlistNotDone" className="itemlist">
+              <TableBody>
+              {items.map(item => (
+                !item.done && (
+                <tr key={item.id}>
+                  <td className="description">{item.description}</td>
+                  { /*<td>{JSON.stringify(item, null, 2) }</td>*/ }
+                  <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
+                  <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+                  <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
+                        Done
+                      </Button></td>
+                </tr>
+              )))}
+              </TableBody>
+            </table>
+          <h2 id="donelist">
+            Done items
+          </h2>
+          <table id="itemlistDone" className="itemlist">
+            <TableBody>
+            {items.map(item => (
+              item.done && (
 
-            <tr key={item.id}>
-              <td className="description">{item.description}</td>
-              <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
-              <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
-              <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
-                    Undo
-                  </Button></td>
-              <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">
-                    Delete
-                  </Button></td>
-            </tr>
-          )))}
-          </TableBody>
-        </table>
-        </div>
+              <tr key={item.id}>
+                <td className="description">{item.description}</td>
+                <td className="date"><Moment format="MMM Do hh:mm:ss">{item.creation_ts}</Moment></td>
+                <td className="Story_Points">Story Points:{item.story_Points}</td> { /*AQUIIIIIIIIIII MODIFICATION HEREEEEEE*/}
+                <td><Button variant="contained" className="DoneButton" onClick={(event) => toggleDone(event, item.id, item.description, !item.done, item.story_Points)} size="small">
+                      Undo
+                    </Button></td>
+                <td><Button startIcon={<DeleteIcon />} variant="contained" className="DeleteButton" onClick={() => deleteItem(item.id)} size="small">
+                      Delete
+                    </Button></td>
+              </tr>
+            )))}
+            </TableBody>
+          </table>
+          </div>
         }
-
       </div>
     );
 }

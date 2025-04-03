@@ -13,18 +13,26 @@ import React, { useState } from "react";
 import Button from '@mui/material/Button';
 
 function NewItem(props) {
+  const [title, setTitle] = useState('');
   const [item, setItem] = useState('');
   const [storyPoints, setStoryPoints] = useState('');
+  const [hours, setHours] = useState('');
 
   function handleSubmit(e) {
     if (!item.trim()) {
       return;
     }
     // Now addItem makes the REST API call with both the item text and story points:
-    props.addItem({ text: item, storyPoints: storyPoints });
+    props.addItem({ text: item, storyPoints: storyPoints, hours: hours, title: title });
     setItem("");
     setStoryPoints("");
+    setHours("");
+    setTitle("");
     e.preventDefault();
+  }
+
+  function handleTitleChange(e) {
+    setTitle(e.target.value);
   }
 
   function handleItemChange(e) {
@@ -34,49 +42,81 @@ function NewItem(props) {
   function handlePointsChange(e) {
     setStoryPoints(e.target.value);
   }
+
+  function handleHoursChange(e) {
+    setHours(e.target.value);
+  }
+
+
   return (
     <div id="newinputform">
     <form>
-      <input
-        id="newiteminput"
-        placeholder="New item"
-        type="text"
-        autoComplete="off"
-        value={item}
-        onChange={handleItemChange}
-      />
+      <div className="input-container">
+        {/* Title Input */}
+        <input
+          id="newtitleinput"
+          placeholder="Title"
+          type="text"
+          autoComplete="off"
+          value={title}
+          onChange={handleTitleChange}
+          className="title-input input-format"
+        />
 
-      <span>&nbsp;&nbsp;</span>
-      
-      <input
-        id="storypoints"
-        placeholder="Story Points"
-        type="number"
-        min="1"
-        max="10"
-        value={storyPoints}
-        onChange={handlePointsChange}
-        style={{ width: '100px' }}
-        // No need to click on the "ADD" button to add a todo item. You
-        // can simply press "Enter":
-        onKeyDown={event => {
-          if (event.key === 'Enter') {
-            handleSubmit(event);
-          }
-        }}
-      />
-      
-      <span>&nbsp;&nbsp;</span>
+        {/* New Item Input */}
+        <input
+          id="newiteminput"
+          placeholder="New item"
+          type="text"
+          autoComplete="off"
+          value={item}
+          onChange={handleItemChange}
+          className="input-format"
+        />
 
-      <Button
-        className="AddButton"
-        variant="contained"
-        disabled={props.isInserting}
-        onClick={!props.isInserting ? handleSubmit : null}
-        size="small"
-      >
-        {props.isInserting ? 'Adding…' : 'Add'}
-      </Button>
+        {/* Story Points Input */}
+        <input
+          id="storypoints"
+          placeholder="Story Points"
+          type="number"
+          min="1"
+          max="10"
+          value={storyPoints}
+          onChange={handlePointsChange}
+          className="input-format number-input"
+          onKeyDown={event => {
+            if (event.key === 'Enter') {
+              handleSubmit(event);
+            }
+          }}
+        />
+
+        {/* Hours Input */}
+        <input
+          id="hours"
+          placeholder="Hours"
+          type="number"
+          min="1"
+          value={hours}
+          onChange={handleHoursChange}
+          className="input-format number-input"
+          onKeyDown={event => {
+            if (event.key === 'Enter') {
+              handleSubmit(event);
+            }
+          }}
+        />
+
+        <Button
+          className="AddButton"
+          variant="contained"
+          disabled={props.isInserting}
+          onClick={!props.isInserting ? handleSubmit : null}
+          size="small"
+        >
+          {props.isInserting ? 'Adding…' : 'Add'}
+        </Button>
+      </div>
     </form>
     </div>
   );
