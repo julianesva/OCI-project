@@ -1,14 +1,16 @@
 import './Dashboard.css'
-import Navbar from '../Navbar/Navbar';
+import DashboardContent from './DashboardContent/DashboardContent';
+import DashboardGraphs from './DashboardGraphs/DashboardGraphs';
 
 export default function Dashboard() {
     return (
         <div className='dashboard-main'>
-            <Navbar />
+            <div className='dashboard-main-container'>
+                {/* Left  */}
+                <DashboardContent />
 
-            {/* Main Container */}
-            <div className="dashboard-main-container">
-                <h1>Dashboard</h1>
+                {/* Right */}
+                <DashboardGraphs />
             </div>
         </div>
     );
