@@ -9,21 +9,42 @@
  * @author  jean.de.lavarene@oracle.com
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
+import API from './API';
+
+const { API_LIST, API_MODULES } = API;
 
 function NewItem(props) {
   const [item, setItem] = useState('');
   const [storyPoints, setStoryPoints] = useState('');
+  const [modules, setModules] = useState([]); 
+  const [selectedModule, setSelectedModule] = useState('');
+
+  useEffect(() => {
+    fetch(API_MODULES)
+      .then(response => response.json())
+      .then(data => setModules(data))
+      .catch(error => console.error("Error fetching modules:", error));
+  }, []);
 
   function handleSubmit(e) {
     if (!item.trim()) {
       return;
     }
-    // Now addItem makes the REST API call with both the item text and story points:
-    props.addItem({ text: item, storyPoints: storyPoints });
+    // Asegúrate de que moduleId es un número entero
+    console.log(selectedModule.id);
+    //const changedModuleId = parseInt(selectedModule.getId());
+    //console.log(changedModuleId);
+    const changedStoryPoints = parseInt(storyPoints, 10);
+    if (isNaN(selectedModule.id)) {
+        alert("Invalid Module ID");
+        return;
+    }
+    props.addItem({ text: item, storyPoints: changedStoryPoints, moduleId: selectedModule.id });
     setItem("");
     setStoryPoints("");
+    setSelectedModule("");
     e.preventDefault();
   }
 
@@ -67,6 +88,24 @@ function NewItem(props) {
       />
       
       <span>&nbsp;&nbsp;</span>
+
+      {/* Dropdown para seleccionar el módulo */}
+      <select
+        id="moduleSelect"
+        value={selectedModule ? selectedModule.id : ''}
+        onChange={(e) => {
+          const moduleId = e.target.value;
+          const module = modules.find(m => m.id === parseInt(moduleId, 10));
+          setSelectedModule(module);
+        }}
+      >
+        <option value="">Select Module</option>
+        {modules.map((module) => (
+          <option key={module.id} value={module.id}>
+            {module.id} - {module.title}
+          </option>
+        ))}
+      </select>
 
       <Button
         className="AddButton"

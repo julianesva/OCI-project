@@ -12,12 +12,14 @@
  */
 import React, { useState, useEffect } from 'react';
 import NewItem from './NewItem';
-import API_LIST from './API';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, TableBody, CircularProgress } from '@mui/material';
 import Moment from 'react-moment';
 import RecommendationPopup from './RecommendationPopup';
 import ORACLEIcon from './assets/ORACLEIcon.png';
+import API from './API';
+
+const { API_LIST, API_MODULES } = API;
 
 /* In this application we're using Function Components with the State Hooks
  * to manage the states. See the doc: https://reactjs.org/docs/hooks-state.html
