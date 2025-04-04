@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
 import DashboardGraphs from './DashboardGraphs/DashboardGraphs';
-import { API_LIST } from '../../API';
+import { API_LIST, API_MODULES } from '../../API';
 
 export default function Dashboard() {
   const [refresh, setRefresh] = useState(false);
@@ -11,6 +11,8 @@ export default function Dashboard() {
   const [isInserting, setInserting] = useState(false);
   const [items, setItems] = useState([]);
   const [error, setError] = useState();
+  const [modules, setModules] = useState([]);
+  const [selectedModule, setSelectedModule] = useState('all');
 
   function deleteItem(deleteId) {
     fetch(API_LIST+"/"+deleteId, {
@@ -132,6 +134,10 @@ export default function Dashboard() {
     );
   }
 
+  function handleModuleChange(event) {
+    setSelectedModule(event.target.value);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -153,6 +159,11 @@ export default function Dashboard() {
             setLoading(false);
             setError(error);
           });
+      
+      fetch(API_MODULES)
+        .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
+        .then(result => setModules(result))
+        .catch(error => setError(error));
     }
 
     fetchData();
@@ -178,7 +189,10 @@ export default function Dashboard() {
               // Dashboard
               <div className='dashboard-main-container'>
                   {/* Left  */}
-                  <DashboardContent tasklist={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem} />
+                  <DashboardContent
+                    tasklist={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
+                    modules={modules} selectedModule={selectedModule} handleModuleChange={handleModuleChange}
+                  />
 
                   {/* Right */}
                   <DashboardGraphs />
