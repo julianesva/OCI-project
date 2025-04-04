@@ -20,7 +20,7 @@ public class ToDoItem {
     private String title;
 
     @Column(name = "MODULE_ID")
-    private int moduleId = 1;
+    private int moduleId;
 
     @Column(name = "DESCRIPTION")
     private String description;

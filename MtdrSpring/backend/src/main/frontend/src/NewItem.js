@@ -32,10 +32,6 @@ function NewItem(props) {
     if (!item.trim()) {
       return;
     }
-    // Asegúrate de que moduleId es un número entero
-    console.log(selectedModule.id);
-    //const changedModuleId = parseInt(selectedModule.getId());
-    //console.log(changedModuleId);
     const changedStoryPoints = parseInt(storyPoints, 10);
     if (isNaN(selectedModule.id)) {
         alert("Invalid Module ID");
