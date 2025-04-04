@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography, Box } from '@mui/material';
-import RecommendIcon from '@mui/icons-material/Recommend';
 
 function RecommendationPopup({ items }) {
   const [open, setOpen] = useState(false);

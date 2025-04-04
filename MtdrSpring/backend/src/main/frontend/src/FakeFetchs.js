@@ -7,7 +7,7 @@ export const tasklist = [
         description: "Description of Task 1",
         estimatedTime: 2,
         done: 0,
-        storyPoints: 5,
+        story_Points: 5,
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ export const tasklist = [
         description: "Description of Task 2",
         estimatedTime: 3,
         done: 0,
-        storyPoints: 8,
+        story_Points: 8,
     },
     {
         id: 3,
@@ -23,7 +23,7 @@ export const tasklist = [
         description: "Description of Task 3",
         estimatedTime: 4,
         done: 0,
-        storyPoints: 3,
+        story_Points: 3,
     },
     {
         id: 4,
@@ -31,7 +31,7 @@ export const tasklist = [
         description: "Description of Task 4",
         estimatedTime: 1,
         done: 0,
-        storyPoints: 1,
+        story_Points: 1,
     },
     {
         id: 5,
@@ -39,7 +39,7 @@ export const tasklist = [
         description: "Description of Task 5",
         estimatedTime: 2,
         done: 0,
-        storyPoints: 4,
+        story_Points: 4,
     },
     {
         id: 6,
@@ -47,7 +47,7 @@ export const tasklist = [
         description: "Description of Task 6",
         estimatedTime: 3,
         done: 0,
-        storyPoints: 5,
+        story_Points: 5,
     },
     {
         id: 7,
@@ -55,7 +55,7 @@ export const tasklist = [
         description: "Description of Task 7",
         estimatedTime: 1,
         done: 1,
-        storyPoints: 9,
+        story_Points: 9,
     },
     {
         id: 8,
@@ -63,7 +63,7 @@ export const tasklist = [
         description: "Description of Task 8",
         estimatedTime: 4,
         done: 1,
-        storyPoints: 4,
+        story_Points: 4,
     },
     {
         id: 9,
@@ -71,7 +71,7 @@ export const tasklist = [
         description: "Description of Task 9",
         estimatedTime: 2,
         done: 2,
-        storyPoints: 3,
+        story_Points: 3,
     },
     {
         id: 10,
@@ -79,7 +79,7 @@ export const tasklist = [
         description: "Description of Task 10",
         estimatedTime: 3,
         done: 2,
-        storyPoints: 7,
+        story_Points: 7,
     },
     {
         id: 11,
@@ -87,7 +87,7 @@ export const tasklist = [
         description: "Description of Task 11",
         estimatedTime: 2,
         done: 2,
-        storyPoints: 2,
+        story_Points: 2,
     }
     
 ]

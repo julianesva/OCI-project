@@ -2,8 +2,20 @@ import './DashboardTasksTable.css'
 import { useState } from 'react'
 import { Arrow_Down_Icon, Arrow_Up_Icon, Trash_Icon } from '../../../Icons'
 
-export default function DashboardTasksTable({ taskList, title, action }) {
+export default function DashboardTasksTable({ taskList, title, action, toggleDone, deleteItem }) {
     const [isHidden, setIsHidden] = useState(false);
+
+    function handleNextButton(event, task) {
+        if (task.done == 0) {
+            toggleDone(event, task.id, task.title, task.description, 1, task.story_Points, task.estimatedTime)
+        } else if (task.done == 1) {
+            toggleDone(event, task.id, task.title, task.description, 2, task.story_Points, task.estimatedTime)
+        } else if (task.done == 2) {
+            toggleDone(event, task.id, task.title, task.description, 0, task.story_Points, task.estimatedTime)
+        } else {
+            console.error("Invalid task status:", task.done)
+        }
+    }
     
     return (
         <div className='dashboard-table-container'>
@@ -48,16 +60,18 @@ export default function DashboardTasksTable({ taskList, title, action }) {
                                             <td className='dashboard-table-text-column'>{task.title}</td>
                                             <td className='dashboard-table-text-column'>{task.description}</td>
                                             <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
-                                            <td className='dashboard-table-num-column'>{task.storyPoints}</td>
+                                            <td className='dashboard-table-num-column'>{task.story_Points}</td>
                                             <td className='dashboard-table-actions-column'>
-                                                {/* Next Button */}
-                                                <button className='dashboard-table-action-next-button'>
-                                                    {action}
-                                                </button>
-                                                {/* Delete Button */}
-                                                <button className='dashboard-table-action-trash-button'>
-                                                    <Trash_Icon color='white' w='16px' h='16px' />
-                                                </button>
+                                                <div className='dashboard-table-actions-container'>
+                                                    {/* Next Button */}
+                                                    <button className='dashboard-table-action-next-button' onClick={(event) => {handleNextButton(event, task)}}>
+                                                        {action}
+                                                    </button>
+                                                    {/* Delete Button */}
+                                                    <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
+                                                        <Trash_Icon color='white' w='16px' h='16px' />
+                                                    </button>
+                                                </div>
                                             </td>
                                         </tr>
                                     ))}

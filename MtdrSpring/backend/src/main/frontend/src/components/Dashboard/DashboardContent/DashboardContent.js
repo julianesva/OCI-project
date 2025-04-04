@@ -1,19 +1,15 @@
 import './DashboardContent.css'
 import { useState, useEffect } from 'react';
 import DashboardInput from '../DashboardInput/DashboardInput';
-import { tasklist } from '../../../FakeFetchs';
 import DashboardTasksTable from '../DashboardTasksTables/DashboardTasksTable';
+import RecommendationPopup from '../../../RecommendationPopup';
 
-export default function DashboardContent() {
+export default function DashboardContent({ tasklist, addItem, isInserting, toggleDone, deleteItem }) {
     const [toDoTasks, setToDoTasks] = useState([]);
     const [inProgressTasks, setInProgressTasks] = useState([]);
     const [doneTasks, setDoneTasks] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            console.log("Fetching data...");
-        }
-
         const filterTasks = () => {
             const filteredToDoTasks = tasklist.filter(task => task.done === 0);
             const filteredInProgressTasks = tasklist.filter(task => task.done === 1);
@@ -23,8 +19,7 @@ export default function DashboardContent() {
             setDoneTasks(filteredDoneTasks);
         }
 
-        fetchData();
-        filterTasks();
+        filterTasks(tasklist);
     }, []);
 
     return (
@@ -39,22 +34,20 @@ export default function DashboardContent() {
                     <p className='dashboard-title-text'>Dashboard</p>
 
                     {/* Recommendation Button */}
-                    <button className='recommendation-button'>
-                        <p className='recommendation-button-text'>Recommendation</p>
-                    </button>
+                    <RecommendationPopup items={tasklist} />
                 </div>
 
                 {/* Dashboard Input */}
-                <DashboardInput />
+                <DashboardInput addItem={addItem} isInserting={isInserting} />
 
                 {/* To Do Table */}
-                <DashboardTasksTable taskList={toDoTasks} title={"To Do"} action={"Start"} />
+                <DashboardTasksTable taskList={toDoTasks} title={"To Do"} action={"Start"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* In Progress Table */}
-                <DashboardTasksTable taskList={inProgressTasks} title={"In Progress"} action={"Done"} />
+                <DashboardTasksTable taskList={inProgressTasks} title={"In Progress"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* Completed Table */}
-                <DashboardTasksTable taskList={doneTasks} title={"Completed"} action={"Undo"} />
+                <DashboardTasksTable taskList={doneTasks} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
             </div>
         </div>
     );
