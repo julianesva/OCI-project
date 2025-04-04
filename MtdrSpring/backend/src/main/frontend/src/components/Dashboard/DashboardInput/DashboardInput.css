@@ -20,6 +20,10 @@
     width: 100px;
 }
 
+.dashboard-module-select-input {
+    width: 130px;
+}
+
 .dashboard-input-button {
     padding: 3px 15px 6px 15px;
     border-radius: 8px;

@@ -1,20 +1,21 @@
 import './DashboardInput.css'
-import { useState } from 'react';
-import API from '../../../API'
-
-const { API_MODULES } = API;
+import { useState, useEffect } from 'react';
+import { API_MODULES } from '../../../API';
 
 export default function DashboardInput({ addItem, isInserting }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [storyPoints, setStoryPoints] = useState('');
     const [hours, setHours] = useState('');
+    const [modules, setModules] = useState([]); 
+    const [selectedModule, setSelectedModule] = useState('');
 
     const clearFields = () => {
         setTitle('');
         setDescription('');
         setStoryPoints('');
         setHours('');
+        setSelectedModule('');
     }
 
     function handleSubmit(e) {
@@ -27,11 +28,19 @@ export default function DashboardInput({ addItem, isInserting }) {
             description: description,
             story_Points: storyPoints,
             estimatedTime: hours,
-            done: 0
+            done: 0,
+            moduleId: selectedModule.id
         });
         clearFields();
         e.preventDefault();
     }
+
+    useEffect(() => {
+        fetch(API_MODULES)
+            .then(response => response.json())
+            .then(data => setModules(data))
+            .catch(error => console.error("Error fetching modules:", error));
+    }, []);
 
 
     return (
@@ -79,6 +88,25 @@ export default function DashboardInput({ addItem, isInserting }) {
                     }
                 }}
             />
+
+            {/* Dropdown para seleccionar el módulo */}
+            <select
+                className='dashboard-input-format dashboard-module-select-input'
+                id="moduleSelect"
+                value={selectedModule ? selectedModule.id : ''}
+                onChange={(e) => {
+                const moduleId = e.target.value;
+                const module = modules.find(m => m.id === parseInt(moduleId, 10));
+                setSelectedModule(module);
+                }}
+            >
+                <option value="">Select Module</option>
+                {modules.map((module) => (
+                <option key={module.id} value={module.id}>
+                    {module.id} - {module.title}
+                </option>
+                ))}
+            </select>
 
             {/* Search Button */}
             <button className='dashboard-input-button' onClick={handleSubmit} disabled={isInserting}>

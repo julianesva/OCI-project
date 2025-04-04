@@ -7,12 +7,13 @@ export default function DashboardTasksTable({ taskList, filter, title, action, t
 
     function handleNextButton(event, task) {
         if (task.done == 0) {
-            toggleDone(event, task.id, task.title, task.description, 1, task.estimatedTime, task.story_Points)
+            toggleDone(event, task.id, task.title, task.description, 1, task.estimatedTime, task.story_Points, task.moduleId)
         } else if (task.done == 1) {
-            toggleDone(event, task.id, task.title, task.description, 2, task.estimatedTime, task.story_Points)
-        } else if (task.done == 2) {
-            toggleDone(event, task.id, task.title, task.description, 0, task.estimatedTime, task.story_Points)
-        } else {
+            toggleDone(event, task.id, task.title, task.description, 0, task.estimatedTime, task.story_Points, task.moduleId)
+        } // else if (task.done == 2) {
+        //     toggleDone(event, task.id, task.title, task.description, 0, task.estimatedTime, task.story_Points)
+        // }
+        else {
             console.error("Invalid task status:", task.done)
         }
     }

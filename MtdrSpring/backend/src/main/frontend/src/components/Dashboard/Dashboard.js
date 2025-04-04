@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
 import DashboardGraphs from './DashboardGraphs/DashboardGraphs';
-import API_LIST from '../../API';
+import { API_LIST } from '../../API';
 
 export default function Dashboard() {
   const [refresh, setRefresh] = useState(false);
@@ -34,21 +34,22 @@ export default function Dashboard() {
     );
   }
 
-  function toggleDone(event, id, title, description, done, estimatedTime, story_Points ) {
+  function toggleDone(event, id, title, description, done, estimatedTime, story_Points, moduleId) {
     event.preventDefault();
-    modifyItem(id, title, description, done, estimatedTime, story_Points).then(
+    modifyItem(id, title, description, done, estimatedTime, story_Points, moduleId).then(
       (result) => { reloadOneIteam(id); },
       (error) => { setError(error); }
     );
   }
 
-  function modifyItem(id, title, description, done, estimatedTime, story_Points) {
+  function modifyItem(id, title, description, done, estimatedTime, story_Points, moduleId) {
     let data = {
       "title": title,
       "description": description,
       "estimatedTime": estimatedTime,
       "done": done,
-      "story_Points": story_Points
+      "story_Points": story_Points,
+      "moduleId": moduleId
     };
     return fetch(API_LIST+"/"+id, {
       method: 'PUT',
@@ -85,7 +86,8 @@ export default function Dashboard() {
                 'done': result.done,
                 'creation_ts': result.creation_ts,
                 'estimatedTime': result.estimatedTime,
-                'story_Points': result.story_Points
+                'story_Points': result.story_Points,
+                'moduleId': result.moduleId
               } : x));
           setItems(items2);
         },
@@ -117,7 +119,8 @@ export default function Dashboard() {
           "description": data.description,
           "estimatedTime": data.estimatedTime,
           "done": data.done,
-          "story_Points": data.story_Points
+          "story_Points": data.story_Points,
+          "moduleId": data.moduleId
         }
         setItems([newItem, ...items]);
         setInserting(false);
