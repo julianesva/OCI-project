@@ -45,6 +45,11 @@
     text-align: center;
 }
 
+.dashboard-table-task-table-head-actions {
+    width: 110px;
+    text-align: center;
+}
+
 .dashboard-table-row {
     font-size: 14px;
     color: #312D2A;
@@ -59,6 +64,7 @@
 }
 
 .dashboard-table-actions-column {
+    width: 110px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -80,4 +86,16 @@
     border-radius: 8px;
     background-color: #d63a24;
     border: 1px solid #000000;
+}
+
+.dashboard-table-empty {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
+}
+
+.dashboard-table-empty-text {
+    font-size: 14px;
+    color: #312D2A;
 }

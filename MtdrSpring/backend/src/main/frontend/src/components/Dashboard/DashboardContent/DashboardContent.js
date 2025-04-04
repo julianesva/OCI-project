@@ -2,7 +2,7 @@ import './DashboardContent.css'
 import { useState, useEffect } from 'react';
 import DashboardInput from '../DashboardInput/DashboardInput';
 import { tasklist } from '../../../FakeFetchs';
-import DashboardTasksTable from '../DashboardTasksTables/DashboardToDoTable';
+import DashboardTasksTable from '../DashboardTasksTables/DashboardTasksTable';
 
 export default function DashboardContent() {
     const [toDoTasks, setToDoTasks] = useState([]);
