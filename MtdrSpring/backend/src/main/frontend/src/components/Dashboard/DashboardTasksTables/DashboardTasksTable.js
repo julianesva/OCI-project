@@ -7,11 +7,11 @@ export default function DashboardTasksTable({ taskList, title, action, toggleDon
 
     function handleNextButton(event, task) {
         if (task.done == 0) {
-            toggleDone(event, task.id, task.title, task.description, 1, task.story_Points, task.estimatedTime)
+            toggleDone(event, task.id, task.title, task.description, 1, task.estimatedTime, task.story_Points)
         } else if (task.done == 1) {
-            toggleDone(event, task.id, task.title, task.description, 2, task.story_Points, task.estimatedTime)
+            toggleDone(event, task.id, task.title, task.description, 2, task.estimatedTime, task.story_Points)
         } else if (task.done == 2) {
-            toggleDone(event, task.id, task.title, task.description, 0, task.story_Points, task.estimatedTime)
+            toggleDone(event, task.id, task.title, task.description, 0, task.estimatedTime, task.story_Points)
         } else {
             console.error("Invalid task status:", task.done)
         }
@@ -64,7 +64,7 @@ export default function DashboardTasksTable({ taskList, title, action, toggleDon
                                             <td className='dashboard-table-actions-column'>
                                                 <div className='dashboard-table-actions-container'>
                                                     {/* Next Button */}
-                                                    <button className='dashboard-table-action-next-button' onClick={(event) => {handleNextButton(event, task)}}>
+                                                    <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
                                                         {action}
                                                     </button>
                                                     {/* Delete Button */}

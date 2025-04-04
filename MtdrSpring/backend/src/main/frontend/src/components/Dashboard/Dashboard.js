@@ -3,34 +3,105 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
 import DashboardGraphs from './DashboardGraphs/DashboardGraphs';
-import API from '../../API'
-import { tasklist } from '../../FakeFetchs'
-
-const { API_LIST, API_MODULES } = API;
+import API_LIST from '../../API';
 
 export default function Dashboard() {
     const [isLoading, setLoading] = useState(false);
     const [isInserting, setInserting] = useState(false);
     const [items, setItems] = useState([]);
     const [error, setError] = useState();
-    const [modules, setModules] = useState([]);
-    const [selectedModule, setSelectedModule] = useState('all');
 
-    function handleModuleChange(event) {
-        setSelectedModule(event.target.value);
+    function deleteItem(deleteId) {
+      fetch(API_LIST+"/"+deleteId, {
+        method: 'DELETE',
+      })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      })
+      .then(
+        (result) => {
+          const remainingItems = items.filter(item => item.id !== deleteId);
+          setItems(remainingItems);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
     }
 
-    function filteredItems() {
-        return selectedModule === 'all' ? items : items.filter(item => item.moduleId === selectedModule);
+    function toggleDone(event, id, title, description, done, estimatedTime, story_Points ) {
+      event.preventDefault();
+      modifyItem(id, title, description, done, estimatedTime, story_Points).then(
+        (result) => { reloadOneIteam(id); },
+        (error) => { setError(error); }
+      );
     }
 
-    function addItem(text){
-      console.log("addItem(", text, ")")
+    function modifyItem(id, title, description, done, estimatedTime, story_Points) {
+      let data = {
+        "title": title,
+        "description": description,
+        "estimatedTime": estimatedTime,
+        "done": done,
+        "story_Points": story_Points
+      };
+      return fetch(API_LIST+"/"+id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          throw new Error('Something went wrong ...');
+        }
+      });
+    }
+
+    function reloadOneIteam(id){
+      fetch(API_LIST+"/"+id)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Something went wrong ...');
+          }
+        })
+        .then(
+          (result) => {
+            const items2 = items.map(
+              x => (x.id === id ? {
+                 ...x,
+                 'title':result.title,
+                 'description':result.description,
+                 'done': result.done,
+                 'creation_ts': result.creation_ts,
+                 'estimatedTime': result.estimatedTime,
+                 'story_Points': result.story_Points
+                } : x));
+            setItems(items2);
+          },
+          (error) => {
+            setError(error);
+          });
+    }
+    
+    function addItem(task){
       setInserting(true);
-      var data = {};
-      data.description = text.text;
-      data.story_Points = text.storyPoints;
-      data.moduleId= text.moduleId; 
+      let data = {
+        "title": task.title,
+        "description": task.description,
+        "estimatedTime": task.estimatedTime,
+        "done": 0,
+        "story_Points": task.story_Points
+      };
       
       fetch(API_LIST, {
         method: 'POST',
@@ -39,11 +110,6 @@ export default function Dashboard() {
         },
         body: JSON.stringify(data),
       }).then((response) => {
-        // This API doens't return a JSON document
-        console.log(response);
-        console.log();
-        console.log(response.headers.location);
-        // return response.json();
         if (response.ok) {
           return response;
         } else {
@@ -54,9 +120,11 @@ export default function Dashboard() {
           var id = result.headers.get('location');
           var newItem = {
             "id": id, 
-            "description": text.text, 
-            "story_Points": text.storyPoints,
-            "module_id": text.moduleId
+            "title": task.title,
+            "description": task.text,
+            "estimatedTime": task.estimatedTime,
+            "done": 0,
+            "story_Points": task.storyPoints
           }
           setItems([newItem, ...items]);
           setInserting(false);
@@ -68,46 +136,26 @@ export default function Dashboard() {
       );
     }
 
-    function toggleDone(event, id, title, description, done, story_Points, estimatedTime) {
-      event.preventDefault();
-      const data = { title, description, done, story_Points, estimatedTime };
-      fetch(`${API_LIST}/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      }).then(response => response.ok ? response.json() : Promise.reject('Error updating task'))
-      .then(updatedItem => {
-        setItems(items.map(item => (item.id === id ? updatedItem : item)));
-      })
-      .catch(error => setError(error));
-    }
-
-    function deleteItem(deleteId) {
-      fetch(`${API_LIST}/${deleteId}`, { method: 'DELETE' })
-      .then(response => response.ok ? response : Promise.reject('Error deleting task'))
-      .then(() => {
-        setItems(items.filter(item => item.id !== deleteId));
-      })
-      .catch(error => setError(error));
-    }
-
     useEffect(() => {
-        setLoading(true);
-        fetch(API_LIST)
-            .then(response => response.ok ? response.json() : Promise.reject('Error fetching tasks'))
-            .then(result => {
-                setLoading(false);
-                setItems(result);
-            })
-            .catch(error => {
-                setLoading(false);
-                setError(error);
-            });
-        
-        fetch(API_MODULES)
-            .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
-            .then(result => setModules(result))
-            .catch(error => setError(error));
+      setLoading(true);
+      fetch(API_LIST)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Something went wrong loading the initial charge check useEffect ...');
+          }
+        })
+        .then(
+          (result) => {
+            console.log("API Response HEREEEEEEEEEEEEE:", result);
+            setLoading(false);
+            setItems(result);
+          },
+          (error) => {
+            setLoading(false);
+            setError(error);
+          });
     }, []);
 
     return (

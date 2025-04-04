@@ -23,12 +23,8 @@ export default function DashboardInput({ addItem, isInserting }) {
         if (isInserting) {
             return;
         }
-        const changedStoryPoints = parseInt(storyPoints, 10);
-        if (isNaN(selectedModule.id)) {
-            alert("Invalid Module ID");
-            return;
-        }
-        addItem({ title: title, description:description, estimatedTime: hours, storyPoints: changedStoryPoints, moduleId: selectedModule.id, done: 0 });
+        
+        addItem({ title: title, description:description, estimatedTime: hours, story_Points: storyPoints });
         clearFields();
         e.preventDefault();
     }
