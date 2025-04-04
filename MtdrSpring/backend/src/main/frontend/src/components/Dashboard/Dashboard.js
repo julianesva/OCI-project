@@ -94,16 +94,8 @@ export default function Dashboard() {
         });
   }
   
-  function addItem(task){
+  function addItem(data){
     setInserting(true);
-    let data = {
-      "title": task.title,
-      "description": task.description,
-      "estimatedTime": task.estimatedTime,
-      "done": 0,
-      "story_Points": task.story_Points
-    };
-    
     fetch(API_LIST, {
       method: 'POST',
       headers: {
@@ -120,12 +112,12 @@ export default function Dashboard() {
       (result) => {
         var id = result.headers.get('location');
         var newItem = {
-          "id": id, 
-          "title": task.title,
-          "description": task.text,
-          "estimatedTime": task.estimatedTime,
-          "done": 0,
-          "story_Points": task.storyPoints
+          "id": id,
+          "title": data.title,
+          "description": data.description,
+          "estimatedTime": data.estimatedTime,
+          "done": data.done,
+          "story_Points": data.story_Points
         }
         setItems([newItem, ...items]);
         setInserting(false);

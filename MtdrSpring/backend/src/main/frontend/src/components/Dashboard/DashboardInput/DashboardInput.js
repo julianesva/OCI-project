@@ -22,7 +22,13 @@ export default function DashboardInput({ addItem, isInserting }) {
             return;
         }
         
-        addItem({ title: title, description:description, estimatedTime: hours, story_Points: storyPoints });
+        addItem({
+            title: title,
+            description: description,
+            story_Points: storyPoints,
+            estimatedTime: hours,
+            done: 0
+        });
         clearFields();
         e.preventDefault();
     }
