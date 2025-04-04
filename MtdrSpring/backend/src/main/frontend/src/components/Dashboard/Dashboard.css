@@ -1,6 +1,8 @@
 .dashboard-main {
-    flex-grow: 1;
-}
+    overflow: auto;
+    flex: 1;
+    height: 100%;
+  }
 
 .dashboard-main-container {
     display: flex;

@@ -21,8 +21,8 @@
 }
 
 .dashboard-title-text {
-    font-size: 35px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .recommendation-button {
@@ -32,7 +32,7 @@
 }
 
 .recommendation-button-text {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: #FFFFFF;
 }
