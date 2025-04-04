@@ -92,36 +92,22 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        const getFetch = async () => {
-            setLoading(true);
-            fetch(API_LIST)
-                .then(response => response.ok ? response.json() : Promise.reject('Error fetching tasks'))
-                .then(result => {
-                    setLoading(false);
-                    setItems(result);
-                })
-                .catch(error => {
-                    setLoading(false);
-                    setError(error);
-                });
-            
-            fetch(API_MODULES)
-                .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
-                .then(result => setModules(result))
-                .catch(error => setError(error));
-        }
-
-        const fetchData = async () => {
-            setLoading(true);
-            console.log("Fetching data...");
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log("Data fetched");
-            setItems(tasklist);
-            setLoading(false);
-        }
-
-        // getFetch();
-        fetchData();
+        setLoading(true);
+        fetch(API_LIST)
+            .then(response => response.ok ? response.json() : Promise.reject('Error fetching tasks'))
+            .then(result => {
+                setLoading(false);
+                setItems(result);
+            })
+            .catch(error => {
+                setLoading(false);
+                setError(error);
+            });
+        
+        fetch(API_MODULES)
+            .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
+            .then(result => setModules(result))
+            .catch(error => setError(error));
     }, []);
 
     return (
