@@ -39,15 +39,18 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
                 </div>
 
                 {/* To Do Table */}
-                <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Start"} toggleDone={toggleDone} deleteItem={deleteItem} />
-
-                {/* In Progress Table
-                <DashboardTasksTable taskList={tasklist} filter={1} title={"In Progress"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}
+                <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* Completed Table */}
                 <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={1} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
-                {/* Completed Table
+                {/* To Do Table - To be fixed with integer done colum
+                <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Start"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}
+
+                {/* In Progress Table - To be fixed with integer done colum
+                <DashboardTasksTable taskList={tasklist} filter={1} title={"In Progress"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}
+
+                {/* Completed Table - To be fixed with integer done colum
                 <DashboardTasksTable taskList={tasklist} filter={2} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}
             </div>
         </div>
