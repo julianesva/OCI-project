@@ -29,7 +29,7 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
                     <Select value={selectedModule} onChange={handleModuleChange}>
                         <MenuItem value="all">All</MenuItem>
                         {modules.map(module => (
-                        <MenuItem key={module.id} value={module.id}>{module.name}</MenuItem>
+                        <MenuItem className="filter-module-text" key={module.id} value={module.id}>{module.name}</MenuItem>
                         ))}
                     </Select>
                 </div>
