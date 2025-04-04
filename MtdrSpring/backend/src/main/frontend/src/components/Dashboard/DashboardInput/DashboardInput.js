@@ -102,9 +102,9 @@ export default function DashboardInput({ addItem, isInserting }) {
             >
                 <option value="">Select Module</option>
                 {modules.map((module) => (
-                <option key={module.id} value={module.id}>
-                    {module.id} - {module.title}
-                </option>
+                    <option key={module.id} value={module.id}>
+                        {module.id} - {module.title}
+                    </option>
                 ))}
             </select>
 
