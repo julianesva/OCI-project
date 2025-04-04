@@ -2,7 +2,7 @@ import './DashboardTasksTable.css'
 import { useState } from 'react'
 import { Arrow_Down_Icon, Arrow_Up_Icon, Trash_Icon } from '../../../Icons'
 
-export default function DashboardTasksTable({ taskList, title, action, toggleDone, deleteItem }) {
+export default function DashboardTasksTable({ taskList, filter, title, action, toggleDone, deleteItem }) {
     const [isHidden, setIsHidden] = useState(false);
 
     function handleNextButton(event, task) {
@@ -55,8 +55,8 @@ export default function DashboardTasksTable({ taskList, title, action, toggleDon
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {taskList.map((task, index) => (
-                                        <tr key={index} className='dashboard-table-row'>
+                                    {taskList.map(task => (task.done == filter && (
+                                        <tr key={task.id} className='dashboard-table-row'>
                                             <td className='dashboard-table-text-column'>{task.title}</td>
                                             <td className='dashboard-table-text-column'>{task.description}</td>
                                             <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
@@ -74,7 +74,7 @@ export default function DashboardTasksTable({ taskList, title, action, toggleDon
                                                 </div>
                                             </td>
                                         </tr>
-                                    ))}
+                                    )))}
                                 </tbody>
                             </table>
                         </div>

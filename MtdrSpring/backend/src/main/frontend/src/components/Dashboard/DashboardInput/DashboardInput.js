@@ -1,5 +1,5 @@
 import './DashboardInput.css'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import API from '../../../API'
 
 const { API_MODULES } = API;
@@ -9,8 +9,6 @@ export default function DashboardInput({ addItem, isInserting }) {
     const [description, setDescription] = useState('');
     const [storyPoints, setStoryPoints] = useState('');
     const [hours, setHours] = useState('');
-    const [modules, setModules] = useState([]); 
-    const [selectedModule, setSelectedModule] = useState('');
 
     const clearFields = () => {
         setTitle('');
@@ -29,14 +27,6 @@ export default function DashboardInput({ addItem, isInserting }) {
         e.preventDefault();
     }
 
-    useEffect(() => {
-        fetch(API_MODULES)
-            .then(response => response.json())
-            .then(data => setModules(data))
-            .catch(error => console.error("Error fetching modules:", error));
-    }, []);
-    
-    
 
     return (
         <div className='dashboard-input-container'>
@@ -83,25 +73,6 @@ export default function DashboardInput({ addItem, isInserting }) {
                     }
                 }}
             />
-
-            {/* Select Module */}
-            <select
-                className='dashboard-input-format num-input dashboard-input-select'
-                id="moduleSelect"
-                value={selectedModule ? selectedModule.id : ''}
-                onChange={(e) => {
-                    const moduleId = e.target.value;
-                    const module = modules.find(m => m.id === parseInt(moduleId, 10));
-                    setSelectedModule(module);
-                }}
-            >
-                <option value="" disabled>Module</option>
-                {modules.map((module) => (
-                    <option key={module.id} value={module.id}>
-                        {module.id} - {module.title}
-                    </option>
-                ))}
-            </select>
 
             {/* Search Button */}
             <button className='dashboard-input-button' onClick={handleSubmit} disabled={isInserting}>
