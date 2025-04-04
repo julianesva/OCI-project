@@ -59,49 +59,32 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {moduleFilter == 'all' ?
-                                        taskList.map(task => (task.done == filter && (
-                                            <tr key={task.id} className='dashboard-table-row'>
-                                                <td className='dashboard-table-text-column'>{task.title}</td>
-                                                <td className='dashboard-table-text-column'>{task.description}</td>
-                                                <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
-                                                <td className='dashboard-table-num-column'>{task.story_Points}</td>
-                                                <td className='dashboard-table-actions-column'>
-                                                    <div className='dashboard-table-actions-container'>
-                                                        {/* Next Button */}
-                                                        <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
-                                                            {action}
-                                                        </button>
-                                                        {/* Delete Button */}
-                                                        <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
-                                                            <Trash_Icon color='white' w='16px' h='16px' />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )))
-                                        :
-                                        taskList.map(task => (task.done == filter && task.moduleId == moduleFilter && (
-                                            <tr key={task.id} className='dashboard-table-row'>
-                                                <td className='dashboard-table-text-column'>{task.title}</td>
-                                                <td className='dashboard-table-text-column'>{task.description}</td>
-                                                <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
-                                                <td className='dashboard-table-num-column'>{task.story_Points}</td>
-                                                <td className='dashboard-table-actions-column'>
-                                                    <div className='dashboard-table-actions-container'>
-                                                        {/* Next Button */}
-                                                        <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
-                                                            {action}
-                                                        </button>
-                                                        {/* Delete Button */}
-                                                        <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
-                                                            <Trash_Icon color='white' w='16px' h='16px' />
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        )))
+                                {taskList.filter(task => {
+                                    if (moduleFilter == 'all') {
+                                        return task.done == filter;
+                                    } else {
+                                        return task.done == filter && task.moduleId == moduleFilter;
                                     }
+                                }).map(task => (
+                                    <tr key={task.id} className='dashboard-table-row'>
+                                    <td className='dashboard-table-text-column'>{task.title}</td>
+                                    <td className='dashboard-table-text-column'>{task.description}</td>
+                                    <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
+                                    <td className='dashboard-table-num-column'>{task.story_Points}</td>
+                                    <td className='dashboard-table-actions-column'>
+                                        <div className='dashboard-table-actions-container'>
+                                        {/* Next Button */}
+                                        <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
+                                            {action}
+                                        </button>
+                                        {/* Delete Button */}
+                                        <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
+                                            <Trash_Icon color='white' w='16px' h='16px' />
+                                        </button>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                ))}
                                 </tbody>
                             </table>
                         </div>
