@@ -166,7 +166,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 
 					KeyboardRow currentRow = new KeyboardRow();
 					currentRow.add(item.getDescription());
-					currentRow.add(item.getID() + BotLabels.DASH.getLabel() + BotLabels.DONE.getLabel());
+					currentRow.add(item.getId() + BotLabels.DASH.getLabel() + BotLabels.DONE.getLabel());
 					keyboard.add(currentRow);
 				}
 
@@ -176,8 +176,8 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 				for (ToDoItem item : doneItems) {
 					KeyboardRow currentRow = new KeyboardRow();
 					currentRow.add(item.getDescription());
-					currentRow.add(item.getID() + BotLabels.DASH.getLabel() + BotLabels.UNDO.getLabel());
-					currentRow.add(item.getID() + BotLabels.DASH.getLabel() + BotLabels.DELETE.getLabel());
+					currentRow.add(item.getId() + BotLabels.DASH.getLabel() + BotLabels.UNDO.getLabel());
+					currentRow.add(item.getId() + BotLabels.DASH.getLabel() + BotLabels.DELETE.getLabel());
 					keyboard.add(currentRow);
 				}
 
@@ -263,7 +263,7 @@ public class ToDoItemBotController extends TelegramLongPollingBot {
 	public ResponseEntity addToDoItem(@RequestBody ToDoItem todoItem) throws Exception {
 		ToDoItem td = toDoItemService.addToDoItem(todoItem);
 		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("location", "" + td.getID());
+		responseHeaders.set("location", "" + td.getId());
 		responseHeaders.set("Access-Control-Expose-Headers", "location");
 		// URI location = URI.create(""+td.getID())
 
