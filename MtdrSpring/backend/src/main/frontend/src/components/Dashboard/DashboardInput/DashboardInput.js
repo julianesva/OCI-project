@@ -89,7 +89,7 @@ export default function DashboardInput({ addItem, isInserting }) {
                 }}
             />
 
-            {/* Dropdown para seleccionar el módulo */}
+            {/* Select Module */}
             <select
                 className='dashboard-input-format dashboard-module-select-input'
                 id="moduleSelect"
