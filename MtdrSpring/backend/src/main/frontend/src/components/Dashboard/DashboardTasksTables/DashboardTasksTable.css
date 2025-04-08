@@ -61,17 +61,27 @@
 
 .dashboard-table-num-column {
     text-align: center;
+    width: 100px;
 }
 
 .dashboard-table-actions-column {
     width: 110px;
 }
 
+.dashboard-table-title-column {
+    width: 200px;
+}
+
+.dashboard-table-description-column {
+    width: 400px;
+}
+
 .dashboard-table-actions-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 15px;
 }
 
 .dashboard-table-action-next-button {

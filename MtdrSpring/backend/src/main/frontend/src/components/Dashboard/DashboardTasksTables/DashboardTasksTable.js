@@ -67,8 +67,8 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
                                     }
                                 }).map(task => (
                                     <tr key={task.id} className='dashboard-table-row'>
-                                    <td className='dashboard-table-text-column'>{task.title}</td>
-                                    <td className='dashboard-table-text-column'>{task.description}</td>
+                                    <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
+                                    <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
                                     <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
                                     <td className='dashboard-table-num-column'>{task.story_Points}</td>
                                     <td className='dashboard-table-actions-column'>
