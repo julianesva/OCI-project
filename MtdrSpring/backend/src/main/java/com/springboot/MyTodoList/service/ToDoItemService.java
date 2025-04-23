@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,9 @@ public class ToDoItemService {
     @Autowired
     private ToDoItemRepository toDoItemRepository;
     public List<ToDoItem> findAll(){
+        System.out.println("TODOITEMS NOT YET IN THE BASKETTTTTTTTTTTTTT______TODO_ITEM_SERVICE");
         List<ToDoItem> todoItems = toDoItemRepository.findAll();
+        System.out.println("Received todoItemAQUIIIIIIIIIIIIIIIIIIIIIIIIIII____TODO_ITEM_SERVICE: " + todoItems);
         return todoItems;
     }
     public ResponseEntity<ToDoItem> getItemById(int id){
@@ -28,6 +31,9 @@ public class ToDoItemService {
         }
     }
     public ToDoItem addToDoItem(ToDoItem toDoItem){
+        System.out.println("DOUBLE CHECKING DATE SET");
+        toDoItem.setCreation_ts(OffsetDateTime.now());
+        System.out.println("DATE SET WORKING CORRECTLY");
         return toDoItemRepository.save(toDoItem);
     }
 
@@ -43,10 +49,11 @@ public class ToDoItemService {
         Optional<ToDoItem> toDoItemData = toDoItemRepository.findById(id);
         if(toDoItemData.isPresent()){
             ToDoItem toDoItem = toDoItemData.get();
-            toDoItem.setID(id);
+            toDoItem.setId(id);
             toDoItem.setCreation_ts(td.getCreation_ts());
             toDoItem.setDescription(td.getDescription());
             toDoItem.setDone(td.isDone());
+            toDoItem.setStory_Points(td.getStory_Points());
             return toDoItemRepository.save(toDoItem);
         }else{
             return null;
