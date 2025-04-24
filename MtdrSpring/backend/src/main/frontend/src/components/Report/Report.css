@@ -1,0 +1,9 @@
+.report-main {
+    overflow: auto;
+    flex: 1;
+    height: 100%;
+}
+
+.report-main-container {
+    padding: 20px;
+}

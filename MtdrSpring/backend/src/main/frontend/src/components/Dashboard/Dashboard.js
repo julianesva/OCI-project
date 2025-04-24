@@ -2,7 +2,6 @@ import './Dashboard.css'
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
-import DashboardGraphs from './DashboardGraphs/DashboardGraphs';
 import { API_LIST, API_MODULES } from '../../API';
 
 export default function Dashboard() {
@@ -188,14 +187,10 @@ export default function Dashboard() {
 
               // Dashboard
               <div className='dashboard-main-container'>
-                  {/* Left  */}
                   <DashboardContent
                     tasklist={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
                     modules={modules} selectedModule={selectedModule} handleModuleChange={handleModuleChange}
                   />
-
-                  {/* Right */}
-                  <DashboardGraphs />
               </div>
           }
       </div>

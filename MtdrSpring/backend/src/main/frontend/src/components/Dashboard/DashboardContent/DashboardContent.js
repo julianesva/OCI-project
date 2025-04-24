@@ -10,9 +10,6 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
     return (
         <div className="dashboard-main-content">
             <div className='dashboard-main-content-container'>
-                {/* Welcome Text */}
-                <p className='welcome-text'>Welcome Back Santiago!</p>
-
                 {/* Title & Recommendation Button */}
                 <div className='dashboard-title-container'>
                     {/* Title Text */}
@@ -27,7 +24,7 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
 
                 {/* Dashboard Select Module */}
                 <div className="filter-module-container">
-                    <p className='filter-module-title-text'>Filter by Module:</p>
+                    <p className='filter-module-title-text'>Filter by Sprint:</p>
                     <select className='filter-module-select' value={moduleFilter} onChange={(e) => setModuleFilter(e.target.value)}>
                         <option value="all">All</option>
                         {modules.map((module) => (
