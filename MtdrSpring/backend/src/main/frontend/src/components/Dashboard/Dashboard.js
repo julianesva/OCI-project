@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
 import { API_LIST, API_MODULES } from '../../API';
+import { employeeslist } from '../../FakeFetchs';
 
 export default function Dashboard() {
   const [refresh, setRefresh] = useState(false);
@@ -150,19 +151,19 @@ export default function Dashboard() {
         })
         .then(
           (result) => {
-            console.log("API Response HEREEEEEEEEEEEEE:", result);
-            setItems(result);
-            setLoading(false);
+            // console.log("API Response HEREEEEEEEEEEEEE:", result);
+            // setItems(result);
+            setItems(employeeslist);
+            console.log(employeeslist)
           },
           (error) => {
             setLoading(false);
-            setError(error);
           });
       
       fetch(API_MODULES)
         .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
-        .then(result => setModules(result))
-        .catch(error => setError(error));
+        .then(result => {setModules(result); setLoading(false);})
+        .catch(error => {setError(error); setLoading(false);});
     }
 
     fetchData();
@@ -188,7 +189,7 @@ export default function Dashboard() {
               // Dashboard
               <div className='dashboard-main-container'>
                   <DashboardContent
-                    tasklist={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
+                    employeesList={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
                     modules={modules} selectedModule={selectedModule} handleModuleChange={handleModuleChange}
                   />
               </div>

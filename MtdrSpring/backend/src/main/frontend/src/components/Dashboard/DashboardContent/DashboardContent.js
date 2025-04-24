@@ -4,7 +4,7 @@ import DashboardInput from '../DashboardInput/DashboardInput';
 import DashboardTasksTable from '../DashboardTasksTables/DashboardTasksTable';
 import RecommendationPopup from '../../../RecommendationPopup';
 
-export default function DashboardContent({ tasklist, addItem, isInserting, toggleDone, deleteItem, modules }) {
+export default function DashboardContent({ employeesList, addItem, isInserting, toggleDone, deleteItem, modules }) {
     const [moduleFilter, setModuleFilter] = useState('all');
 
     return (
@@ -16,7 +16,7 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
                     <p className='dashboard-title-text'>Dashboard</p>
 
                     {/* Recommendation Button */}
-                    <RecommendationPopup items={tasklist} />
+                    <RecommendationPopup items={employeesList.tasks_completed} />
                 </div>
 
                 {/* Dashboard Input */}
@@ -36,10 +36,10 @@ export default function DashboardContent({ tasklist, addItem, isInserting, toggl
                 </div>
 
                 {/* To Do Table */}
-                <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
+                <DashboardTasksTable employeesList={employeesList} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* Completed Table */}
-                <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={1} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
+                <DashboardTasksTable employeesList={employeesList} moduleFilter={moduleFilter} filter={1} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* To Do Table - To be fixed with integer done colum
                 <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Start"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}

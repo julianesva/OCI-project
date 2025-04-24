@@ -2,7 +2,7 @@ import './DashboardTasksTable.css'
 import { useState, useEffect } from 'react'
 import { Arrow_Down_Icon, Arrow_Up_Icon, Trash_Icon } from '../../../Icons'
 
-export default function DashboardTasksTable({ taskList, moduleFilter, filter, title, action, toggleDone, deleteItem }) {
+export default function DashboardTasksTable({ employeesList, moduleFilter, filter, title, action, toggleDone, deleteItem }) {
     const [isHidden, setIsHidden] = useState(false);
 
     function handleNextButton(event, task) {
@@ -42,7 +42,7 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
             <div className='dashboard-table-big-separation'>
                 {/* Hidden | Unhidden Table */}
                 {isHidden ? null :
-                    taskList.length == 0 ?
+                    !employeesList ?
                         <div className='dashboard-table-empty'>
                             <p className='dashboard-table-empty-text'>All clear</p>
                         </div>
@@ -53,38 +53,48 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
                                     <tr>
                                         <th className='dashboard-table-task-table-head-left'>Title</th>
                                         <th className='dashboard-table-task-table-head-left'>Description</th>
+                                        <th className='dashboard-table-task-table-head-left'>Responsible</th>
                                         <th className='dashboard-table-task-table-head-center'>Hours</th>
+                                        {title == 'Completed' &&
+                                            <th className='dashboard-table-task-table-head-center'>Real Hours</th>
+                                        }
                                         <th className='dashboard-table-task-table-head-center'>Story Points</th>
                                         <th className='dashboard-table-task-table-head-actions'>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {taskList.filter(task => {
-                                    if (moduleFilter == 'all') {
-                                        return task.done == filter;
-                                    } else {
-                                        return task.done == filter && task.moduleId == moduleFilter;
-                                    }
-                                }).map(task => (
-                                    <tr key={task.id} className='dashboard-table-row'>
-                                    <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
-                                    <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
-                                    <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
-                                    <td className='dashboard-table-num-column'>{task.story_Points}</td>
-                                    <td className='dashboard-table-actions-column'>
-                                        <div className='dashboard-table-actions-container'>
-                                        {/* Next Button */}
-                                        <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
-                                            {action}
-                                        </button>
-                                        {/* Delete Button */}
-                                        <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
-                                            <Trash_Icon color='white' w='16px' h='16px' />
-                                        </button>
-                                        </div>
-                                    </td>
-                                    </tr>
-                                ))}
+                                    {employeesList.map((employee) => (
+                                        employee.tasks_completed.filter(task => {
+                                            if (moduleFilter == 'all') {
+                                                return task.done == filter;
+                                            } else {
+                                                return task.done == filter && task.moduleId == moduleFilter;
+                                            }
+                                        }).map(task => (
+                                            <tr key={task.id} className='dashboard-table-row'>
+                                            <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
+                                            <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
+                                            <td className='dashboard-table-text-column dashboard-table-title-column'>{employee.employee_name}</td>
+                                            <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
+                                            {title == 'Completed' &&
+                                                <td className='dashboard-table-num-column'>{task.actualTime}</td>
+                                            }
+                                            <td className='dashboard-table-num-column'>{task.story_Points}</td>
+                                            <td className='dashboard-table-actions-column'>
+                                                <div className='dashboard-table-actions-container'>
+                                                {/* Next Button */}
+                                                <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
+                                                    {action}
+                                                </button>
+                                                {/* Delete Button */}
+                                                <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
+                                                    <Trash_Icon color='white' w='16px' h='16px' />
+                                                </button>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                        ))
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

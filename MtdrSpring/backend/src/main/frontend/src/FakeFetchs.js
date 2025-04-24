@@ -1,93 +1,62 @@
-
-
-export const tasklist = [
+export const employeeslist = [
     {
-        id: 1,
-        title: "UI Design for the Main Dashboard",
-        description: "Description of Task 1",
-        estimatedTime: 2,
-        done: 0,
-        story_Points: 5,
+        employee_id: 2,
+        employee_name: "Jorge Sanchez",
+        employee_team: 24,
+        tasks_completed: [
+            {
+                "id": 85,
+                "title": "Initial task and responsabilities distribution.",
+                "moduleId": 42,
+                "description": "Time to start the initial distribution of responsibilities like do the initial code deployment, do the figma, start the documentation of these initial phases, etc. ",
+                "dateLimit": null,
+                "responsible": 2,
+                "endingDate": null,
+                "estimatedTime": 1,
+                "actualTime": null,
+                "creation_ts": "2025-04-05T14:51:16.386314-06:00",
+                "done": true,
+                "story_Points": 3
+            },
+            {
+                "id": 86,
+                "title": "Initial task and responsabilities distribution.",
+                "moduleId": 42,
+                "description": "Time to start the initial distribution of responsibilities like do the initial code deployment, do the figma, start the documentation of these initial phases, etc. ",
+                "dateLimit": null,
+                "responsible": 2,
+                "endingDate": null,
+                "estimatedTime": 1,
+                "actualTime": null,
+                "creation_ts": "2025-04-05T14:51:16.386314-06:00",
+                "done": false,
+                "story_Points": 3
+            }
+        ],
+        number_tasks_completed: 25,
+        number_hours_worked: 93
     },
     {
-        id: 2,
-        title: "High-Fidelity Prototype for the Task Managemente Section",
-        description: "Description of Task 2",
-        estimatedTime: 3,
-        done: 0,
-        story_Points: 8,
-    },
-    {
-        id: 3,
-        title: "Integration Testing for User Authentication Module",
-        description: "Description of Task 3",
-        estimatedTime: 4,
-        done: 0,
-        story_Points: 3,
-    },
-    {
-        id: 4,
-        title: "UX Testing on New User Interface",
-        description: "Description of Task 4",
-        estimatedTime: 1,
-        done: 0,
-        story_Points: 1,
-    },
-    {
-        id: 5,
-        title: "Backend API Development for Task Management",
-        description: "Description of Task 5",
-        estimatedTime: 2,
-        done: 0,
-        story_Points: 4,
-    },
-    {
-        id: 6,
-        title: "Database Schema Design for User Profiles",
-        description: "Description of Task 6",
-        estimatedTime: 3,
-        done: 0,
-        story_Points: 5,
-    },
-    {
-        id: 7,
-        title: "Deployment Strategy for the Main Application",
-        description: "Description of Task 7",
-        estimatedTime: 1,
-        done: 1,
-        story_Points: 9,
-    },
-    {
-        id: 8,
-        title: "Code Review and Refactoring of Task Management Module",
-        description: "Description of Task 8",
-        estimatedTime: 4,
-        done: 1,
-        story_Points: 4,
-    },
-    {
-        id: 9,
-        title: "Documentation for the User Authentication Process",
-        description: "Description of Task 9",
-        estimatedTime: 2,
-        done: 2,
-        story_Points: 3,
-    },
-    {
-        id: 10,
-        title: "Performance Optimization for the Dashboard",
-        description: "Description of Task 10",
-        estimatedTime: 3,
-        done: 2,
-        story_Points: 7,
-    },
-    {
-        id: 11,
-        title: "Security Audit for User Data Protection",
-        description: "Description of Task 11",
-        estimatedTime: 2,
-        done: 2,
-        story_Points: 2,
+        employee_id: 3,
+        employee_name: "Christian Navarro",
+        employee_team: 24,
+        tasks_completed: [
+            {
+                "id": 85,
+                "title": "Initial task and responsabilities distribution.",
+                "moduleId": 42,
+                "description": "Time to start the initial distribution of responsibilities like do the initial code deployment, do the figma, start the documentation of these initial phases, etc. ",
+                "dateLimit": null,
+                "responsible": 2,
+                "endingDate": null,
+                "estimatedTime": 1,
+                "actualTime": null,
+                "creation_ts": "2025-04-05T14:51:16.386314-06:00",
+                "done": true,
+                "story_Points": 3
+            }
+        ],
+        number_tasks_completed: 25,
+        number_hours_worked: 93
     }
-    
 ]
