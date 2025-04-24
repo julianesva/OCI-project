@@ -53,7 +53,11 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
                                     <tr>
                                         <th className='dashboard-table-task-table-head-left'>Title</th>
                                         <th className='dashboard-table-task-table-head-left'>Description</th>
+                                        <th className='dashboard-table-task-table-head-left'>Responsible</th>
                                         <th className='dashboard-table-task-table-head-center'>Hours</th>
+                                        {title == 'Completed' &&
+                                            <th className='dashboard-table-task-table-head-center'>Real Hours</th>
+                                        }
                                         <th className='dashboard-table-task-table-head-center'>Story Points</th>
                                         <th className='dashboard-table-task-table-head-actions'>Actions</th>
                                     </tr>
@@ -69,7 +73,11 @@ export default function DashboardTasksTable({ taskList, moduleFilter, filter, ti
                                     <tr key={task.id} className='dashboard-table-row'>
                                     <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
                                     <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
+                                    <td className='dashboard-table-text-column dashboard-table-title-column'>{task.responsible}</td>
                                     <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
+                                    {title == 'Completed' &&
+                                        <td className='dashboard-table-num-column'>{task.actualTime}</td>
+                                    }
                                     <td className='dashboard-table-num-column'>{task.story_Points}</td>
                                     <td className='dashboard-table-actions-column'>
                                         <div className='dashboard-table-actions-container'>

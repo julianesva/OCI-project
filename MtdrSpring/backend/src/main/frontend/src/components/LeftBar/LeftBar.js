@@ -1,9 +1,16 @@
 import './LeftBar.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import LeftBarArrow from './LeftBarArrow/LeftBarArrow'
 
 export default function LeftBar() {
     const [isLeftBarHidden, setIsLeftBarHidden] = useState(false)
+
+    const navigate = useNavigate()
+
+    const handleNavigate = (path) => {
+        navigate(path)
+    }
 
     return (
         <div className='leftbar-main'>
@@ -16,36 +23,25 @@ export default function LeftBar() {
                     {/* LeftBar links */}
                     <div className='leftbar-links-container'>
                         <div className='leftbar-links-text-container'>
-                            <button>
-                                <p className='leftbar-links-text'>View my Teams</p>
-                            </button>
+            
 
-                            <button>
+                            <button onClick={() => handleNavigate('/')} >
                                 <p className='leftbar-links-text'>Dashboard</p>
                             </button>
 
-                            <button>
-                                <p className='leftbar-links-text'>Quality</p>
+
+                            <button onClick={() => handleNavigate('/report')} >
+                                <p className='leftbar-links-text'>Report</p>
                             </button>
                             
-                            <button>
-                                <p className='leftbar-links-text'>Design</p>
-                            </button>
                             
-                            <button>
-                                <p className='leftbar-links-text'>Bugs</p>
-                            </button>
-                            
-                            <button>
-                                <p className='leftbar-links-text'>Releases</p>
-                            </button>
                         </div>
 
-                        <div className='leftbar-links-text-container'>
+                        {/* <div className='leftbar-links-text-container'>
                             <button>
                                 <p className='leftbar-links-text'>Settings</p>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* LeftBar Arrow Button */}
