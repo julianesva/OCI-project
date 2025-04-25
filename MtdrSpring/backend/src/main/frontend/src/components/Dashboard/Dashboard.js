@@ -2,7 +2,7 @@ import './Dashboard.css'
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
-import { API_LIST, API_EMPLOYEES, API_MODULES } from '../../API';
+import { API_HEADERS, API_LIST, API_EMPLOYEES, API_MODULES } from '../../API';
 
 export default function Dashboard() {
   const [refresh, setRefresh] = useState(false);
@@ -17,6 +17,7 @@ export default function Dashboard() {
   function deleteItem(deleteId) {
     fetch(API_LIST+"/"+deleteId, {
       method: 'DELETE',
+      headers: API_HEADERS
     })
     .then(response => {
       if (response.ok) {
@@ -56,9 +57,7 @@ export default function Dashboard() {
     };
     return fetch(API_LIST+"/"+id, {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: API_HEADERS,
       body: JSON.stringify(data)
     })
     .then(response => {
@@ -71,7 +70,9 @@ export default function Dashboard() {
   }
 
   function reloadOneIteam(id){
-    fetch(API_LIST+"/"+id)
+    fetch(API_LIST+"/"+id, {
+      headers: API_HEADERS
+    })
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -104,9 +105,7 @@ export default function Dashboard() {
     setInserting(true);
     fetch(API_LIST, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: API_HEADERS,
       body: JSON.stringify(data),
     }).then((response) => {
       if (response.ok) {
@@ -144,7 +143,9 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      fetch(API_LIST)
+      fetch(API_LIST, {
+        headers: API_HEADERS
+      })
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -162,7 +163,9 @@ export default function Dashboard() {
             setLoading(false);
           });
       
-      fetch(API_EMPLOYEES)
+      fetch(API_EMPLOYEES, {
+        headers: API_HEADERS
+      })
         .then(response => {
           if (response.ok) {
             return response.json();
@@ -180,7 +183,9 @@ export default function Dashboard() {
             setLoading(false);
           });
       
-      fetch(API_MODULES)
+      fetch(API_MODULES, {
+        headers: API_HEADERS
+      })
         .then(response => response.ok ? response.json() : Promise.reject('Error fetching modules'))
         .then(result => {setModules(result); setLoading(false);})
         .catch(error => {setError(error); setLoading(false);});
