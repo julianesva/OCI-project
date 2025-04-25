@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/recommendation")
+@CrossOrigin(origins = "*")
 public class TaskRecommendationController {
 
     @Autowired

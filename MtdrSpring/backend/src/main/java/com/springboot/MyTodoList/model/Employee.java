@@ -45,6 +45,15 @@ public class Employee {
             .filter(task -> task.isDone())
             .collect(Collectors.toList());
     }
+
+    @Transient
+    public List<ToDoItem> getUncompletedTasks() {
+        if (tasks == null) return new ArrayList<>();
+        return tasks.stream()
+            .filter(task -> !task.isDone())
+            .collect(Collectors.toList());
+    }
+
     @Transient
     public Integer getTotalNumberTasks(){
         if (tasks == null) return 0;
