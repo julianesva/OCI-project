@@ -2,8 +2,7 @@ import './Dashboard.css'
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import DashboardContent from './DashboardContent/DashboardContent';
-import { API_LIST, API_MODULES } from '../../API';
-import { employeeslist } from '../../FakeFetchs';
+import { API_LIST, API_EMPLOYEES, API_MODULES } from '../../API';
 
 export default function Dashboard() {
   const [refresh, setRefresh] = useState(false);
@@ -37,22 +36,23 @@ export default function Dashboard() {
     );
   }
 
-  function toggleDone(event, id, title, description, done, estimatedTime, story_Points, moduleId) {
-    event.preventDefault();
-    modifyItem(id, title, description, done, estimatedTime, story_Points, moduleId).then(
-      (result) => { reloadOneIteam(id); },
+  function toggleDone(taskData) {
+    modifyItem(taskData.id, taskData.title, taskData.description, taskData.done, taskData.estimatedTime, taskData.story_Points, taskData.moduleId, taskData.actualTime)
+    .then(
+      (result) => { reloadOneIteam(taskData.id); },
       (error) => { setError(error); }
     );
   }
 
-  function modifyItem(id, title, description, done, estimatedTime, story_Points, moduleId) {
+  function modifyItem(id, title, description, done, estimatedTime, story_Points, moduleId, actualTime) {
     let data = {
       "title": title,
       "description": description,
       "estimatedTime": estimatedTime,
       "done": done,
       "story_Points": story_Points,
-      "moduleId": moduleId
+      "moduleId": moduleId,
+      "actualTime": actualTime
     };
     return fetch(API_LIST+"/"+id, {
       method: 'PUT',
@@ -90,7 +90,8 @@ export default function Dashboard() {
                 'creation_ts': result.creation_ts,
                 'estimatedTime': result.estimatedTime,
                 'story_Points': result.story_Points,
-                'moduleId': result.moduleId
+                'moduleId': result.moduleId,
+                'actualTime': result.actualTime
               } : x));
           setItems(items2);
         },
@@ -148,16 +149,34 @@ export default function Dashboard() {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Something went wrong loading the initial charge check useEffect ...');
+            throw new Error('Something went wrong loading Tasks...');
           }
         })
         .then(
           (result) => {
-            console.log("API Response HEREEEEEEEEEEEEE:", result);
+            console.log("API Tasks:", result);
             setItems(result);
-            setEmployeesList(employeeslist);
           },
           (error) => {
+            setError(error);
+            setLoading(false);
+          });
+      
+      fetch(API_EMPLOYEES)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Something went wrong loading Employees...');
+          }
+        })
+        .then(
+          (result) => {
+            console.log("API Employees", result);
+            setEmployeesList(result);
+          },
+          (error) => {
+            setError(error);
             setLoading(false);
           });
       

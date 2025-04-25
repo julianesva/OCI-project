@@ -10,7 +10,6 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
     const [hours, setHours] = useState('');
     const [modules, setModules] = useState([]); 
     const [selectedModule, setSelectedModule] = useState('');
-    const [employeesNameList, setEmployeesNameList] = useState([]);
 
     const clearFields = () => {
         setTitle('');
@@ -25,8 +24,6 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
         if (isInserting || responsible == '') {
             return;
         }
-        const selectedEmployee = employeesList.find(employee => employee.employee_name == responsible);
-        const employeeId = selectedEmployee.employee_id;
         const data = {
             title: title,
             description: description,
@@ -34,7 +31,7 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
             estimatedTime: hours,
             done: 0,
             moduleId: selectedModule.id,
-            responsible: employeeId
+            responsible: responsible
         }
         addItem(data);
         clearFields();
@@ -46,10 +43,11 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
             .then(response => response.json())
             .then(data => setModules(data))
             .catch(error => console.error("Error fetching modules:", error));
-
-        const employeeNameLists = employeesList.map(employee => employee.employee_name);
-        setEmployeesNameList(employeeNameLists);
     }, []);
+
+    useEffect(() => {
+        console.log("Selected Responsible:", responsible);
+    }, [responsible])
 
 
     return (
@@ -83,9 +81,9 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
                 onChange={(e) => setResponsible(e.target.value)}
             >
                 <option value="" disabled selected>Responsible</option>
-                {employeesNameList.map((employeeName, index) => (
-                    <option key={index} value={employeeName}>
-                        {employeeName}
+                {employeesList.map((employee) => (
+                    <option key={employee.id} value={employee.id}>
+                        {employee.user.username}
                     </option>
                 ))}
             </select>
