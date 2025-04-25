@@ -2,8 +2,12 @@ package com.springboot.MyTodoList.model;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.sql.Timestamp;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "EMPLOYEES")
@@ -31,6 +35,28 @@ public class Employee {
     @JsonManagedReference  // Add this annotation
     private User user;
 
+    @OneToMany(mappedBy = "responsible")
+    private List<ToDoItem> tasks;
+
+    @Transient
+    public List<ToDoItem> getTasksCompleted() {
+        if (tasks == null) return new ArrayList<>();
+        return tasks.stream()
+            .filter(task -> task.isDone())
+            .collect(Collectors.toList());
+    }
+    @Transient
+    public Integer getNumberTasksCompleted() {
+        return getTasksCompleted().size();
+    }
+    
+    @Transient
+    public Double getNumberHoursWorked() {
+        return getTasksCompleted().stream()
+            .mapToDouble(task -> task.getActualTime() != null ? task.getActualTime() : 0.0)
+            .sum();
+    }
+    
     // Default constructor and other constructors
 
     // Getter and Setter methods

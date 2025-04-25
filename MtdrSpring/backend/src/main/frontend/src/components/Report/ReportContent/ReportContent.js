@@ -1,11 +1,24 @@
 import './ReportContent.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReportKPI from './ReportKPI/ReportKPI';
 
-export default function ReportContent() {
-    const [teamFilter, setModuleFilter] = useState('all');
+export default function ReportContent({ data }) {
+    const [teamFilter, setModuleFilter] = useState('default');
     const [memberFilter, setMemberFilter] = useState('all');
     const [sprintFilter, setSprintFilter] = useState('all');
+    const [teamsAvailable, setTeamsAvailable] = useState([]);
+    const [membersAvailable, setMembersAvailable] = useState([]);
+
+    useEffect(() => {
+        if (data && data.length > 0) {
+            const uniqueTeams = new Set(data.map(item => item.teamId));
+            const uniqueMembers = new Set(data.map(item => item.user.username));
+            setTeamsAvailable(Array.from(uniqueTeams));
+            setMembersAvailable(Array.from(uniqueMembers));
+        } else {
+            setTeamsAvailable([]);
+        }
+    }, [data]);
 
     return (
         <div className='report-main-content-container'>
@@ -21,24 +34,36 @@ export default function ReportContent() {
                 <div className="filter-container">
                     <p className='filter-title-text'>Team:</p>
                     <select className='filter-select' value={teamFilter} onChange={(e) => setModuleFilter(e.target.value)}>
-                        <option value="default" disabled selected>Select a Team</option>
+                        <option value="default" selected>Select a Team</option>
+                        {teamsAvailable.map((team, index) => (
+                            <option key={index} value={team}>
+                                {team}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
                 {/* Select Member */}
-                <div className="filter-container">
-                    <p className='filter-title-text'>Member:</p>
-                    <select className='filter-select' value={memberFilter} onChange={(e) => setMemberFilter(e.target.value)}>
-                        <option value="all">All</option>
-                    </select>
-                </div>
+                {teamFilter != 'default' &&
+                    <div className="filter-container">
+                        <p className='filter-title-text'>Member:</p>
+                        <select className='filter-select' value={memberFilter} onChange={(e) => setMemberFilter(e.target.value)}>
+                            <option value="all" disabled selected>All</option>
+                            {membersAvailable.map((member, index) => (
+                                <option key={index} value={member}>
+                                    {member}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                }
             </div>
 
             {/* Select Sprint */}
             <div className="filter-container select-sprint-container">
                 <p className='filter-title-text'>Sprint:</p>
                 <select className='filter-select' value={sprintFilter} onChange={(e) => setSprintFilter(e.target.value)}>
-                    <option value="all">All</option>
+                    <option value="all" disabled selected>All</option>
                 </select>
             </div>
 

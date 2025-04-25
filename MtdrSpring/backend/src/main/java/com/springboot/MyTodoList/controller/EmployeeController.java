@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import com.google.common.base.Optional;
 
+
 @RestController
 @RequestMapping("/employees")
 @CrossOrigin(origins = "*")
@@ -18,6 +19,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    
     @Autowired
     private EmployeeService employeeService;
 
@@ -44,6 +46,17 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/{managerId}/employees")
+    public ResponseEntity<List<Employee>> getEmployeesWithTasksByManagerId(@PathVariable int managerId) {
+        List<Employee> employees = employeeRepository.findEmployeesByTeamIdWithTasks(managerId);
+        if (employees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+    
+    
 
     @PostMapping
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {

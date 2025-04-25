@@ -19,3 +19,4 @@
 export const API_LIST = "/todolist";
 export const API_EMPLOYEES = "/employees";
 export const API_MODULES = "/modules";
+export const API_TEAM_DATA = "/employees/1/employees";
