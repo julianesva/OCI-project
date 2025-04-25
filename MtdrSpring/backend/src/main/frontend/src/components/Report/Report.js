@@ -2,32 +2,32 @@ import './Report.css';
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import ReportContent from './ReportContent/ReportContent';
-import { API_TEAM_DATA } from '../../API';
+import { API_TEAM_DATA, API_MODULES } from '../../API';
 
 export default function Report() {
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState();
     const [data, setData] = useState();
+    const [moduleData, setModuleData] = useState();
 
     useEffect(() => {
-        // Set loading to true
-        setLoading(true);
-        // Fetch the report data
-        fetch(API_TEAM_DATA)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setData(data);
-            })
-            .catch(error => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const team_data_response = await fetch(API_TEAM_DATA);
+                const team_data = await team_data_response.json();
+                const module_data_response = await fetch(API_MODULES);
+                const module_data = await module_data_response.json();
+                setData(team_data);
+                setModuleData(module_data);
+            } catch (error) {
                 setError(error.message);
-            }).finally(() => {
+            } finally {
                 setLoading(false);
-            });
+            }
+        }
+
+        fetchData();
     }, []);
 
     return (
@@ -49,7 +49,7 @@ export default function Report() {
     
                   // Report Main
                   <div className='report-main-container'>
-                      <ReportContent data={data} />
+                      <ReportContent data={data} moduleData={moduleData} />
                   </div>
               }
           </div>

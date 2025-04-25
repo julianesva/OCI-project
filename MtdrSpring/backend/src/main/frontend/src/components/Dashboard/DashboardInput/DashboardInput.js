@@ -122,11 +122,15 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
                 }}
             >
                 <option value="" disabled selected>Sprint</option>
-                {modules.map((module) => (
-                    <option key={module.id} value={module.id}>
-                        {module.id} - {module.title}
-                    </option>
-                ))}
+                {modules &&
+                    [...modules]
+                        .sort((a, b) => a.id - b.id)
+                        .map((module) => (
+                            <option key={module.id} value={module.id}>
+                                {module.id} - {module.title}
+                            </option>
+                        ))
+                }
             </select>
 
             {/* Search Button */}

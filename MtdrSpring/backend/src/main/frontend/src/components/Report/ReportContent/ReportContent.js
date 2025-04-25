@@ -2,7 +2,7 @@ import './ReportContent.css';
 import { useState, useEffect } from 'react';
 import ReportKPI from './ReportKPI/ReportKPI';
 
-export default function ReportContent({ data }) {
+export default function ReportContent({ data, moduleData }) {
     const [teamFilter, setModuleFilter] = useState('default');
     const [memberFilter, setMemberFilter] = useState('all');
     const [sprintFilter, setSprintFilter] = useState('all');
@@ -48,7 +48,7 @@ export default function ReportContent({ data }) {
                     <div className="filter-container">
                         <p className='filter-title-text'>Member:</p>
                         <select className='filter-select' value={memberFilter} onChange={(e) => setMemberFilter(e.target.value)}>
-                            <option value="all" disabled selected>All</option>
+                            <option value="all" selected>All</option>
                             {membersAvailable.map((member, index) => (
                                 <option key={index} value={member}>
                                     {member}
@@ -63,7 +63,16 @@ export default function ReportContent({ data }) {
             <div className="filter-container select-sprint-container">
                 <p className='filter-title-text'>Sprint:</p>
                 <select className='filter-select' value={sprintFilter} onChange={(e) => setSprintFilter(e.target.value)}>
-                    <option value="all" disabled selected>All</option>
+                    <option value="all" selected>All</option>
+                    {moduleData &&
+                        [...moduleData]
+                            .sort((a, b) => a.id - b.id)
+                            .map((module) => (
+                                <option key={module.id} value={module.id}>
+                                    {module.id} - {module.title}
+                                </option>
+                            ))
+                    }
                 </select>
             </div>
 

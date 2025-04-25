@@ -45,11 +45,15 @@ export default function DashboardContent({ items, employeesList, addItem, isInse
                         <p className='filter-module-title-text'>Filter by Sprint:</p>
                         <select className='filter-module-select' value={moduleFilter} onChange={(e) => setModuleFilter(e.target.value)}>
                             <option value="all">All</option>
-                            {modules.map((module) => (
-                                <option key={module.id} value={module.id}>
-                                    {module.id} - {module.title}
-                                </option>
-                            ))}
+                            {modules &&
+                                [...modules]
+                                    .sort((a, b) => a.id - b.id)
+                                    .map((module) => (
+                                        <option key={module.id} value={module.id}>
+                                            {module.id} - {module.title}
+                                        </option>
+                                    ))
+                            }
                         </select>
                     </div>
 
