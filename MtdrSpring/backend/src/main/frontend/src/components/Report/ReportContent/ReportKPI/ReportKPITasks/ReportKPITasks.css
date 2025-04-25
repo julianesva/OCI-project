@@ -5,13 +5,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .report-kpi-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
-  }
-  
   .report-kpi-stats {
     display: flex;
     justify-content: space-between;
@@ -35,18 +28,18 @@
   }
   
   .todo-card {
-    background-color: #EFF6FF;
+    background-color: #e3e3e3;
   }
   
   .completed-card {
-    background-color: #ECFDF5;
+    background-color: #fcc4bd;
   }
   
-  .percentage-card {
-    background-color: #F5F3FF;
+  .percentage-card-tasks {
+    background-color: #cbe8e8;
   }
   
-  .stat-label {
+  .stat-label-tasks {
     font-size: 0.875rem;
     color: #6B7280;
     margin-bottom: 4px;
@@ -59,15 +52,15 @@
   }
   
   .todo-value {
-    color: #3B82F6;
+    color: #505050;
   }
   
   .completed-value {
-    color: #10B981;
+    color: #b91010;
   }
   
-  .percentage-value {
-    color: #8B5CF6;
+  .percentage-value-tasks {
+    color: #4A7A7A;
   }
   
   .chart-container {

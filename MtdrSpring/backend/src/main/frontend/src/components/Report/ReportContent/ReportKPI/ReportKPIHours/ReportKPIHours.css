@@ -5,13 +5,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .report-kpi-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
-  }
-  
   .report-kpi-stats {
     display: flex;
     justify-content: space-between;
@@ -35,19 +28,15 @@
   }
   
   .estimated-card {
-    background-color: #FEF3C7;
+    background-color: #e3e3e3;
   }
   
   .worked-card {
-    background-color: #EFF6FF;
+    background-color: #fcc4bd;
   }
   
   .difference-card {
-    background-color: #FEE2E2;
-  }
-  
-  .percentage-card {
-    background-color: #F5F3FF;
+    background-color: #cbe8e8;
   }
   
   .stat-label {
@@ -63,19 +52,15 @@
   }
   
   .estimated-value {
-    color: #F59E0B;
+    color: #505050;
   }
   
   .worked-value {
-    color: #3B82F6;
+    color: #b91010;
   }
   
   .difference-value {
-    color: #EF4444;
-  }
-  
-  .percentage-value {
-    color: #8B5CF6;
+    color: #4A7A7A;
   }
   
   .chart-container {

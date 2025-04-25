@@ -45,13 +45,14 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         .map((user) => {
             user.tasksCompleted.map((task) => {
                 if (task.moduleId == sprintFilter) {
-                    if (task.done == true) {
-                        tasks_completed++
-                    } else {
-                        tasks_to_do++
-                    }
+                    tasks_completed++
                     stimated_hours += task.estimatedTime
                     worked_hours += task.actualTime
+                }
+            })
+            user.uncompletedTasks.map((task) => {
+                if (task.moduleId == sprintFilter) {
+                    tasks_to_do++
                 }
             })
         })
@@ -76,21 +77,18 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         })
         .map((user) => {
             user.tasksCompleted.map((task) => {
-                if (task.done == true) {
-                    tasks_completed++
-                } else {
-                    tasks_to_do++
-                }
+                tasks_completed++
                 stimated_hours += task.estimatedTime
                 worked_hours += task.actualTime
             })
+            user.uncompletedTasks.map((task) => {
+                tasks_to_do++
+            })
         })
-        
         setKPITasksData({
             tasks_to_do: tasks_to_do,
             tasks_completed: tasks_completed
         })
-        
         setKPIHoursData({
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
@@ -109,22 +107,21 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         .map((user) => {
             user.tasksCompleted.map((task) => {
                 if (task.moduleId == sprintFilter) {
-                    if (task.done == true) {
-                        tasks_completed++
-                    } else {
-                        tasks_to_do++
-                    }
+                    tasks_completed++
                     stimated_hours += task.estimatedTime
                     worked_hours += task.actualTime
                 }
             })
+            user.uncompletedTasks.map((task) => {
+                if (task.moduleId == sprintFilter) {
+                    tasks_to_do++
+                }
+            })
         })
-        
         setKPITasksData({
             tasks_to_do: tasks_to_do,
             tasks_completed: tasks_completed
         })
-        
         setKPIHoursData({
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
@@ -142,21 +139,18 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         })
         .map((user) => {
             user.tasksCompleted.map((task) => {
-                if (task.done == true) {
-                    tasks_completed++
-                } else {
-                    tasks_to_do++
-                }
+                tasks_completed++
                 stimated_hours += task.estimatedTime
                 worked_hours += task.actualTime
             })
+            user.uncompletedTasks.map((task) => {
+                tasks_to_do++
+            })
         })
-        
         setKPITasksData({
             tasks_to_do: tasks_to_do,
             tasks_completed: tasks_completed
         })
-        
         setKPIHoursData({
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
