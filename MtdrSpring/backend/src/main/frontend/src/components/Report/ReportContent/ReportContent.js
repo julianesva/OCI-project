@@ -77,7 +77,7 @@ export default function ReportContent({ data, moduleData }) {
             </div>
 
             {/* Report KPI's */}
-            <ReportKPI />
+            <ReportKPI data={data} moduleData={moduleData} teamFilter={teamFilter} memberFilter={memberFilter} sprintFilter={sprintFilter} />
         </div>
     );
 }

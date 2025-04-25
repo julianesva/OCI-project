@@ -51,6 +51,12 @@ public class Employee {
     }
     
     @Transient
+    public Integer getTotalNumberTasks(){
+        if (tasks == null) return 0;
+        return tasks.size();
+    }
+
+    @Transient
     public Double getNumberHoursWorked() {
         return getTasksCompleted().stream()
             .mapToDouble(task -> task.getActualTime() != null ? task.getActualTime() : 0.0)

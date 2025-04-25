@@ -10,7 +10,7 @@ export default function Report() {
     const [data, setData] = useState();
     const [moduleData, setModuleData] = useState();
 
-    useEffect(() => {
+    useEffect(async () => {
         const fetchData = async () => {
             setLoading(true);
             try {
@@ -27,7 +27,7 @@ export default function Report() {
             }
         }
 
-        fetchData();
+        await fetchData();
     }, []);
 
     return (
