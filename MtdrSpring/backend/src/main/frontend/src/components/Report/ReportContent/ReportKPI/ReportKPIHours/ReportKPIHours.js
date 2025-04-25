@@ -7,7 +7,6 @@ export default function ReportKPIHours({ KPIHoursData = {} }) {
 
   const data = [
     {
-      name: 'Horas',
       'Estimated': stimated_hours,
       'Worked': worked_hours,
     }

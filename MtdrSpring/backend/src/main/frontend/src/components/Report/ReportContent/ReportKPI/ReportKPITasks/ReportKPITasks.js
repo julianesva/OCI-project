@@ -7,7 +7,6 @@ export default function ReportKPITasks({ KPITasksData = {} }) {
 
   const data = [
     {
-      name: 'Tareas',
       'To Do': tasksToDo,
       'Completed': tasksCompleted,
     }

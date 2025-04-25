@@ -3,12 +3,17 @@ import { useState } from 'react';
 import { Arrow_Down_Icon, Arrow_Up_Icon } from '../../../../Icons';
 import ReportKPITasks from './ReportKPITasks/ReportKPITasks';
 import ReportKPIHours from './ReportKPIHours/ReportKPIHours';
+import ReportKPICombined from './ReportKPICombined/ReportKPICombined';
+
 
 export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, sprintFilter }) {
     const [hideTasksKPI, setHideTasksKPI] = useState(false);
     const [hideHoursKPI, setHideHoursKPI] = useState(false);
+    const [hideKPICombined, setHideKPICombined] = useState(false);
     const [KPITasksData, setKPITasksData] = useState({});
     const [KPIHoursData, setKPIHoursData] = useState({});
+    const [KPICombinedData, setKPICombinedData] = useState(null);
+
 
     function handle_generate_report() {
         if (teamFilter == 'default') {
@@ -64,6 +69,10 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
         })
+        setKPICombinedData({
+            tasks_completed,
+            worked_hours
+        })
     }
 
     function generate_report_specific_member() {
@@ -92,6 +101,10 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         setKPIHoursData({
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
+        })
+        setKPICombinedData({
+            tasks_completed,
+            worked_hours
         })
     }
     
@@ -126,6 +139,10 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
         })
+        setKPICombinedData({
+            tasks_completed,
+            worked_hours
+        })
     }
     
     function generate_report_all() {
@@ -154,6 +171,10 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
         setKPIHoursData({
             stimated_hours: stimated_hours,
             worked_hours: worked_hours
+        })
+        setKPICombinedData({
+            tasks_completed,
+            worked_hours
         })
     }
 
@@ -219,6 +240,28 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
                     {/* KPI Tasks Data */}
                     {!hideHoursKPI && KPIHoursData.stimated_hours != undefined && KPIHoursData.worked_hours != undefined &&
                         <ReportKPIHours KPIHoursData={KPIHoursData} />
+                    }
+                </div>
+
+                {/* KPI Combined */}
+                <div className='kpi-main-container'>
+                    <div className='kpi-title-container'>
+                        <p className='kpi-title-container-text'>Tasks per Hour</p>
+                        <button
+                            className='kpi-title-button'
+                            onClick={() => {setHideKPICombined(!hideKPICombined)}}
+                        >
+                            {!hideKPICombined ?
+                                <Arrow_Down_Icon w='25px' h='25px' />
+                                :
+                                <Arrow_Up_Icon w='25px' h='25px' />
+                            }
+                        </button>
+                    </div>
+
+                    {/* KPI Combined Data */}
+                    {!hideKPICombined && KPICombinedData != null && KPICombinedData.tasks_completed != undefined && KPICombinedData.worked_hours != undefined &&
+                        <ReportKPICombined KPICombinedData={KPICombinedData} />
                     }
                 </div>
             </div>
