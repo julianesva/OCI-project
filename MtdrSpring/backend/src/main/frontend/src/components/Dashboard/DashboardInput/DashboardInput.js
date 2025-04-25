@@ -1,6 +1,6 @@
 import './DashboardInput.css'
 import { useState, useEffect } from 'react';
-import { API_MODULES } from '../../../API';
+import { API_HEADERS, API_MODULES } from '../../../API';
 
 export default function DashboardInput({ employeesList, addItem, isInserting }) {
     const [title, setTitle] = useState('');
@@ -39,7 +39,9 @@ export default function DashboardInput({ employeesList, addItem, isInserting }) 
     }
 
     useEffect(() => {
-        fetch(API_MODULES)
+        fetch(API_MODULES, {
+            headers: API_HEADERS
+        })
             .then(response => response.json())
             .then(data => setModules(data))
             .catch(error => console.error("Error fetching modules:", error));

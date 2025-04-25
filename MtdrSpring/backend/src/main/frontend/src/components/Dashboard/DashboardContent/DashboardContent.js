@@ -13,6 +13,12 @@ export default function DashboardContent({ items, employeesList, addItem, isInse
     function handle_set_Real_Hours(event, id, title, description, done, estimatedTime, story_Points, moduleId) {
         event.preventDefault();
         setTaskData({ id, title, description, done, estimatedTime, story_Points, moduleId });
+        if (done == 0) {
+            const newData = {
+                id, title, description, done, estimatedTime, story_Points, moduleId, actualTime: 0,
+            }
+            toggleDone(newData);
+        }
     }
 
     function confirm_Real_Hours(realHours) {
