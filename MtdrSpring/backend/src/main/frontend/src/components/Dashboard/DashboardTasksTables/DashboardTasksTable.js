@@ -2,7 +2,7 @@ import './DashboardTasksTable.css'
 import { useState, useEffect } from 'react'
 import { Arrow_Down_Icon, Arrow_Up_Icon, Trash_Icon } from '../../../Icons'
 
-export default function DashboardTasksTable({ employeesList, moduleFilter, filter, title, action, toggleDone, deleteItem }) {
+export default function DashboardTasksTable({ items, employeesList, moduleFilter, filter, title, action, toggleDone, deleteItem }) {
     const [isHidden, setIsHidden] = useState(false);
 
     function handleNextButton(event, task) {
@@ -16,6 +16,11 @@ export default function DashboardTasksTable({ employeesList, moduleFilter, filte
         else {
             console.error("Invalid task status:", task.done)
         }
+    }
+
+    function get_user_by_id(id) {
+        const user = employeesList.find(user => user.employee_id === id);
+        return user ? user.employee_name : '';
     }
 
     useEffect(() => {
@@ -63,37 +68,35 @@ export default function DashboardTasksTable({ employeesList, moduleFilter, filte
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {employeesList.map((employee) => (
-                                        employee.tasks_completed.filter(task => {
-                                            if (moduleFilter == 'all') {
-                                                return task.done == filter;
-                                            } else {
-                                                return task.done == filter && task.moduleId == moduleFilter;
-                                            }
-                                        }).map(task => (
-                                            <tr key={task.id} className='dashboard-table-row'>
-                                            <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
-                                            <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
-                                            <td className='dashboard-table-text-column dashboard-table-title-column'>{employee.employee_name}</td>
-                                            <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
-                                            {title == 'Completed' &&
-                                                <td className='dashboard-table-num-column'>{task.actualTime}</td>
-                                            }
-                                            <td className='dashboard-table-num-column'>{task.story_Points}</td>
-                                            <td className='dashboard-table-actions-column'>
-                                                <div className='dashboard-table-actions-container'>
-                                                {/* Next Button */}
-                                                <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
-                                                    {action}
-                                                </button>
-                                                {/* Delete Button */}
-                                                <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
-                                                    <Trash_Icon color='white' w='16px' h='16px' />
-                                                </button>
-                                                </div>
-                                            </td>
-                                            </tr>
-                                        ))
+                                    {items.filter(task => {
+                                        if (moduleFilter == 'all') {
+                                            return task.done == filter;
+                                        } else {
+                                            return task.done == filter && task.moduleId == moduleFilter;
+                                        }
+                                    }).map(task => (
+                                        <tr key={task.id} className='dashboard-table-row'>
+                                        <td className='dashboard-table-text-column dashboard-table-title-column'>{task.title}</td>
+                                        <td className='dashboard-table-text-column dashboard-table-description-column'>{task.description}</td>
+                                        <td className='dashboard-table-text-column dashboard-table-responsible-column'>{get_user_by_id(task.responsible)}</td>
+                                        <td className='dashboard-table-num-column'>{task.estimatedTime}</td>
+                                        {title == 'Completed' &&
+                                            <td className='dashboard-table-num-column'>{task.actualTime}</td>
+                                        }
+                                        <td className='dashboard-table-num-column'>{task.story_Points}</td>
+                                        <td className='dashboard-table-actions-column'>
+                                            <div className='dashboard-table-actions-container'>
+                                            {/* Next Button */}
+                                            <button className='dashboard-table-action-next-button' onClick={(event) => handleNextButton(event, task)}>
+                                                {action}
+                                            </button>
+                                            {/* Delete Button */}
+                                            <button className='dashboard-table-action-trash-button' onClick={() => deleteItem(task.id)}>
+                                                <Trash_Icon color='white' w='16px' h='16px' />
+                                            </button>
+                                            </div>
+                                        </td>
+                                        </tr>
                                     ))}
                                 </tbody>
                             </table>

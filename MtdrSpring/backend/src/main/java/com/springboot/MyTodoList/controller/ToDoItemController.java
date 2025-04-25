@@ -12,13 +12,14 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*") 
 public class ToDoItemController {
     @Autowired
     private ToDoItemService toDoItemService;
     //@CrossOrigin
     @GetMapping(value = "/todolist")
     public List<ToDoItem> getAllToDoItems(){
-        System.out.println("BASKETTTTTT FOR TO DO ITEMS NOT YET CONTROLLER: ");
+        System.out.println("Inside getAllToDoItems");
         return toDoItemService.findAll();
     }
     //@CrossOrigin
@@ -34,9 +35,7 @@ public class ToDoItemController {
     //@CrossOrigin
     @PostMapping(value = "/todolist")
     public ResponseEntity addToDoItem(@RequestBody ToDoItem todoItem) throws Exception{
-        System.out.println("Received todoItemAQUIIIIIIIIIIIIIIIIIIIIIIIIIII: " + todoItem);
         ToDoItem td = toDoItemService.addToDoItem(todoItem);
-        System.out.println("Story pointsAQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII: " + td.getStory_Points());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("location",""+td.getId());
         responseHeaders.set("Access-Control-Expose-Headers","location");
@@ -48,9 +47,7 @@ public class ToDoItemController {
     //@CrossOrigin
     @PutMapping(value = "todolist/{id}")
     public ResponseEntity<ToDoItem> updateToDoItem(@RequestBody ToDoItem toDoItem, @PathVariable int id) {
-        try {
-            System.out.println("Received UPDATEtodoItemAQUIIIIIIIIIIIIIIIIIIIIIIIIIII: " + toDoItem);
-            
+        try {            
             // Get the existing item as ResponseEntity
             ResponseEntity<ToDoItem> existingItemResponse = toDoItemService.getItemById(id);
             
@@ -61,6 +58,8 @@ public class ToDoItemController {
             
             // Extract the actual ToDoItem from the response
             ToDoItem existingItem = existingItemResponse.getBody();
+            // TO DO
+            System.out.println("Updated Item: " + toDoItem.toString());
             
             // Preserve the ID and creation timestamp
             toDoItem.setId(id);

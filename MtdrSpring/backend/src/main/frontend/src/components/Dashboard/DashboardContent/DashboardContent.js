@@ -4,7 +4,7 @@ import DashboardInput from '../DashboardInput/DashboardInput';
 import DashboardTasksTable from '../DashboardTasksTables/DashboardTasksTable';
 import RecommendationPopup from '../../../RecommendationPopup';
 
-export default function DashboardContent({ employeesList, addItem, isInserting, toggleDone, deleteItem, modules }) {
+export default function DashboardContent({ items, employeesList, addItem, isInserting, toggleDone, deleteItem, modules }) {
     const [moduleFilter, setModuleFilter] = useState('all');
 
     return (
@@ -20,7 +20,7 @@ export default function DashboardContent({ employeesList, addItem, isInserting, 
                 </div>
 
                 {/* Dashboard Input */}
-                <DashboardInput addItem={addItem} isInserting={isInserting} />
+                <DashboardInput employeesList={employeesList} addItem={addItem} isInserting={isInserting} />
 
                 {/* Dashboard Select Module */}
                 <div className="filter-module-container">
@@ -36,10 +36,10 @@ export default function DashboardContent({ employeesList, addItem, isInserting, 
                 </div>
 
                 {/* To Do Table */}
-                <DashboardTasksTable employeesList={employeesList} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
+                <DashboardTasksTable items={items} employeesList={employeesList} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Done"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* Completed Table */}
-                <DashboardTasksTable employeesList={employeesList} moduleFilter={moduleFilter} filter={1} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
+                <DashboardTasksTable items={items} employeesList={employeesList} moduleFilter={moduleFilter} filter={1} title={"Completed"} action={"Undo"} toggleDone={toggleDone} deleteItem={deleteItem} />
 
                 {/* To Do Table - To be fixed with integer done colum
                 <DashboardTasksTable taskList={tasklist} moduleFilter={moduleFilter} filter={0} title={"To Do"} action={"Start"} toggleDone={toggleDone} deleteItem={deleteItem} /> */}

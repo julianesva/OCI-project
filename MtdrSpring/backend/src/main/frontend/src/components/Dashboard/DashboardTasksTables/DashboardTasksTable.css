@@ -39,15 +39,18 @@
 
 .dashboard-table-task-table-head-left {
     text-align: left;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-task-table-head-center {
     text-align: center;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-task-table-head-actions {
     width: 110px;
     text-align: center;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-row {
@@ -62,18 +65,27 @@
 .dashboard-table-num-column {
     text-align: center;
     width: 100px;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-actions-column {
     width: 110px;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-title-column {
     width: 200px;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-description-column {
-    width: 400px;
+    min-width: 200px;
+    border-inline: 1px solid #000000;
+}
+
+.dashboard-table-responsible-column {
+    min-width: 120px;
+    border-inline: 1px solid #000000;
 }
 
 .dashboard-table-actions-container {

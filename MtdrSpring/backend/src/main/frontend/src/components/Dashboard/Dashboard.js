@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [isLoading, setLoading] = useState(false);
   const [isInserting, setInserting] = useState(false);
   const [items, setItems] = useState([]);
+  const [employeesList, setEmployeesList] = useState([]);
   const [error, setError] = useState();
   const [modules, setModules] = useState([]);
   const [selectedModule, setSelectedModule] = useState('all');
@@ -98,7 +99,7 @@ export default function Dashboard() {
         });
   }
   
-  function addItem(data){
+  function addItem(data) {
     setInserting(true);
     fetch(API_LIST, {
       method: 'POST',
@@ -122,7 +123,8 @@ export default function Dashboard() {
           "estimatedTime": data.estimatedTime,
           "done": data.done,
           "story_Points": data.story_Points,
-          "moduleId": data.moduleId
+          "moduleId": data.moduleId,
+          "responsible": data.responsible
         }
         setItems([newItem, ...items]);
         setInserting(false);
@@ -151,10 +153,9 @@ export default function Dashboard() {
         })
         .then(
           (result) => {
-            // console.log("API Response HEREEEEEEEEEEEEE:", result);
-            // setItems(result);
-            setItems(employeeslist);
-            console.log(employeeslist)
+            console.log("API Response HEREEEEEEEEEEEEE:", result);
+            setItems(result);
+            setEmployeesList(employeeslist);
           },
           (error) => {
             setLoading(false);
@@ -189,7 +190,7 @@ export default function Dashboard() {
               // Dashboard
               <div className='dashboard-main-container'>
                   <DashboardContent
-                    employeesList={items} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
+                    items={items} employeesList={employeesList} addItem={addItem} isInserting={isInserting} toggleDone={toggleDone} deleteItem={deleteItem}
                     modules={modules} selectedModule={selectedModule} handleModuleChange={handleModuleChange}
                   />
               </div>
