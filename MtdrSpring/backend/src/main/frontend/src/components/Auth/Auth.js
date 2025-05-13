@@ -5,14 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Auth() {
     const [isSignIn, setIsSignIn] = useState(true);
-    const { isSignedIn } = useUser();
+    const { isSignedIn, user } = useUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isSignedIn) {
-            navigate('/displays/dashboard', { replace: true });
+        if (isSignedIn && user) {
+            const role = user.publicMetadata?.role;
+            if (role === 'admin') {
+                navigate('/displays/dashboard', { replace: true });
+            } else {
+                navigate('/displays/dashboard', { replace: true });
+            }
         }
-    }, [isSignedIn, navigate]);
+    }, [isSignedIn, user, navigate]);
 
     useEffect(() => {
         const currentPath = window.location.pathname;

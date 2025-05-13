@@ -23,7 +23,8 @@ export default function Navbar() {
                         }
                     }
                 }}
-                redirectUrl="/" />
+                redirectUrl="/"
+            />
         </div>
     );
 }

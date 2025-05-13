@@ -1,10 +1,25 @@
 import { Routes, Route } from "react-router-dom";
+import { useUser } from '@clerk/clerk-react';
 import Auth from "./components/Auth/Auth";
 import Displays from "./components/Displays/Displays";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Report from "./components/Report/Report";
 
 export default function App() {
+    const [userType, setUserType] = useState('developer');
+    const { isSignedIn, user } = useUser();
+
+    useEffect(() => {
+      if (isSignedIn && user) {
+          const role = user.publicMetadata?.role;
+          if (role === 'manager') {
+            setUserType('manager');
+          } else {
+            setUserType('developer');
+          }
+      }
+    }, [isSignedIn, user, navigate]);
+  
     return (
       <div className="app">
         <Routes>
