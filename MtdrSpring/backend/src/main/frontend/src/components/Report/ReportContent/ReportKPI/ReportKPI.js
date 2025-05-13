@@ -1,5 +1,5 @@
 import './ReportKPI.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Arrow_Down_Icon, Arrow_Up_Icon } from '../../../../Icons';
 import ReportKPITasks from './ReportKPITasks/ReportKPITasks';
 import ReportKPIHours from './ReportKPIHours/ReportKPIHours';
@@ -177,6 +177,14 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
             worked_hours
         })
     }
+
+    useEffect(() => {
+        if (teamFilter == 'default') {
+            setKPITasksData({})
+            setKPIHoursData({})
+            setKPICombinedData(null)
+        }
+    }, [teamFilter])
 
     return (
         <div className='kpi-main-content-container'>
