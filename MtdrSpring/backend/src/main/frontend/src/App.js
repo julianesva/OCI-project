@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useUser } from '@clerk/clerk-react';
 import Auth from "./components/Auth/Auth";
@@ -18,7 +19,7 @@ export default function App() {
             setUserType('developer');
           }
       }
-    }, [isSignedIn, user, navigate]);
+    }, [isSignedIn, user]);
   
     return (
       <div className="app">
