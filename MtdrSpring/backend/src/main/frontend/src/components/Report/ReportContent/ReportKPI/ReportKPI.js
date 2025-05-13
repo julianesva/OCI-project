@@ -186,12 +186,14 @@ export default function ReportKPI({ data, moduleData, teamFilter, memberFilter, 
                 {/* Generate Report Button */}
                 <div className='kpi-generate-report-button-container'>
                     {/* Button Generate Report */}
-                    <button
-                        className='kpi-generate-report-button'
-                        onClick={() => {handle_generate_report()}}
-                    >
-                        <p className='kpi-generate-report-button-text'>Generate Report</p>
-                    </button>
+                    {teamFilter != 'default' &&
+                        <button
+                            className='kpi-generate-report-button'
+                            onClick={() => {handle_generate_report()}}
+                        >
+                            <p className='kpi-generate-report-button-text'>Generate Report</p>
+                        </button>
+                    }
                 </div>
             </div>
 
