@@ -1,5 +1,6 @@
 import './ReportTeam.css';
 import { useState, useEffect } from 'react';
+import ReportTeamKPI from '../ReportTeamKPI/ReportTeamKPI';
 
 export default function ReportTeam({ data, moduleData }) {
     const [teamFilter, setTeamFilter] = useState('default');
@@ -50,6 +51,9 @@ export default function ReportTeam({ data, moduleData }) {
                     ))}
                 </select>
             </div>
+
+            {/* Report KPI's */}
+            <ReportTeamKPI data={data} moduleData={moduleData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
         </div>
     );
 }
