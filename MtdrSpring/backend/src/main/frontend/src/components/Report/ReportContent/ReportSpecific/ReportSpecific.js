@@ -3,18 +3,31 @@ import { useState, useEffect } from 'react';
 import ReportKPI from '../ReportKPI/ReportKPI';
 
 export default function ReportSpecific({ data, moduleData }) {
-    const [teamFilter, setModuleFilter] = useState('default');
+    const [teamFilter, setTeamFilter] = useState('default');
     const [memberFilter, setMemberFilter] = useState('all');
     const [sprintFilter, setSprintFilter] = useState('all');
     const [teamsAvailable, setTeamsAvailable] = useState([]);
     const [membersAvailable, setMembersAvailable] = useState([]);
 
     useEffect(() => {
+        if (teamFilter != 'default') {
+            const uniqueMembers = new Set(
+                data
+                .filter(item => item.teamId == teamFilter)
+                .map(item => item.user.username)
+            );
+            setMembersAvailable(Array.from(uniqueMembers));
+        } else {
+            setMembersAvailable([]);
+            setMemberFilter('all');
+            setSprintFilter('all');
+        }
+    }, [teamFilter]);
+
+    useEffect(() => {
         if (data && data.length > 0) {
             const uniqueTeams = new Set(data.map(item => item.teamId));
-            const uniqueMembers = new Set(data.map(item => item.user.username));
             setTeamsAvailable(Array.from(uniqueTeams));
-            setMembersAvailable(Array.from(uniqueMembers));
         } else {
             setTeamsAvailable([]);
         }
@@ -31,9 +44,9 @@ export default function ReportSpecific({ data, moduleData }) {
             {/* Report Selects Team & Member */}
             <div className="report-specific-filter-team-member-container">
                 {/* Select Team */}
-                <div className="report-specific-filter-container">
-                    <p className='report-specific-filter-title-text'>Team:</p>
-                    <select className='report-specific-filter-select' value={teamFilter} onChange={(e) => setModuleFilter(e.target.value)}>
+                <div className="report-filter-container">
+                    <p className='report-filter-title-text'>Team:</p>
+                    <select className='report-filter-select' value={teamFilter} onChange={(e) => setTeamFilter(e.target.value)}>
                         <option value="default" selected>Select a Team</option>
                         {teamsAvailable.map((team, index) => (
                             <option key={index} value={team}>
@@ -45,9 +58,9 @@ export default function ReportSpecific({ data, moduleData }) {
 
                 {/* Select Member */}
                 {teamFilter != 'default' &&
-                    <div className="report-specific-filter-container">
-                        <p className='report-specific-filter-title-text'>Member:</p>
-                        <select className='report-specific-filter-select' value={memberFilter} onChange={(e) => setMemberFilter(e.target.value)}>
+                    <div className="report-filter-container">
+                        <p className='report-filter-title-text'>Member:</p>
+                        <select className='report-filter-select' value={memberFilter} onChange={(e) => setMemberFilter(e.target.value)}>
                             <option value="all" selected>All</option>
                             {membersAvailable.map((member, index) => (
                                 <option key={index} value={member}>
@@ -60,9 +73,10 @@ export default function ReportSpecific({ data, moduleData }) {
             </div>
 
             {/* Select Sprint */}
-            <div className="report-specific-filter-container report-specific-select-sprint-container">
-                <p className='report-specific-filter-title-text'>Sprint:</p>
-                <select className='report-specific-filter-select' value={sprintFilter} onChange={(e) => setSprintFilter(e.target.value)}>
+            {teamFilter != 'default' &&
+            <div className="report-filter-container report-specific-select-sprint-container">
+                <p className='report-filter-title-text'>Sprint:</p>
+                <select className='report-filter-select' value={sprintFilter} onChange={(e) => setSprintFilter(e.target.value)}>
                     <option value="all" selected>All</option>
                     {moduleData &&
                         [...moduleData]
@@ -75,6 +89,7 @@ export default function ReportSpecific({ data, moduleData }) {
                     }
                 </select>
             </div>
+            }
 
             {/* Report KPI's */}
             <ReportKPI data={data} moduleData={moduleData} teamFilter={teamFilter} memberFilter={memberFilter} sprintFilter={sprintFilter} />

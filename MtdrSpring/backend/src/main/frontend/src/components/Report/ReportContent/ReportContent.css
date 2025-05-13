@@ -49,3 +49,25 @@
     font-size: 30px;
     font-weight: bold;
 }
+
+.report-filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.report-filter-title-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5A5957;
+    padding-bottom: 4px;
+}
+
+.report-filter-select {
+    width: 130px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 5px;
+    font-size: 14px;
+}

@@ -2,7 +2,6 @@ import './ReportContent.css';
 import { useState, useEffect } from 'react';
 import ReportSpecific from './ReportSpecific/ReportSpecific';
 import ReportTeam from './ReportTeam/ReportTeam';
-import ReportGeneral from './ReportGeneral/ReportGeneral';
 
 export default function ReportContent({ data, moduleData }) {
     const [viewSelected, setViewSelected] = useState('ReportSpecific');
@@ -22,9 +21,6 @@ export default function ReportContent({ data, moduleData }) {
                         <button onClick={() => setViewSelected('ReportTeam')}>
                             <p className={`report-content-nav-text ${viewSelected == 'ReportTeam' ? 'report-content-selected' : ''}`}>Team</p>
                         </button>
-                        <button onClick={() => setViewSelected('ReportGeneral')}>
-                            <p className={`report-content-nav-text ${viewSelected == 'ReportGeneral' ? 'report-content-selected' : ''}`}>General</p>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -35,9 +31,6 @@ export default function ReportContent({ data, moduleData }) {
             }
             {viewSelected == 'ReportTeam' &&
                 <ReportTeam data={data} moduleData={moduleData} />
-            }
-            {viewSelected == 'ReportGeneral' &&
-                <ReportGeneral data={data} moduleData={moduleData} />
             }
         </>
     );
