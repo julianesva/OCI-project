@@ -23,11 +23,11 @@ export default function LeftBar() {
                     {/* LeftBar links */}
                     <div className='leftbar-links-container'>
                         <div className='leftbar-links-text-container'>
-                            <button onClick={() => handleNavigate('/')}>
+                            <button onClick={() => handleNavigate('/displays/dashboard')}>
                                 <p className='leftbar-links-text'>Dashboard</p>
                             </button>
 
-                            <button onClick={() => handleNavigate('/report')}>
+                            <button onClick={() => handleNavigate('/displays/report')}>
                                 <p className='leftbar-links-text'>Report</p>
                             </button>
                         </div>
