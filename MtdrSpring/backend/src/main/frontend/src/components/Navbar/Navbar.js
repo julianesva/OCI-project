@@ -21,6 +21,9 @@ export default function Navbar() {
                         userButtonPopoverActionButton__signOut: {
                             width: "100%"
                         }
+                    },
+                    layout: {
+                        unsafe_disableDevelopmentModeWarnings: true,
                     }
                 }}
                 redirectUrl="/"

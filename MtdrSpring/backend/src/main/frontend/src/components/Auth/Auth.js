@@ -30,9 +30,24 @@ export default function Auth() {
 
     return (
         <div className='auth-main-container'>
-            {isSignIn
-                ? <SignIn signUpUrl='/signup' />
-                : <SignUp signInUrl='/' />
+            {isSignIn ? 
+                <SignIn
+                    signUpUrl='/signup'
+                    appearance={{
+                        layout: {
+                            unsafe_disableDevelopmentModeWarnings: true,
+                        }
+                    }}
+                />
+                :
+                <SignUp
+                    signInUrl='/'
+                    appearance={{
+                        layout: {
+                            unsafe_disableDevelopmentModeWarnings: true,
+                        }
+                    }}
+                />
             }
         </div>
     );
