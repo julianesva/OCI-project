@@ -4,7 +4,7 @@ import { Arrow_Down_Icon, Arrow_Up_Icon } from '../../../../Icons';
 import HoursInvestedKPI from './HoursInvestedKPI/HoursInvestedKPI';
 import WorkedHoursKPI from './WorkedHoursKPI/WorkedHoursKPI';
 
-export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAvailable }) {
+export default function ReportTeamKPI({ data, moduleData, tasksData, teamFilter, membersAvailable }) {
     const [hideTasksKPI, setHideTasksKPI] = useState(false);
     const [hideHoursKPI, setHideHoursKPI] = useState(false);
     const [hideKPICombined, setHideKPICombined] = useState(false);
@@ -60,7 +60,7 @@ export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAva
     
                         {/* KPI Tasks Data */}
                         {(!hideHoursKPI && teamFilter != "default") &&
-                            <WorkedHoursKPI data={data} moduleData={moduleData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
+                            <WorkedHoursKPI data={data} moduleData={moduleData} tasksData={tasksData} membersAvailable={membersAvailable} />
                         }
                     </div>
     

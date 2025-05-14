@@ -2,11 +2,12 @@ import './Report.css';
 import { useState, useEffect } from 'react';
 import { CircularProgress } from '@mui/material';
 import ReportContent from './ReportContent/ReportContent';
-import { API_HEADERS, API_TEAM_DATA, API_MODULES } from '../../API';
+import { API_HEADERS, API_TEAM_DATA, API_MODULES, API_LIST } from '../../API';
 
 export default function Report() {
     const [isLoading, setLoading] = useState(false);
     const [error, setError] = useState();
+    const [tasksData, setTasksData] = useState();
     const [data, setData] = useState();
     const [moduleData, setModuleData] = useState();
 
@@ -22,8 +23,13 @@ export default function Report() {
                     headers: API_HEADERS
                 });
                 const module_data = await module_data_response.json();
+                const tasks_data_response = await fetch(API_LIST, {
+                    headers: API_HEADERS
+                });
+                const tasks_data = await tasks_data_response.json();
                 setData(team_data);
                 setModuleData(module_data);
+                setTasksData(tasks_data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -53,7 +59,7 @@ export default function Report() {
     
                   // Report Main
                   <div className='report-main-container'>
-                      <ReportContent data={data} moduleData={moduleData} />
+                      <ReportContent data={data} moduleData={moduleData} tasksData={tasksData} />
                   </div>
               }
           </div>
