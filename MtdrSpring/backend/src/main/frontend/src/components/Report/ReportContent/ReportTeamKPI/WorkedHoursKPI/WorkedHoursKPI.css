@@ -44,7 +44,6 @@
 .chart-container {
     display: flex;
     position: relative;
-    border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
 }
 
@@ -55,7 +54,7 @@
     width: 40px;
     position: relative;
     gap: 22.7px;
-    margin: -10px 5px 0 0;
+    margin: -10px 5px -9px 0;
 }
 
 .worked-hours-y-axis-title {
@@ -81,6 +80,8 @@
     position: relative;
     display: flex;
     height: 300px;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
 
 .worked-hours-grid-lines {

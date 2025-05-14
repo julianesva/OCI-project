@@ -1,37 +1,34 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './WorkedHoursKPI.css';
 
 export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAvailable }) {
-  // Sample data matching the chart image
-  const sampleData = {
-    "Sprint 1": {
-      "Juan": 35,
-      "Mary": 30,
-      "Luis": 40,
-      "Jose": 28
-    },
-    "Sprint 2": {
-      "Juan": 40,
-      "Mary": 32,
-      "Luis": 38,
-      "Jose": 30
-    },
-    "Sprint 3": {
-      "Juan": 38,
-      "Mary": 35,
-      "Luis": 36,
-      "Jose": 33
-    },
-    "Sprint 4": {
-      "Juan": 42,
-      "Mary": 34,
-      "Luis": 39,
-      "Jose": 31
-    }
-  };
-
-  // Calculate max hours for scaling the bars
-  const maxHours = 45; // Based on the chart Y-axis maximum
+    const [sampleData, setSampleData] = useState({
+        "Sprint 1": {
+        "Juan": 35,
+        "Mary": 30,
+        "Luis": 40,
+        "Jose": 28
+        },
+        "Sprint 2": {
+        "Juan": 40,
+        "Mary": 32,
+        "Luis": 38,
+        "Jose": 30
+        },
+        "Sprint 3": {
+        "Juan": 38,
+        "Mary": 35,
+        "Luis": 36,
+        "Jose": 33
+        },
+        "Sprint 4": {
+        "Juan": 42,
+        "Mary": 34,
+        "Luis": 39,
+        "Jose": 31
+        }
+    });
+    const [maxHours, setMaxHours] = useState(45);
 
   // Create data from user data or use sample data if not available
   const processData = () => {

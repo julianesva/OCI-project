@@ -43,6 +43,8 @@
 .hours-invested-chart-grid {
     flex-grow: 1;
     position: relative;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
 
 .hours-invested-grid-lines {
