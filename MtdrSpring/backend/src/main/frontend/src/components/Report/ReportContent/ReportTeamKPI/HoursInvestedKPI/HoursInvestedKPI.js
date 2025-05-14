@@ -81,46 +81,46 @@ export default function HoursInvestedKPI({ data, moduleData, teamFilter }) {
     return (
         <div className="hours-invested-kpi">
             {/* Legend */}
-            <div className="legend">
-                <div className="legend-item">
-                    <div className="legend-color"></div>
+            <div className="hours-invested-legend">
+                <div className="hours-invested-legend-item">
+                    <div className="hours-invested-legend-color"></div>
                     <div>Hours Invested</div>
                 </div>
             </div>
 
-            <div className="chart-container">
+            <div className="hours-invested-chart-container">
                 {/* Y-axis labels */}
-                <div className="y-axis">
-                    <div className="y-axis-title">Hours</div>
+                <div className="hours-invested-y-axis">
+                    <div className="hours-invested-y-axis-title">Hours</div>
                     {Array.from({ length: 8 }, (_, i) => (
-                        <div key={i} className="y-label">
+                        <div key={i} className="hours-invested-y-label">
                             {Math.round(maxHours * (7 - i) / 7)}
                         </div>
                     ))}
                 </div>
                 
                 {/* Chart grid and bars */}
-                <div className="chart-grid">
+                <div className="hours-invested-chart-grid">
                     {/* Grid lines */}
-                    <div className="grid-lines">
+                    <div className="hours-invested-grid-lines">
                         {Array.from({ length: 8 }, (_, i) => (
-                            <div key={i} className="grid-line"></div>
+                            <div key={i} className="hours-invested-grid-line"></div>
                         ))}
                     </div>
                     
                     {/* Bars */}
-                    <div className="bars-container">
+                    <div className="hours-invested-bars-container">
                         {hoursPerSprint.map((item, index) => (
-                            <div key={index} className="bar-column">
+                            <div key={index} className="hours-invested-bar-column">
                                 <div 
-                                    className="bar"
+                                    className="hours-invested-bar"
                                     style={{ 
                                         height: `${calculateBarHeight(item.hours)}%`,
                                     }}
                                     title={`${item.hours} hours`}
                                 >
                                 </div>
-                                <div className="x-label">{item.sprint}</div>
+                                <div className="hours-invested-x-label">{item.sprint}</div>
                             </div>
                         ))}
                     </div>

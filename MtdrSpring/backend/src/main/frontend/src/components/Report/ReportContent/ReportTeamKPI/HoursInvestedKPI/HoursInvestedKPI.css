@@ -6,13 +6,13 @@
     font-family: Arial, sans-serif;
 }
 
-.chart-container {
+.hours-invested-chart-container {
     display: flex;
     height: 300px;
     padding-bottom: 24px;
 }
 
-.y-axis {
+.hours-invested-y-axis {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -22,7 +22,7 @@
     margin: -10px 5px 0 0;
 }
 
-.y-axis-title {
+.hours-invested-y-axis-title {
     position: absolute;
     transform: rotate(-90deg);
     left: -20px;
@@ -32,7 +32,7 @@
     color: #555;
 }
 
-.y-label {
+.hours-invested-y-label {
     font-size: 12px;
     color: #666;
     text-align: right;
@@ -40,12 +40,12 @@
     line-height: 20px;
 }
 
-.chart-grid {
+.hours-invested-chart-grid {
     flex-grow: 1;
     position: relative;
 }
 
-.grid-lines {
+.hours-invested-grid-lines {
     height: 100%;
     position: absolute;
     width: 100%;
@@ -54,13 +54,13 @@
     justify-content: space-between;
 }
 
-.grid-line {
+.hours-invested-grid-line {
     border-bottom: 1px solid #eee;
     height: 1px;
     width: 100%;
 }
 
-.bars-container {
+.hours-invested-bars-container {
     display: flex;
     height: 100%;
     align-items: flex-end;
@@ -69,7 +69,7 @@
     margin-top: 21.5px;
 }
 
-.bar-column {
+.hours-invested-bar-column {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -79,32 +79,32 @@
     padding: 0 5px;
 }
 
-.bar {
+.hours-invested-bar {
     width: 70%;
     background-color: #ccb2fc;
     border: 2px solid #b494fc;
     transition: height 0.3s ease;
 }
 
-.x-label {
+.hours-invested-x-label {
     margin-top: 8px;
     font-size: 12px;
     color: #666;
     text-align: center;
 }
 
-.legend {
+.hours-invested-legend {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.legend-item {
+.hours-invested-legend-item {
     display: flex;
     align-items: center;
 }
 
-.legend-color {
+.hours-invested-legend-color {
     width: 36px;
     height: 16px;
     background-color: #ccb2fc;
@@ -114,19 +114,19 @@
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-    .chart-container {
+    .hours-invested-chart-container {
         height: 200px;
     }
     
-    .y-axis {
+    .hours-invested-y-axis {
         width: 30px;
     }
     
-    .y-label, .x-label {
+    .hours-invested-y-label, .hours-invested-x-label {
         font-size: 10px;
     }
     
-    .bar {
+    .hours-invested-bar {
         width: 60%;
     }
 }

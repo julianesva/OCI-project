@@ -2,6 +2,7 @@ import './ReportTeamKPI.css';
 import { useState } from 'react';
 import { Arrow_Down_Icon, Arrow_Up_Icon } from '../../../../Icons';
 import HoursInvestedKPI from './HoursInvestedKPI/HoursInvestedKPI';
+import WorkedHoursKPI from './WorkedHoursKPI/WorkedHoursKPI';
 
 export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAvailable }) {
     const [hideTasksKPI, setHideTasksKPI] = useState(false);
@@ -58,6 +59,9 @@ export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAva
                         </div>
     
                         {/* KPI Tasks Data */}
+                        {(!hideHoursKPI && teamFilter != "default") &&
+                            <WorkedHoursKPI data={data} moduleData={moduleData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
+                        }
                     </div>
     
                     {/* Completed Tasks KPI */}

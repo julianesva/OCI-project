@@ -1,0 +1,166 @@
+.worked-hours-kpi {
+    font-family: Arial, sans-serif;
+    max-width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.worked-hours-kpi h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Legend styles */
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 12px;
+    margin-right: 5px;
+}
+
+.legend-label {
+    font-size: 14px;
+}
+
+/* Chart container */
+.chart-container {
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.worked-hours-y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40px;
+    position: relative;
+    gap: 22.7px;
+    margin: -10px 5px 0 0;
+}
+
+.worked-hours-y-axis-title {
+    position: absolute;
+    transform: rotate(-90deg);
+    left: -20px;
+    top: 50%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.worked-hours-y-label {
+    font-size: 12px;
+    color: #666;
+    text-align: right;
+    height: 20px;
+    line-height: 20px;
+}
+
+.worked-hours-chart-grid {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    height: 300px;
+}
+
+.worked-hours-grid-lines {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 0;
+}
+
+.worked-hours-grid-line {
+    border-bottom: 1px solid #eee;
+    height: 1px;
+    width: 100%;
+}
+
+.worked-hours-bars-container {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 21.5px;
+    flex-grow: 1;
+}
+
+/* Chart content */
+.chart-content {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Sprint groups */
+.sprint-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    flex: 1;
+    padding: 0 20px;
+}
+
+.sprint-label {
+    position: absolute;
+    bottom: -25px;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Bar styles */
+.bar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    width: 40px;
+    margin: 0 5px;
+}
+
+.bar {
+    position: relative;
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+    transition: height 0.3s ease;
+}
+
+.bar-value {
+    position: absolute;
+    top: -20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+}
