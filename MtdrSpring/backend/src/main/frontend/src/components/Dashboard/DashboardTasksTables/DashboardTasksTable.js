@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Arrow_Down_Icon, Arrow_Up_Icon, Trash_Icon } from "../../../Icons";
 
 export default function DashboardTasksTable({
+  userType,
   items,
   employeesList,
   moduleFilter,
@@ -96,9 +97,11 @@ export default function DashboardTasksTable({
                     <th className="dashboard-table-task-table-head-left dashboard-table-border-inline">
                       Description
                     </th>
-                    <th className="dashboard-table-task-table-head-left dashboard-table-border-inline">
-                      Responsible
-                    </th>
+                    {userType == "manager" &&
+                      <th className="dashboard-table-task-table-head-left dashboard-table-border-inline">
+                        Responsible
+                      </th>
+                    }
                     <th className="dashboard-table-task-table-head-center dashboard-table-border-inline">
                       Hours
                     </th>
@@ -134,9 +137,11 @@ export default function DashboardTasksTable({
                         <td className="dashboard-table-text-column dashboard-table-description-column dashboard-table-border-inline">
                           {task.description}
                         </td>
-                        <td className="dashboard-table-text-column dashboard-table-responsible-column dashboard-table-border-inline">
-                          {get_user_by_id(task.responsible)}
-                        </td>
+                        {userType == "manager" &&
+                          <td className="dashboard-table-text-column dashboard-table-responsible-column dashboard-table-border-inline">
+                            {get_user_by_id(task.responsible)}
+                          </td>
+                        }
                         <td className="dashboard-table-num-column dashboard-table-border-inline">
                           {task.estimatedTime}
                         </td>
@@ -158,12 +163,14 @@ export default function DashboardTasksTable({
                               {action}
                             </button>
                             {/* Delete Button */}
-                            <button
-                              className="dashboard-table-action-trash-button"
-                              onClick={() => deleteItem(task.id)}
-                            >
-                              <Trash_Icon color="white" w="16px" h="16px" />
-                            </button>
+                            {userType == "manager" &&
+                              <button
+                                className="dashboard-table-action-trash-button"
+                                onClick={() => deleteItem(task.id)}
+                              >
+                                <Trash_Icon color="white" w="16px" h="16px" />
+                              </button>
+                            }
                           </div>
                         </td>
                       </tr>

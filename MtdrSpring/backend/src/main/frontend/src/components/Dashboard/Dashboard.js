@@ -4,7 +4,7 @@ import { CircularProgress } from "@mui/material";
 import DashboardContent from "./DashboardContent/DashboardContent";
 import { API_HEADERS, API_LIST, API_EMPLOYEES, API_MODULES } from "../../API";
 
-export default function Dashboard() {
+export default function Dashboard({ userType }) {
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isInserting, setInserting] = useState(false);
@@ -251,6 +251,7 @@ export default function Dashboard() {
         // Dashboard
         <div className="dashboard-main-container">
           <DashboardContent
+            userType={userType}
             items={items}
             employeesList={employeesList}
             addItem={addItem}

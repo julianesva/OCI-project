@@ -6,6 +6,7 @@ import RecommendationPopup from "../../../RecommendationPopup";
 import DashboardRealHours from "../DashboardTasksTables/DashboardRealHours/DashboardRealHours";
 
 export default function DashboardContent({
+  userType,
   items,
   employeesList,
   addItem,
@@ -63,11 +64,13 @@ export default function DashboardContent({
           </div>
 
           {/* Dashboard Input */}
-          <DashboardInput
-            employeesList={employeesList}
-            addItem={addItem}
-            isInserting={isInserting}
-          />
+          {userType == "manager" &&
+            <DashboardInput
+              employeesList={employeesList}
+              addItem={addItem}
+              isInserting={isInserting}
+            />
+          }
 
           {/* Dashboard Select Module */}
           <div className="filter-module-container">
@@ -92,6 +95,7 @@ export default function DashboardContent({
 
           {/* To Do Table */}
           <DashboardTasksTable
+            userType={userType}
             items={items}
             employeesList={employeesList}
             moduleFilter={moduleFilter}
@@ -105,6 +109,7 @@ export default function DashboardContent({
 
           {/* Completed Table */}
           <DashboardTasksTable
+            userType={userType}
             items={items}
             employeesList={employeesList}
             moduleFilter={moduleFilter}

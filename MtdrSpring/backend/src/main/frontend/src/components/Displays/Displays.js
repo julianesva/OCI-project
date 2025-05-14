@@ -6,7 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import LeftBar from '../LeftBar/LeftBar';
 
 
-export default function Displays() {
+export default function Displays({ userType }) {
     return (
       <>
         <SignedOut>
@@ -18,7 +18,7 @@ export default function Displays() {
             <div className='displays-main'>
               <Navbar />
               <div className="displays-main-container">
-                <LeftBar />
+                <LeftBar userType={userType} />
                 <Outlet />
               </div>
             </div>

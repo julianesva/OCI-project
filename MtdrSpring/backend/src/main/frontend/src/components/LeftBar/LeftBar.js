@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LeftBarArrow from './LeftBarArrow/LeftBarArrow'
 
-export default function LeftBar() {
+export default function LeftBar({ userType }) {
     const [isLeftBarHidden, setIsLeftBarHidden] = useState(false)
 
     const navigate = useNavigate()
@@ -27,9 +27,11 @@ export default function LeftBar() {
                                 <p className='leftbar-links-text'>Dashboard</p>
                             </button>
 
-                            <button onClick={() => handleNavigate('/displays/report')}>
-                                <p className='leftbar-links-text'>Report</p>
-                            </button>
+                            {userType === 'manager' &&
+                                <button onClick={() => handleNavigate('/displays/report')}>
+                                    <p className='leftbar-links-text'>Report</p>
+                                </button>
+                            }
                         </div>
 
                         {/* <div className='leftbar-links-text-container'>

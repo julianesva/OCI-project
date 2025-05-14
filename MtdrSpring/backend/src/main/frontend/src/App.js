@@ -25,9 +25,11 @@ export default function App() {
       <div className="app">
         <Routes>
           <Route path="/*" element={<Auth />} />
-          <Route path="/displays" element={<Displays />} >
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="report" element={<Report />} />
+          <Route path="/displays" element={<Displays userType={userType} />} >
+            <Route path="dashboard" element={<Dashboard userType={userType} />} />
+            {userType == "manager" &&
+              <Route path="report" element={<Report />} />
+            }
           </Route>
         </Routes>
       </div>
