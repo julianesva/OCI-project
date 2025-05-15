@@ -72,15 +72,17 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
             {/* Y-axis labels */}
             <div className="report-team-y-axis">
                 <div className="report-team-y-axis-title">Hours</div>
-                {Array.from({ length: 5 }, (_, i) => {
-                    const step = maxHours / 4;
-                    const value = Math.round(maxHours - i * step);
-                    return (
-                        <div key={i} className="report-team-y-label">
-                            {value}
-                        </div>
-                    );
-                })}
+                <div className="report-team-y-axis-values">
+                    {Array.from({ length: 5 }, (_, i) => {
+                        const step = maxHours / 4;
+                        const value = Math.round(maxHours - i * step);
+                        return (
+                            <div key={i} className="report-team-y-label">
+                                {value}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
             
             {/* Chart bars */}

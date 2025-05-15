@@ -72,15 +72,17 @@ export default function TasksCompletedKPI({ data, moduleData, teamFilter, member
             {/* Y-axis labels */}
             <div className="report-team-y-axis">
                 <div className="report-team-y-axis-title">Tasks</div>
-                {Array.from({ length: 5 }, (_, i) => {
-                    const step = maxTasksCompleted / 4;
-                    const value = Math.round(maxTasksCompleted - i * step);
-                    return (
-                        <div key={i} className="report-team-y-label">
-                            {value}
-                        </div>
-                    );
-                })}
+                <div className="report-team-y-axis-values">
+                    {Array.from({ length: 5 }, (_, i) => {
+                        const step = maxTasksCompleted / 4;
+                        const value = Math.round(maxTasksCompleted - i * step);
+                        return (
+                            <div key={i} className="report-team-y-label">
+                                {value}
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
             
             {/* Chart bars */}
