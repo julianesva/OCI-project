@@ -79,13 +79,13 @@ export default function ReportSpecific({ data, moduleData }) {
                 <select className='report-filter-select' value={sprintFilter} onChange={(e) => setSprintFilter(e.target.value)}>
                     <option value="all" selected>All</option>
                     {moduleData &&
-                        [...moduleData]
-                            .sort((a, b) => a.id - b.id)
-                            .map((module) => (
-                                <option key={module.id} value={module.id}>
-                                    {module.id} - {module.name}
-                                </option>
-                            ))
+                        moduleData.sort(
+                            (a, b) => a.id - b.id
+                        ).map((module) => (
+                            <option key={module.id} value={module.id}>
+                                {module.id} - {module.title}
+                            </option>
+                        ))
                     }
                 </select>
             </div>
