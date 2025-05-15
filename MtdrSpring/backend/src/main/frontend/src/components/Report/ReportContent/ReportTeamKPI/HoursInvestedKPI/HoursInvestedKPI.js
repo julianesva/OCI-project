@@ -4,58 +4,42 @@ import { useState, useEffect } from 'react';
 export default function HoursInvestedKPI({ data, moduleData, teamFilter }) {
     const [hoursPerSprint, setHoursPerSprint] = useState([]);
     const [maxHours, setMaxHours] = useState(0);
+
+    const calculateBarHeight = (hours) => {
+        if (maxHours == 0) return 0;
+        return (hours / maxHours) * 100;
+    };
     
     useEffect(() => {
-        // If teamFilter is "default", don't load any data
         if (teamFilter === "default") {
             setHoursPerSprint([]);
             setMaxHours(0);
             return;
         }
         
-        // If no moduleData, return empty
         if (!moduleData || !moduleData.length) {
             setHoursPerSprint([]);
             setMaxHours(0);
             return;
         }
         
-        // PROCESSING REAL DATA
-        // Create a map to store hours per module ID (sprint)
         const hoursPerModule = {};
         
-        // Initialize all modules with 0 hours
         moduleData.forEach(module => {
             hoursPerModule[module.id] = 0;
         });
         
-        // Get all tasks from the data
-        let allTasks = [];
-        
-        if (data && data.tasksCompleted && data.tasksCompleted.length > 0) {
-            allTasks = [...data.tasksCompleted];
-        } else {
-            // Collect all tasks from all modules
-            allTasks = moduleData.flatMap(module => module.tasks || []);
+        if (teamFilter && teamFilter != "default") {
+            data.filter(user => user.teamId == teamFilter)
+                .forEach(user => {
+                    user.tasksCompleted.forEach(task => {
+                        if (hoursPerModule.hasOwnProperty(task.moduleId)) {
+                            hoursPerModule[task.moduleId] += task.actualTime;
+                        }
+                    })
+                })
         }
         
-        // Apply team filter if specified (other than "default")
-        if (teamFilter && teamFilter !== "default") {
-            // Filter by team logic would go here
-            // This is a placeholder
-        }
-        
-        // Sum up hours for each module (sprint)
-        allTasks.forEach(task => {
-            if (task.moduleId && task.actualTime) {
-                // If this module exists in our list, add the hours
-                if (hoursPerModule.hasOwnProperty(task.moduleId)) {
-                    hoursPerModule[task.moduleId] += task.actualTime;
-                }
-            }
-        });
-        
-        // Convert to array and format for display
         const sprintData = Object.entries(hoursPerModule)
             .map(([moduleId, hours]) => ({
                 sprint: `Sprint ${moduleId}`,
@@ -67,16 +51,9 @@ export default function HoursInvestedKPI({ data, moduleData, teamFilter }) {
         
         setHoursPerSprint(sprintData);
         
-        // Calculate max hours for scaling
         const maxValue = Math.max(...sprintData.map(item => item.hours));
-        setMaxHours(maxValue > 0 ? maxValue + 2 : 16); // Default to 16 if no data
+        setMaxHours(maxValue > 0 ? maxValue + 2 : 16);
     }, [data, moduleData, teamFilter]);
-    
-    // Calculate the height of each bar based on its value
-    const calculateBarHeight = (hours) => {
-        if (maxHours === 0) return 0;
-        return (hours / maxHours) * 100;
-    };
     
     return (
         <div className="hours-invested-kpi">
