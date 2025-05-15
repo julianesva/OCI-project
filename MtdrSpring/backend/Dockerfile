@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
 
@@ -11,5 +11,11 @@ COPY src/main/resources/wallet /app/wallet
 #Exponer el puerto de la aplicación,
 EXPOSE 8080
 
-#Configurar el punto de entrada,
+#Fail if .jar is not generated correctly. 
+#RUN test -f target/MyTodoList-0.0.1-SNAPSHOT.jar
+
+#Configurar el punto de entrada.
 ENTRYPOINT ["java", "-jar", "MyTodoList.jar"]
+#CMD java -jar MyTodoList.jar || tail -f /dev/null
+
+
