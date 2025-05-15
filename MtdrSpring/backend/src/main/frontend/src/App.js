@@ -22,7 +22,6 @@ export default function App() {
     return (
       <div className="app">
         <Routes>
-          <Route path="/error" element={<Auth />} />
           <Route path="/*" element={<Auth />} />
           <Route path="/displays/*" element={<Displays userType={userType} />} />
         </Routes>

@@ -49,10 +49,10 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
     const sprintNames = Object.keys(chartData);
 
     const memberColors = [
-        "#7BAAF7", "#34A853", "#1A73E8", "#7986CB", "#FBBC05",
-        "#EA4335", "#FF7043", "#F57C00", "#AB47BC", "#8E24AA",
-        "#FF7043", "#F06292", "#FFB74D", "#FFD54F", "#64B5F6",
-        "#4DB6AC", "#81C784", "#FF8A65", "#4285F4", "#90CAF9",
+        "#4a90e2", "#50e3c2", "#4178be", "#7fdbfd", "#5F9EA0",
+        "#00FFFF", "#FF7F50", "#FF69B4", "#8A2BE2", "#7FFF00",
+        "#D2691E", "#FF4500", "#ADFF2F", "#FFD700", "#FF6347",
+        "#4682B4", "#FF1493", "#00BFFF", "#00FF7F", "#FF8C00",
     ];
 
     return (
