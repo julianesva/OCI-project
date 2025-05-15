@@ -154,15 +154,23 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                 <div className="report-team-y-axis">
                     <div className="report-team-y-axis-title">Hours</div>
                     <div className="report-team-y-axis-values">
-                        {Array.from({ length: 5 }, (_, i) => {
-                            const step = maxHours / 4;
-                            const value = Math.round(maxHours - i * step);
-                            return (
-                                <div key={i} className="report-team-y-label">
-                                    {value}
-                                </div>
-                            );
-                        })}
+                        {(() => {
+                            const max = maxHours || 1;
+                            const labelCount = Math.min(5, Math.ceil(max) + 1); // Máximo 5 etiquetas
+                            const step = Math.floor(max / (labelCount - 1)) || 1;
+
+                            const labels = [];
+                            for (let i = 0; i < labelCount - 1; i++) {
+                            labels.push(i * step);
+                            }
+                            labels.push(Math.round(max)); // No redondees hacia arriba, usa el valor real
+
+                            return labels.reverse().map((label, i) => (
+                            <div key={i} className="report-team-y-label">
+                                {label}
+                            </div>
+                            ));
+                        })()}
                     </div>
                 </div>
                 
@@ -170,9 +178,21 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                 <div className="report-team-chart-grid">
                     {/* Grid lines */}
                     <div className="report-team-grid-lines">
-                        {Array.from({ length: 5 }, (_, i) => (
-                        <div key={i} className="report-team-grid-line"></div>
-                        ))}
+                        {(() => {
+                            const max = maxHours || 1;
+                            const labelCount = Math.min(5, Math.ceil(max) + 1);
+                            const step = Math.floor(max / (labelCount - 1)) || 1;
+
+                            const lines = [];
+                            for (let i = 0; i < labelCount - 1; i++) {
+                            lines.push(i * step);
+                            }
+                            lines.push(Math.round(max));
+
+                            return lines.map((_, i) => (
+                            <div key={i} className="report-team-grid-line"></div>
+                            ));
+                        })()}
                     </div>
 
                     {/* Bars */}
