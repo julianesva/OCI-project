@@ -28,12 +28,17 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
     
         modules.forEach(module => {
             if (module.id) {
-                sprints.add(module.id);
+                sprints.add(module.title);
             }
         });
     
         return Array.from(sprints).sort((a, b) => a - b);
-    };    
+    };
+
+    const getSprintNameByModuleId = (moduleId) => {
+        const module = moduleData.find(mod => mod.id == moduleId);
+        return module ? module.title : null;
+    }
 
     const processData = () => {
         const sprintNames = getSprintNames(moduleData);
@@ -51,7 +56,7 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
             })
             .forEach((user) => {
                 user.tasksCompleted.forEach((task) => {
-                    const sprint = task.moduleId;
+                    const sprint = getSprintNameByModuleId(task.moduleId);
                     const member = user.user.username;
                     if (hoursWorked[sprint] && hoursWorked[sprint][member] !== undefined) {
                         const taskTimeSum = hoursWorked[sprint][member] + task.actualTime;
@@ -233,7 +238,7 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                                 </div>
                             </div>
                             ))}
-                            <div className="report-team-sprint-label">{`Sprint ${sprint}`}</div>
+                            <div className="report-team-sprint-label">{sprint}</div>
                         </div>
                         ))}
                     </div>

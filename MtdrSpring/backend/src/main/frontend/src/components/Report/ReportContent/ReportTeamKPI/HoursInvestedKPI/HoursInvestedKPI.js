@@ -9,6 +9,11 @@ export default function HoursInvestedKPI({ data, moduleData, teamFilter }) {
         if (maxHours == 0) return 0;
         return (hours / maxHours) * 100;
     };
+
+    const getSprintNameByModuleId = (moduleId) => {
+        const module = moduleData.find(mod => mod.id == moduleId);
+        return module ? module.title : null;
+    }
     
     useEffect(() => {
         if (teamFilter === "default") {
@@ -42,7 +47,7 @@ export default function HoursInvestedKPI({ data, moduleData, teamFilter }) {
         
         const sprintData = Object.entries(hoursPerModule)
             .map(([moduleId, hours]) => ({
-                sprint: `Sprint ${moduleId}`,
+                sprint: getSprintNameByModuleId(moduleId),
                 hours,
                 moduleId: parseInt(moduleId)
             }))
