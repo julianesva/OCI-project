@@ -1,7 +1,15 @@
 FROM openjdk:17
-#COPY pom.xml /tmp/
-#COPY src /tmp/src/
-WORKDIR /tmp/
-EXPOSE 8080
+
+WORKDIR /app
+
+#Copiar el archivo JAR de la aplicación,
 COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
-ENTRYPOINT ["java","-jar","MyTodoList.jar"]
+
+#Copiar la carpeta de la wallet al contenedor,
+COPY src/main/resources/wallet /app/wallet
+
+#Exponer el puerto de la aplicación,
+EXPOSE 8080
+
+#Configurar el punto de entrada,
+ENTRYPOINT ["java", "-jar", "MyTodoList.jar"]

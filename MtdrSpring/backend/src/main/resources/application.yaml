@@ -1,16 +1,33 @@
-spring:
-  datasource:
-    driver_class_name: oracle.jdbc.OracleDriver
-    password: PeterSong123
-    url: jdbc:oracle:thin:@petertestdb_medium?TNS_ADMIN=/Users/psong/Downloads/Wallet_petertestDB
-    username: TODOUSER
-  jpa:
-    database: ORACLE
-    database-platform: org.hibernate.dialect.Oracle12cDialect
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-  security:
-    user:
-      name: ${ui_username}
-      password: ${ui_password}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ToDoListApp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ToDoListApp
+  template:
+    metadata:
+      labels:
+        app: ToDoListApp
+    spec:
+      containers:
+      - name: ToDoListApp
+        image: <region-code>.ocir.io/<tenancy-name>/<repo-name>:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: ocirsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ToDoListApp-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: ToDoListApp
