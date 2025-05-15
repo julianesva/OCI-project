@@ -1,4 +1,3 @@
-import './ReportTeam.css';
 import { useState, useEffect } from 'react';
 import ReportTeamKPI from '../ReportTeamKPI/ReportTeamKPI';
 

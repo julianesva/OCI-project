@@ -1,5 +1,5 @@
 import './ReportContent.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReportSpecific from './ReportSpecific/ReportSpecific';
 import ReportTeam from './ReportTeam/ReportTeam';
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './WorkedHoursKPI.css';
 
 export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAvailable }) {
     const [maxHours, setMaxHours] = useState(0);
@@ -56,27 +55,27 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
     ];
 
     return (
-        <div className="worked-hours-kpi">
+        <div className="report-team-kpi">
         {/* Chart legend */}
-        <div className="chart-legend">
+        <div className="report-team-chart-legend">
             {membersAvailable.map((member, memberIndex) => (
-            <div key={member} className="legend-item">
-                <div className="legend-color" style={{ backgroundColor: memberColors[memberIndex] }}></div>
-                <div className="legend-label">{member}</div>
+            <div key={member} className="report-team-legend-item">
+                <div className="report-team-legend-color" style={{ backgroundColor: memberColors[memberIndex] }}></div>
+                <div className="report-team-legend-label">{member}</div>
             </div>
             ))}
         </div>
         
         {/* Bar chart */}
-        <div className="chart-container">
+        <div className="report-team-chart-container">
             {/* Y-axis labels */}
-            <div className="worked-hours-y-axis">
-                <div className="worked-hours-y-axis-title">Hours</div>
+            <div className="report-team-y-axis">
+                <div className="report-team-y-axis-title">Hours</div>
                 {Array.from({ length: 5 }, (_, i) => {
                     const step = maxHours / 4;
                     const value = Math.round(maxHours - i * step);
                     return (
-                        <div key={i} className="worked-hours-y-label">
+                        <div key={i} className="report-team-y-label">
                             {value}
                         </div>
                     );
@@ -84,22 +83,22 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
             </div>
             
             {/* Chart bars */}
-            <div className="worked-hours-chart-grid">
+            <div className="report-team-chart-grid">
                 {/* Grid lines */}
-                <div className="worked-hours-grid-lines">
+                <div className="report-team-grid-lines">
                     {Array.from({ length: 5 }, (_, i) => (
-                    <div key={i} className="worked-hours-grid-line"></div>
+                    <div key={i} className="report-team-grid-line"></div>
                     ))}
                 </div>
 
                 {/* Bars */}
-                <div className="worked-hours-bars-container">
+                <div className="report-team-bars-container">
                     {sprintNames.map(sprint => (
-                    <div key={sprint} className="sprint-group">
+                    <div key={sprint} className="report-team-sprint-group">
                         {membersAvailable.map((member, memberIndex) => (
-                        <div key={`${sprint}-${member}`} className="bar-container">
+                        <div key={`${sprint}-${member}`} className="report-team-bar-container">
                             <div 
-                                className="bar"
+                                className="report-team-bar"
                                 style={{ 
                                     height: `${(chartData[sprint][member] / maxHours) * 100}%`,
                                     backgroundColor: memberColors[memberIndex]
@@ -109,7 +108,7 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                             </div>
                         </div>
                         ))}
-                        <div className="sprint-label">{`Sprint ${sprint}`}</div>
+                        <div className="report-team-sprint-label">{`Sprint ${sprint}`}</div>
                     </div>
                     ))}
                 </div>
