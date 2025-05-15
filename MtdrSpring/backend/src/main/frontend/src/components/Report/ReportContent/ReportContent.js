@@ -1,9 +1,9 @@
 import './ReportContent.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ReportSpecific from './ReportSpecific/ReportSpecific';
 import ReportTeam from './ReportTeam/ReportTeam';
 
-export default function ReportContent({ data, moduleData }) {
+export default function ReportContent({ data, moduleData, tasksData }) {
     const [viewSelected, setViewSelected] = useState('ReportSpecific');
     return (
         <>
@@ -30,7 +30,7 @@ export default function ReportContent({ data, moduleData }) {
                 <ReportSpecific data={data} moduleData={moduleData} />
             }
             {viewSelected == 'ReportTeam' &&
-                <ReportTeam data={data} moduleData={moduleData} />
+                <ReportTeam data={data} moduleData={moduleData} tasksData={tasksData} />
             }
         </>
     );

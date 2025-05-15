@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAvailable }) {
-    const [maxHours, setMaxHours] = useState(0);
+export default function TasksCompletedKPI({ data, moduleData, teamFilter, membersAvailable }) {
+    const [maxTasksCompleted, setMaxTasksCompleted] = useState(0);
 
     const getSprintNames = (modules) => {
         const sprints = new Set();
@@ -17,11 +17,11 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
 
     const processData = () => {
         const sprintNames = getSprintNames(moduleData);
-        const hoursWorked = {};
+        const tasksCompleted = {};
         sprintNames.forEach(sprint => {
-            hoursWorked[sprint] = {};
+            tasksCompleted[sprint] = {};
             membersAvailable.forEach(member => {
-                hoursWorked[sprint][member] = 0;
+                tasksCompleted[sprint][member] = 0;
             });
         });
 
@@ -33,16 +33,16 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                 user.tasksCompleted.map((task) => {
                     const sprint = task.moduleId;
                     const member = user.user.username;
-                    const taskTimeSum = hoursWorked[sprint][member] + task.actualTime
-                    hoursWorked[sprint][member] = taskTimeSum;
-                    if (taskTimeSum > maxHours) {
-                        setMaxHours(taskTimeSum);
+                    const tasksCompletedSum = tasksCompleted[sprint][member] + 1
+                    tasksCompleted[sprint][member] = tasksCompletedSum;
+                    if (tasksCompletedSum > maxTasksCompleted) {
+                        setMaxTasksCompleted(tasksCompletedSum);
                     }
                 })
             })
         }
         
-        return hoursWorked;
+        return tasksCompleted;
     };
 
     const chartData = processData();
@@ -71,11 +71,11 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
         <div className="report-team-chart-container">
             {/* Y-axis labels */}
             <div className="report-team-y-axis">
-                <div className="report-team-y-axis-title">Hours</div>
+                <div className="report-team-y-axis-title">Tasks</div>
                 <div className="report-team-y-axis-values">
                     {Array.from({ length: 5 }, (_, i) => {
-                        const step = maxHours / 4;
-                        const value = Math.round(maxHours - i * step);
+                        const step = maxTasksCompleted / 4;
+                        const value = Math.round(maxTasksCompleted - i * step);
                         return (
                             <div key={i} className="report-team-y-label">
                                 {value}
@@ -103,10 +103,10 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                             <div 
                                 className="report-team-bar"
                                 style={{ 
-                                    height: `${(chartData[sprint][member] / maxHours) * 100}%`,
+                                    height: `${(chartData[sprint][member] / maxTasksCompleted) * 100}%`,
                                     backgroundColor: memberColors[memberIndex]
                                 }}
-                                title={`${chartData[sprint][member]} hours`}
+                                title={`${chartData[sprint][member]} tasks`}
                             >
                             </div>
                         </div>

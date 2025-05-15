@@ -3,11 +3,12 @@ import { useState } from 'react';
 import { Arrow_Down_Icon, Arrow_Up_Icon } from '../../../../Icons';
 import HoursInvestedKPI from './HoursInvestedKPI/HoursInvestedKPI';
 import WorkedHoursKPI from './WorkedHoursKPI/WorkedHoursKPI';
+import TasksCompletedKPI from './TasksCompletedKPI/TasksCompletedKPI';
 
-export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAvailable }) {
+export default function ReportTeamKPI({ data, moduleData, tasksData, teamFilter, membersAvailable }) {
     const [hideTasksKPI, setHideTasksKPI] = useState(false);
     const [hideHoursKPI, setHideHoursKPI] = useState(false);
-    const [hideKPICombined, setHideKPICombined] = useState(false);
+    const [hideTasksCompletedKPI, setHideTasksCompletedKPI] = useState(false);
 
     return (
             <div className='kpi-main-content-container'>
@@ -70,9 +71,9 @@ export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAva
                             <p className='kpi-title-container-text'>Tasks Completed per Sprint</p>
                             <button
                                 className='kpi-title-button'
-                                onClick={() => {setHideKPICombined(!hideKPICombined)}}
+                                onClick={() => {setHideTasksCompletedKPI(!hideTasksCompletedKPI)}}
                             >
-                                {!hideKPICombined ?
+                                {!hideTasksCompletedKPI ?
                                     <Arrow_Down_Icon w='25px' h='25px' />
                                     :
                                     <Arrow_Up_Icon w='25px' h='25px' />
@@ -80,7 +81,10 @@ export default function ReportTeamKPI({ data, moduleData, teamFilter, membersAva
                             </button>
                         </div>
     
-                        {/* KPI Combined Data */}
+                        {/* KPI Completed Tasks Data */}
+                        {(!hideTasksCompletedKPI && teamFilter != "default") &&
+                            <TasksCompletedKPI data={data} moduleData={moduleData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
+                        }
                     </div>
                 </div>
             </div>

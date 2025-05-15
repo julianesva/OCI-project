@@ -1,8 +1,7 @@
-import './ReportTeam.css';
 import { useState, useEffect } from 'react';
 import ReportTeamKPI from '../ReportTeamKPI/ReportTeamKPI';
 
-export default function ReportTeam({ data, moduleData }) {
+export default function ReportTeam({ data, moduleData, tasksData }) {
     const [teamFilter, setTeamFilter] = useState('default');
     const [memberFilter, setMemberFilter] = useState('all');
     const [teamsAvailable, setTeamsAvailable] = useState([]);
@@ -53,7 +52,7 @@ export default function ReportTeam({ data, moduleData }) {
             </div>
 
             {/* Report KPI's */}
-            <ReportTeamKPI data={data} moduleData={moduleData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
+            <ReportTeamKPI data={data} moduleData={moduleData} tasksData={tasksData} teamFilter={teamFilter} membersAvailable={membersAvailable} />
         </div>
     );
 }

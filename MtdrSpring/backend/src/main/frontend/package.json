@@ -33,7 +33,7 @@
   "browserslist": [
     "last 5 versions"
   ],
-  "homepage": ".",
+  "homepage": "/",
   "proxy": "http://localhost:8080",
   "devDependencies": {
     "@babel/preset-react": "^7.26.3",
