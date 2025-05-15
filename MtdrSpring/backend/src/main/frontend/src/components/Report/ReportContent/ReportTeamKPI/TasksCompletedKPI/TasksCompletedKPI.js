@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './WorkedHoursKPI.css';
+import './TasksCompletedKPI.css';
 
-export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAvailable }) {
-    const [maxHours, setMaxHours] = useState(0);
+export default function TasksCompletedKPI({ data, moduleData, teamFilter, membersAvailable }) {
+    const [maxTasksCompleted, setMaxTasksCompleted] = useState(0);
 
     const getSprintNames = (modules) => {
         const sprints = new Set();
@@ -18,11 +18,11 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
 
     const processData = () => {
         const sprintNames = getSprintNames(moduleData);
-        const hoursWorked = {};
+        const tasksCompleted = {};
         sprintNames.forEach(sprint => {
-            hoursWorked[sprint] = {};
+            tasksCompleted[sprint] = {};
             membersAvailable.forEach(member => {
-                hoursWorked[sprint][member] = 0;
+                tasksCompleted[sprint][member] = 0;
             });
         });
 
@@ -34,15 +34,15 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                 user.tasksCompleted.map((task) => {
                     const sprint = `${task.moduleId}`;
                     const member = membersAvailable[task.responsible - 1];
-                    hoursWorked[sprint][member] += task.actualTime;
-                    if (task.actualTime > maxHours) {
-                        setMaxHours(task.actualTime);
+                    tasksCompleted[sprint][member] += 1;
+                    if (tasksCompleted[sprint][member] > maxTasksCompleted) {
+                        setMaxTasksCompleted(tasksCompleted[sprint][member]);
                     }
                 })
             })
         }
         
-        return hoursWorked;
+        return tasksCompleted;
     };
 
     const chartData = processData();
@@ -71,10 +71,10 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
         <div className="chart-container">
             {/* Y-axis labels */}
             <div className="worked-hours-y-axis">
-                <div className="worked-hours-y-axis-title">Hours</div>
+                <div className="worked-hours-y-axis-title">Tasks</div>
                 {Array.from({ length: 5 }, (_, i) => {
-                    const step = maxHours / 4;
-                    const value = Math.round(maxHours - i * step);
+                    const step = maxTasksCompleted / 4;
+                    const value = Math.round(maxTasksCompleted - i * step);
                     return (
                         <div key={i} className="worked-hours-y-label">
                             {value}
@@ -101,10 +101,10 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
                             <div 
                                 className="bar"
                                 style={{ 
-                                    height: `${(chartData[sprint][member] / maxHours) * 100}%`,
+                                    height: `${(chartData[sprint][member] / maxTasksCompleted) * 100}%`,
                                     backgroundColor: memberColors[memberIndex]
                                 }}
-                                title={`${chartData[sprint][member]} hours`}
+                                title={`${chartData[sprint][member]} tasks`}
                             >
                             </div>
                         </div>
