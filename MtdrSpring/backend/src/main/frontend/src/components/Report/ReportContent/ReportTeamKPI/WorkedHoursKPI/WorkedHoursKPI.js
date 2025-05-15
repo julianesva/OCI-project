@@ -31,11 +31,12 @@ export default function WorkedHoursKPI({ data, moduleData, teamFilter, membersAv
             })
             .map((user) => {
                 user.tasksCompleted.map((task) => {
-                    const sprint = `${task.moduleId}`;
-                    const member = membersAvailable[task.responsible - 1];
-                    hoursWorked[sprint][member] += task.actualTime;
-                    if (task.actualTime > maxHours) {
-                        setMaxHours(task.actualTime);
+                    const sprint = task.moduleId;
+                    const member = user.user.username;
+                    const taskTimeSum = hoursWorked[sprint][member] + task.actualTime
+                    hoursWorked[sprint][member] = taskTimeSum;
+                    if (taskTimeSum > maxHours) {
+                        setMaxHours(taskTimeSum);
                     }
                 })
             })

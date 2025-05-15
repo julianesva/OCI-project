@@ -31,11 +31,12 @@ export default function TasksCompletedKPI({ data, moduleData, teamFilter, member
             })
             .map((user) => {
                 user.tasksCompleted.map((task) => {
-                    const sprint = `${task.moduleId}`;
-                    const member = membersAvailable[task.responsible - 1];
-                    tasksCompleted[sprint][member] += 1;
-                    if (tasksCompleted[sprint][member] > maxTasksCompleted) {
-                        setMaxTasksCompleted(tasksCompleted[sprint][member]);
+                    const sprint = task.moduleId;
+                    const member = user.user.username;
+                    const tasksCompletedSum = tasksCompleted[sprint][member] + 1
+                    tasksCompleted[sprint][member] = tasksCompletedSum;
+                    if (tasksCompletedSum > maxTasksCompleted) {
+                        setMaxTasksCompleted(tasksCompletedSum);
                     }
                 })
             })
