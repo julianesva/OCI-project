@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import { useUser } from '@clerk/clerk-react';
 import Auth from "./components/Auth/Auth";
 import Displays from "./components/Displays/Displays";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Report from "./components/Report/Report";
 
 export default function App() {
     const [userType, setUserType] = useState('developer');
@@ -24,13 +22,9 @@ export default function App() {
     return (
       <div className="app">
         <Routes>
+          <Route path="/error" element={<Auth />} />
           <Route path="/*" element={<Auth />} />
-          <Route path="/displays" element={<Displays userType={userType} />} >
-            <Route path="dashboard" element={<Dashboard userType={userType} />} />
-            {userType == "manager" &&
-              <Route path="report" element={<Report />} />
-            }
-          </Route>
+          <Route path="/displays/*" element={<Displays userType={userType} />} />
         </Routes>
       </div>
     );
