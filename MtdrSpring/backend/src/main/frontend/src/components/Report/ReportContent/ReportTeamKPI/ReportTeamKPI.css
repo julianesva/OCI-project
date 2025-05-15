@@ -1,5 +1,6 @@
 .report-team-kpi {
-    overflow: auto;
+    overflow-x: auto; /* Permite scroll horizontal si es necesario */
+    overflow-y: hidden; /* Evita scroll vertical innecesario */
     font-family: Arial, sans-serif;
     max-width: 100%;
     padding: 20px 0 20px 0;
@@ -19,28 +20,33 @@
 /* Legend styles */
 .report-team-chart-legend {
     display: flex;
+    flex-wrap: wrap; /* Permite que los elementos de la leyenda se envuelvan */
     justify-content: center;
     margin-bottom: 20px;
     padding: 5px 15px;
     border-radius: 4px;
     position: sticky;
     left: 0;
+    z-index: 10;
+    background-color: white;
 }
 
 .report-team-legend-item {
     display: flex;
     align-items: center;
-    margin: 0 10px;
+    margin: 5px 10px;
 }
 
 .report-team-legend-color {
     width: 20px;
     height: 12px;
     margin-right: 5px;
+    flex-shrink: 0;
 }
 
 .report-team-legend-label {
     font-size: 14px;
+    white-space: nowrap;
 }
 
 /* Chart container */
@@ -53,12 +59,13 @@
 }
 
 .report-team-y-axis {
-    z-index: 3;
+    z-index: 5;
     position: sticky;
     left: 0;
     display: flex;
     align-items: center;
     border-right: 1px solid #ccc;
+    background-color: white;
 }
 
 .report-team-y-axis-title {
@@ -95,6 +102,8 @@
     display: flex;
     height: 300px;
     border-bottom: 1px solid #ccc;
+    overflow: visible; /* Permite que las barras se vean */
+    width: 100%; /* Usa todo el ancho disponible */
 }
 
 .report-team-grid-lines {
@@ -120,16 +129,7 @@
     position: relative;
     z-index: 2;
     margin-bottom: 21.5px;
-    flex-grow: 1;
-}
-
-/* Chart content */
-.report-team-chart-content {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-    position: relative;
+    width: 100%; /* Use full width */
 }
 
 /* Sprint groups */
@@ -140,8 +140,8 @@
     justify-content: center;
     height: 100%;
     position: relative;
-    flex: 1;
-    padding: 0 20px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .report-team-sprint-label {
@@ -151,6 +151,7 @@
     width: 100%;
     font-size: 14px;
     color: #333;
+    white-space: nowrap; /* Evita que los nombres de sprint se rompan */
 }
 
 /* Bar styles */
@@ -159,8 +160,7 @@
     flex-direction: column;
     justify-content: flex-end;
     height: 100%;
-    width: 40px;
-    margin: 0 5px;
+    margin: 0; /* Eliminado el margen para maximizar espacio */
 }
 
 .report-team-bar {
