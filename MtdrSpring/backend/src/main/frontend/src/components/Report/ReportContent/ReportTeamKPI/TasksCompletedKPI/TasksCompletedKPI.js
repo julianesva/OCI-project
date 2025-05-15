@@ -160,17 +160,19 @@ export default function TasksCompletedKPI({ data, moduleData, teamFilter, member
                     <div className="report-team-y-axis-title">Tasks</div>
                     <div className="report-team-y-axis-values">
                         {(() => {
-                            const max = maxTasksCompleted || 1;
-                            const labelCount = Math.min(5, Math.ceil(max) + 1); // Máximo 5 etiquetas
-                            const step = Math.floor(max / (labelCount - 1)) || 1;
+                            const labelCount = 5;
+                            const effectiveMax = maxTasksCompleted < 1 ? 1 : maxTasksCompleted;
+                            const step = effectiveMax / (labelCount - 1);
+                            const rawLabels = [];
 
-                            const labels = [];
-                            for (let i = 0; i < labelCount - 1; i++) {
-                                labels.push(i * step);
+                            for (let i = 0; i < labelCount; i++) {
+                                const value = Math.round((effectiveMax - i * step) * 100) / 100;
+                                rawLabels.push(value);
                             }
-                            labels.push(max); // Último valor sin redondear
 
-                            return labels.reverse().map((label, i) => (
+                            const uniqueLabels = Array.from(new Set(rawLabels)).sort((a, b) => b - a);
+
+                            return uniqueLabels.map((label, i) => (
                                 <div key={i} className="report-team-y-label">
                                     {label}
                                 </div>
@@ -184,17 +186,19 @@ export default function TasksCompletedKPI({ data, moduleData, teamFilter, member
                     {/* Grid lines */}
                     <div className="report-team-grid-lines">
                         {(() => {
-                            const max = maxTasksCompleted || 1;
-                            const labelCount = Math.min(5, Math.ceil(max) + 1);
-                            const step = Math.floor(max / (labelCount - 1)) || 1;
+                            const labelCount = 5;
+                            const effectiveMax = maxTasksCompleted < 1 ? 1 : maxTasksCompleted;
+                            const step = effectiveMax / (labelCount - 1);
+                            const rawLines = [];
 
-                            const lines = [];
-                            for (let i = 0; i < labelCount - 1; i++) {
-                                lines.push(i * step);
+                            for (let i = 0; i < labelCount; i++) {
+                                const value = Math.round((effectiveMax - i * step) * 100) / 100;
+                                rawLines.push(value);
                             }
-                            lines.push(max);
 
-                            return lines.map((_, i) => (
+                            const uniqueLines = Array.from(new Set(rawLines));
+
+                            return uniqueLines.map((_, i) => (
                                 <div key={i} className="report-team-grid-line"></div>
                             ));
                         })()}
