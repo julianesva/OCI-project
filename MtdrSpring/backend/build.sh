@@ -2,7 +2,7 @@
 
 export IMAGE_NAME=todolistapp-springboot
 export IMAGE_VERSION=0.1
-
+export NAMESPACE=axvndkwpufiq  # Add this line
 
 if [ -z "$DOCKER_REGISTRY" ]; then
     export DOCKER_REGISTRY=$(state_get DOCKER_REGISTRY)
@@ -13,7 +13,8 @@ if [ -z "$DOCKER_REGISTRY" ]; then
     exit 1
 fi
 
-export IMAGE=${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_VERSION}
+# Include namespace in the image path
+export IMAGE=${DOCKER_REGISTRY}/${NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}
 
 mvn clean package spring-boot:repackage
 docker build -f Dockerfile -t $IMAGE .
