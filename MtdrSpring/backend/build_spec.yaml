@@ -48,7 +48,7 @@ steps:
     name: "Push to Container Registry"
     command: |
       echo "Pushing to: $DOCKER_REPO:$DOCKER_IMAGE_TAG"
-      docker login mx-queretaro-1.ocir.io -u 'axvndkwpufiq/a00572499@tec.mx' -p '>lla2I64v:BjqGGa1UjX6>U'
+      docker login mx-queretaro-1.ocir.io -u 'axvndkwpufiq/a00572499@tec.mx' -p 'lla2I64v:BjqGGa1UjX6'
       docker push $DOCKER_REPO:$DOCKER_IMAGE_TAG
       docker push $DOCKER_REPO:latest
 
