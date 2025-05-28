@@ -27,7 +27,6 @@ spec:
                 key: api-key
       imagePullSecrets:
       - name: ocirsecret
-      - name: clerkSecret
 ---
 apiVersion: v1
 kind: Service
