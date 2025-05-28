@@ -2,6 +2,8 @@ FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
 
+RUN ls
+
 #Copiar el archivo JAR de la aplicación,
 COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
 
