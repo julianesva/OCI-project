@@ -8,7 +8,7 @@ RUN ls
 COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
 
 #Copiar la carpeta de la wallet al contenedor,
-#prueba push
+#prueba push 2
 COPY src/main/resources/wallet /app/wallet
 
 #Exponer el puerto de la aplicación,
