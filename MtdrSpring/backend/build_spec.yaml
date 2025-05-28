@@ -31,7 +31,7 @@ steps:
       # Your pom.xml already handles both frontend and backend build
       echo "Building full-stack application..."
       cd MtdrSpring/backend    
-      mvn clean install -DskipTests
+      mvn verify -DskipTests
       echo "Build completed. JAR file:"
       ls -la target/
 
