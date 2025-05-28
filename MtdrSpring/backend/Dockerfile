@@ -20,3 +20,6 @@ EXPOSE 8080
 #Configurar el punto de entrada.
 ENTRYPOINT ["java", "-jar", "MyTodoList.jar"]
 #CMD java -jar MyTodoList.jar || tail -f /dev/null
+
+
+
