@@ -12,7 +12,6 @@ env:
   vaultVariables:
     REACT_APP_CLERK_PUBLISHABLE_KEY: "ocid1.vaultsecret.oc1.mx-queretaro-1.amaaaaaamillmniapszqhn3pbisuf6c3n7lru7mxbzd7tkkpz57oqo6d64da"
     OCIR_SECRET: "ocid1.vaultsecret.oc1.mx-queretaro-1.amaaaaaamillmnianmdnbfpbwl4d5g2hr2qqwphq4xokvtfrvinjzq22dsea"
-    by
   exportedVariables:
     - DOCKER_IMAGE_TAG
 
