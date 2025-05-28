@@ -10,8 +10,9 @@ env:
     DOCKER_REPO: "mx-queretaro-1.ocir.io/axvndkwpufiq/todolistrepo"
     
   vaultVariables:
-    # Add any sensitive variables here if needed
-
+    REACT_APP_CLERK_PUBLISHABLE_KEY: "ocid1.vaultsecret.oc1.mx-queretaro-1.amaaaaaamillmniapszqhn3pbisuf6c3n7lru7mxbzd7tkkpz57oqo6d64da"
+    OCIR_SECRET: "ocid1.vaultsecret.oc1.mx-queretaro-1.amaaaaaamillmnianmdnbfpbwl4d5g2hr2qqwphq4xokvtfrvinjzq22dsea"
+    by
   exportedVariables:
     - DOCKER_IMAGE_TAG
 
@@ -30,7 +31,7 @@ steps:
     command: |
       # Your pom.xml already handles both frontend and backend build
       echo "Building full-stack application..."
-      ./mvnw clean package -DskipTests
+      mvn clean install -DskipTests
       echo "Build completed. JAR file:"
       ls -la target/
 

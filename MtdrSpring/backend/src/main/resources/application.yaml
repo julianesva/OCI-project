@@ -19,8 +19,15 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+          - name: REACT_APP_CLERK_PUBLISHABLE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: clerkSecret
+                key: api-key
       imagePullSecrets:
       - name: ocirsecret
+      - name: clerkSecret
 ---
 apiVersion: v1
 kind: Service
