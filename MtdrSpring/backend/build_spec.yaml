@@ -17,6 +17,11 @@ env:
 
 steps:
   - type: Command
+    name: "Docker Hub Login"
+    command: |
+      echo "ChinoSII*010" | docker login -u "julianespinoza" --password-stdin
+
+  - type: Command
     name: "Install Java 11"
     command: |
       # Java 11 is required based on your pom.xml
@@ -38,7 +43,6 @@ steps:
   - type: Command
     name: "Build Docker Image"
     command: |
-      docker login mx-queretaro-1.ocir.io -u 'axvndkwpufiq/a00572499@tec.mx' -p 'lla2I64v:BjqGGa1UjX6'
       export DOCKER_IMAGE_TAG=$(date +%Y%m%d%H%M%S)
       echo "Building Docker image with tag: $DOCKER_IMAGE_TAG"
       cd MtdrSpring/backend 
