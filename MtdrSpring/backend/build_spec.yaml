@@ -19,7 +19,7 @@ steps:
   - type: Command
     name: "Docker Hub Login"
     command: |
-      echo "ChinoSII*010" | docker login -u "julianespinoza" --password-stdin
+      echo "Team24*010" | docker login -u "julianespinoza" --password-stdin
 
   - type: Command
     name: "Install Java 11"
