@@ -57,7 +57,7 @@ export default function DashboardContent({
           {/* Title & Recommendation Button */}
           <div className="dashboard-title-container">
             {/* Title Text */}
-            <p className="dashboard-title-text">Dashboard</p>
+            <p className="dashboard-title-text">Dasoard</p>
 
             {/* Recommendation Button */}
             <RecommendationPopup items={items} />
