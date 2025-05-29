@@ -17,11 +17,6 @@ env:
 
 steps:
   - type: Command
-    name: "Docker Hub Login"
-    command: |
-      echo "Team24*010" | docker login -u "julianespinoza" --password-stdin
-
-  - type: Command
     name: "Install Java 11"
     command: |
       # Java 11 is required based on your pom.xml
@@ -41,12 +36,17 @@ steps:
       ls -la target/
 
   - type: Command
+    name: "Docker Hub Login"
+    command: |
+      echo "Team24*010" | docker login -u "julianespinoza" --password-stdin
+
+  - type: Command
     name: "Build Docker Image"
     command: |
       export DOCKER_IMAGE_TAG=$(date +%Y%m%d%H%M%S)
       echo "Building Docker image with tag: $DOCKER_IMAGE_TAG"
       cd MtdrSpring/backend 
-      docker build -t $DOCKER_REPO:latest .
+      docker build -t $DOCKER_REPO:$DOCKER_IMAGE_TAG .
 
   - type: Command
     name: "Push to Container Registry"
