@@ -8,7 +8,7 @@ export default function Navbar() {
             {/* Logo Container */}
             <div className="navbar-logo-container">
                 <img src={O_Oracle_Icon} alt="Logo" className="navbar-logo-icon" />
-                <span className="navbar-logo-text">| Oraculo Manager</span>
+                <span className="navbar-logo-text">| Oraculoo Manager</span>
             </div>
 
             {/* User Container */}
