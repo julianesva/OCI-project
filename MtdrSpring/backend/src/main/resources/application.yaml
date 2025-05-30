@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: todolistapp
-        image: mx-queretaro-1.ocir.io/axvndkwpufiq/todolistrepo:${DOCKER_IMAGE_TAG}
+        image: mx-queretaro-1.ocir.io/axvndkwpufiq/todolistrepo:v2
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
