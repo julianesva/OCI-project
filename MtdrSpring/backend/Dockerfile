@@ -2,7 +2,6 @@ FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
 
-RUN ls
 
 #Copiar el archivo JAR de la aplicación,
 COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
@@ -10,9 +9,6 @@ COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
 #Copiar la carpeta de la wallet al contenedor,
 #prueba push 3
 COPY src/main/resources/wallet /app/wallet
-RUN sed -i 's|DIRECTORY="?/network/admin"|DIRECTORY=/app/wallet|' /app/wallet/sqlnet.ora
-ENV TNS_ADMIN=/app/wallet
-RUN ls -la /app/wallet
 
 #Exponer el puerto de la aplicación,
 EXPOSE 8080
