@@ -28,10 +28,11 @@ export default function DashboardContent({
     estimatedTime,
     story_Points,
     moduleId,
-    responsible
+    responsible,
+    actionType
   ) {
     event.preventDefault();
-    setTaskData({
+    const data = {
       id: id,
       title: title,
       description: description,
@@ -40,19 +41,17 @@ export default function DashboardContent({
       story_Points: story_Points,
       moduleId: moduleId,
       responsible: responsible
-    });
+    }
+    if (actionType === "Done") {
+      setTaskData(data);
+    } else if (actionType === "Undo") {
+      toggleDone(data);
+    }
   }
 
   function confirm_Real_Hours(realHours) {
     const newData = {
-      id: taskData.id,
-      title: taskData.title,
-      description: taskData.description,
-      done: taskData.done,
-      estimatedTime: taskData.estimatedTime,
-      story_Points: taskData.story_Points,
-      moduleId: taskData.moduleId,
-      responsible: taskData.responsible,
+      ...taskData,
       actualTime: parseInt(realHours, 10),
     };
     toggleDone(newData);
@@ -66,7 +65,7 @@ export default function DashboardContent({
           {/* Title & Recommendation Button */}
           <div className="dashboard-title-container">
             {/* Title Text */}
-            <p className="dashboard-title-text">Dasoard</p>
+            <p className="dashboard-title-text">Dashboard</p>
 
             {/* Recommendation Button */}
             <RecommendationPopup items={items} />

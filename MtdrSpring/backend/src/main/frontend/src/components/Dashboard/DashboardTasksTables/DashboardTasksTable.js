@@ -28,7 +28,8 @@ export default function DashboardTasksTable({
         task.estimatedTime,
         task.story_Points,
         task.moduleId,
-        task.responsible
+        task.responsible,
+        "Done"
       );
     } else if (task.done == 1) {
       handle_set_Real_Hours(
@@ -40,7 +41,8 @@ export default function DashboardTasksTable({
         task.estimatedTime,
         task.story_Points,
         task.moduleId,
-        task.responsible
+        task.responsible,
+        "Undo"
       );
     } // else if (task.done == 2) {
     //     handle_set_Real_Hours(event, task.id, task.title, task.description, 0, task.estimatedTime, task.story_Points)
