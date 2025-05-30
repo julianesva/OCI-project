@@ -27,23 +27,32 @@ export default function DashboardContent({
     done,
     estimatedTime,
     story_Points,
-    moduleId
+    moduleId,
+    responsible
   ) {
     event.preventDefault();
     setTaskData({
-      id,
-      title,
-      description,
-      done,
-      estimatedTime,
-      story_Points,
-      moduleId,
+      id: id,
+      title: title,
+      description: description,
+      done: done,
+      estimatedTime: estimatedTime,
+      story_Points: story_Points,
+      moduleId: moduleId,
+      responsible: responsible
     });
   }
 
   function confirm_Real_Hours(realHours) {
     const newData = {
-      ...taskData,
+      id: taskData.id,
+      title: taskData.title,
+      description: taskData.description,
+      done: taskData.done,
+      estimatedTime: taskData.estimatedTime,
+      story_Points: taskData.story_Points,
+      moduleId: taskData.moduleId,
+      responsible: taskData.responsible,
       actualTime: parseInt(realHours, 10),
     };
     toggleDone(newData);
