@@ -12,7 +12,6 @@ COPY target/MyTodoList-0.0.1-SNAPSHOT.jar MyTodoList.jar
 #Exponer el puerto de la aplicación,
 EXPOSE 8080
 
-#Fail if .jar is not generated correctly. 
 #RUN test -f target/MyTodoList-0.0.1-SNAPSHOT.jar
 
 #Configurar el punto de entrada.
