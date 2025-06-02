@@ -9,14 +9,15 @@ export default function App() {
     const { isSignedIn, user } = useUser();
 
     useEffect(() => {
-      if (isSignedIn && user) {
-          const role = user.publicMetadata?.role;
-          if (role === 'manager') {
-            setUserType('manager');
-          } else {
-            setUserType('developer');
-          }
-      }
+      setUserType('manager');
+      // if (isSignedIn && user) {
+      //     const role = user.publicMetadata?.role;
+      //     if (role === 'manager') {
+      //       setUserType('manager');
+      //     } else {
+      //       setUserType('developer');
+      //     }
+      // }
     }, [isSignedIn, user]);
   
     return (
