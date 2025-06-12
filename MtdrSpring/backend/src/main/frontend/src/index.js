@@ -12,10 +12,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { ClerkProvider } from '@clerk/clerk-react';
+import { BrowserRouter } from 'react-router-dom';
+
+const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ClerkProvider publishableKey={clerkPubKey}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ClerkProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
